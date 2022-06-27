@@ -5,7 +5,7 @@ import Loader from "./Loader"
 export default class Teams extends React.Component {
 
     state = {
-        teams: {},
+        teams: []
         //isLoading: true
     }
 
@@ -17,7 +17,7 @@ export default class Teams extends React.Component {
         const url = "http://ergast.com/api/f1/2013/constructorStandings.json";
         const response = await fetch(url);
         const teams = await response.json();
-        console.log("teams", teams);
+        console.log("teams", this.state.teams);
         this.setState({
             teams: teams,
             //isLoading: false
