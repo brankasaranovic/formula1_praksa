@@ -39,8 +39,9 @@ export default class Teams extends React.Component {
         <h3>Constructors Championship Standings - 2013</h3>
        
         {this.state.teams.map( (team, i) => {
+        console.log("team", team);
           return (
-            <div key = {i}  onClick={() => this.handleClickDetails(team.constructorId)}>
+            <div key = {i}  onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
               <table className = "table">
                 <tbody>
                   <tr>
