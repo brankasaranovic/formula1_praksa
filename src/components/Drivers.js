@@ -26,15 +26,9 @@ export default class Drivers extends React.Component {
         });
     }
 
-<<<<<<< HEAD
     handleClickDetails = (id) => {
         console.log("id", id);
         const linkTo = "/driver/" + id;
-=======
-    handleClickDetails = (i) => {
-        console.log("i", i);
-        const linkTo = "/details/i";
->>>>>>> b7e1ed25d36f02574b2ef1b99bf27a7849607871
         history.push(linkTo);
     }
 
@@ -44,7 +38,6 @@ export default class Drivers extends React.Component {
         };
 
         return (
-<<<<<<< HEAD
             <table>
                 <thead>
                     <tr>
@@ -67,32 +60,6 @@ export default class Drivers extends React.Component {
                 </tbody>
             </table>
         );
-=======
-            <>
-                <h1>Drivers Championship</h1>
-                <h3>Drivers Championship Standings - 2013</h3>
-
-                {this.state.drivers.map((driver, i) => {
-                    return (
-                        <div key={i} onClick={() => this.handleClickDetails(i)}>
-                            <table className="table">
-                                <tbody>
-                                    <tr>
-                                        <td>{driver.position}</td>
-                                        <td>{driver.Driver.givenName}</td>
-                                        <td>{driver.Driver.familyName}</td>
-                                        <td>{driver.Constructors[0].constructorId}</td>
-                                        <td>{driver.points}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    );
-                })}
-
-            </>
-        )
->>>>>>> b7e1ed25d36f02574b2ef1b99bf27a7849607871
     }
 }
 
