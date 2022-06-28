@@ -28,11 +28,6 @@ export default class TeamDetails extends React.Component {
       console.log("teamsDeatils", teamDetails.Constructor.nationality);
       console.log("teamsDeatils", teamDetails.position);
       console.log("teamsDeatils", teamDetails.points);
-
-
-
-
-
    };
 
 
@@ -45,9 +40,9 @@ export default class TeamDetails extends React.Component {
          <div>
             <table>
                <tbody>
-                  <tr><td colSpan={2}>{this.state.teamDetails.Constructor.nationality}</td></tr>
-                  <tr><td>{this.state.teamDetails.position}</td></tr>
-                  <tr><td colSpan={2}>{this.state.teamDetails.points}</td></tr>
+                  <tr><td>Country: {this.state.teamDetails.Constructor.nationality}</td></tr>
+                  <tr><td>Position: {this.state.teamDetails.position}</td></tr>
+                  <tr><td>Points: {this.state.teamDetails.points}</td></tr>
                </tbody>
             </table>
          </div>
