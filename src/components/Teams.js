@@ -5,8 +5,8 @@ import Loader from "./Loader"
 export default class Teams extends React.Component {
 
   state = {
-    teams: []
-    //isLoading: true
+    teams: [],
+    isLoading: true
   }
 
   componentDidMount() {
@@ -18,31 +18,35 @@ export default class Teams extends React.Component {
     const response = await fetch(url);
     const teams = await response.json();
     console.log("teams", teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
-    
+
     this.setState({
-      teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
-      //isLoading: false
+      teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
+      isLoading: false
     });
   }
 
   handleClickDetails = (id) => {
-      console.log("id", id);
-      const linkTo = "/teamDetail/" + id;
-      history.push(linkTo);
+    console.log("id", id);
+    const linkTo = "/teamDetail/" + id;
+    history.push(linkTo);
   }
 
   render() {
+
+    if (this.state.isLoading) {
+      return <Loader />
+    };
 
     return (
       <>
         <h1>Constructors Campionship</h1>
         <h3>Constructors Championship Standings - 2013</h3>
-       
-        {this.state.teams.map( (team, i) => {
-        console.log("team", team);
+
+        {this.state.teams.map((team, i) => {
+          console.log("team", team);
           return (
-            <div key = {i}  onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
-              <table className = "table">
+            <div key={i} onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
+              <table className="table">
                 <tbody>
                   <tr>
                     <td>{team.position}</td>
@@ -50,10 +54,12 @@ export default class Teams extends React.Component {
                     <td><a href={team.Constructor.url}>Details</a></td>
                     <td>{team.points}</td>
                   </tr>
-                  </tbody>
-             </table>
+                </tbody>
+              </table>
             </div>
           );
         })}
       </>
-    )}}
+    )
+  }
+}
