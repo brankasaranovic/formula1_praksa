@@ -1,13 +1,13 @@
 import React from "react";
-import ClipLoader from "react-spinners/ClipLoader";
+import { ClipLoader } from "react-spinners";
 
 export default class Loader extends React.Component {
 
     render() {
         return (
             <div>
-                <ClipLoader size={50} color="red" />
+                <ClipLoader />
             </div>
         );
-    };
+    }
 }

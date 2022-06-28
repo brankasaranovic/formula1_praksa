@@ -1,14 +1,18 @@
 import React from "react";
+import Loader from "./Loader";
 
 export default class TeamDetails extends React.Component {
 
    state = {
-      teamDetails: null
+      teamDetails: null,
+      results: null,
+      isLoading: true
    }
 
 
    componentDidMount() {
       this.getTeamDetails();
+      this.getResults();
    }
 
    getTeamDetails = async () => {
@@ -28,16 +32,23 @@ export default class TeamDetails extends React.Component {
       console.log("teamsDeatils", teamDetails.Constructor.nationality);
       console.log("teamsDeatils", teamDetails.position);
       console.log("teamsDeatils", teamDetails.points);
-
-
-
-
-
    };
+
+   getResults = () => {
+
+   }
 
 
 
    render() {
+      
+
+      if(this.state.isLoading) {
+         return(
+            <Loader />
+         );
+      }
+
       if (!this.state.teamDetails) {
          return(<div></div>);
       }
@@ -45,10 +56,15 @@ export default class TeamDetails extends React.Component {
          <div>
             <table>
                <tbody>
-                  <tr><td colSpan={2}>{this.state.teamDetails.Constructor.nationality}</td></tr>
-                  <tr><td>{this.state.teamDetails.position}</td></tr>
-                  <tr><td colSpan={2}>{this.state.teamDetails.points}</td></tr>
+                  <tr><td>Country: {this.state.teamDetails.Constructor.nationality}</td></tr>
+                  <tr><td>Position: {this.state.teamDetails.position}</td></tr>
+                  <tr><td>Points: {this.state.teamDetails.points}</td></tr>
+                  <tr><td><a href = {this.state.teamDetails.Constructor.url}>History:</a></td></tr>
                </tbody>
+            </table>
+
+            <table>
+
             </table>
          </div>
       );
