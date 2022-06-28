@@ -5,6 +5,7 @@ import history from "./history";
 import Drivers from "./components/Drivers";
 import DriverDetails from "./components/DriverDetails";
 import Teams from "./components/Teams";
+import DriverDetails from "./components/DriverDetails";
 
 export default class App extends React.Component {
     render() {
@@ -12,11 +13,11 @@ export default class App extends React.Component {
             <div>
                 <Router history={history}>
                     <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Drivers</Link>
-                                <Link to="/teams">Teams</Link>
-                                <Link to="/races">Races</Link>
+                        <ul className="list-items">
+                            <li className="items">
+                                <Link className="item" to="/">Drivers</Link>
+                                <Link className="item" to="/teams">Teams</Link>
+                                <Link className="item" to="/races">Races</Link>
                             </li>
                         </ul>
                     </nav>

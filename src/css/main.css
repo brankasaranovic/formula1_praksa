@@ -128,3 +128,11 @@ tr:nth-child(even){
    color: #fff;
    font-size: 22px;
 } */
+
+.items{
+    display: flex;
+    flex-direction: column;
+}
+.item{
+    text-decoration: none;
+}
