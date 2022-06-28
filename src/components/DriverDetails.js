@@ -11,7 +11,7 @@ export default class DriverDetails extends React.Component{
     }
 
     getDriverDetails = async () => {
-        console.log(this.props.match.params.id);
+        console.log(this.props);
         let id = this.props.match.params.id;
         const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json` 
         const response = await fetch(url);

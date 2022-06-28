@@ -47,7 +47,7 @@ export default class Drivers extends React.Component {
                 <tbody>
                     
                     {this.state.drivers.map((driver, i) => {
-                        console.log("drivers", driver);
+                        //console.log("drivers", driver);
                         return (
                             <tr key={i} onClick={() => this.handleClickDetails(driver.Driver.driverId)}>
                                 <td>{driver.position}</td>

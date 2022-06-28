@@ -25,11 +25,11 @@ export default class Teams extends React.Component {
     });
   }
 
-  /*handleClickDetails = (id) => {
+  handleClickDetails = (id) => {
       console.log("id", id);
-      const linkTo = "/details/" + id;
+      const linkTo = "/teamDetail/" + id;
       history.push(linkTo);
-  }*/
+  }
 
   render() {
 
@@ -40,7 +40,7 @@ export default class Teams extends React.Component {
        
         {this.state.teams.map( (team, i) => {
           return (
-            <div key = {i}>
+            <div key = {i}  onClick={() => this.handleClickDetails(team.constructorId)}>
               <table className = "table">
                 <tbody>
                   <tr>
