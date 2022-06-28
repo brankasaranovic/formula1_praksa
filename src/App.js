@@ -3,6 +3,7 @@ import { Router, Switch, Route, Link } from "react-router-dom";
 import Races from "./components/Races";
 import history from "./history";
 import Drivers from "./components/Drivers";
+import DriverDetails from "./components/DriverDetails";
 import Teams from "./components/Teams";
 
 export default class App extends React.Component {
@@ -21,8 +22,9 @@ export default class App extends React.Component {
                     </nav>
                     <Switch>
                         <Route path="/" exact component={Drivers} />
-                        <Route path="/" exact component={Teams} />
-                        <Route path="/" exact component={Races} />
+                        <Route path="/driver/:id" exact component={DriverDetails} />
+                        <Route path="/teams" exact component={Teams} />
+                        <Route path="/races" exact component={Races} />
                     </Switch>
                 </Router>
             </div>

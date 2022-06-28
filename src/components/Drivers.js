@@ -25,11 +25,11 @@ export default class Drivers extends React.Component {
         });
     }
 
-    /*handleClickDetails = (id) => {
+    handleClickDetails = (id) => {
         console.log("id", id);
-        const linkTo = "/details/" + id;
+        const linkTo = "/driver/" + id;
         history.push(linkTo);
-    }*/
+    }
 
     render() {
         if (this.state.isLoading) {
@@ -40,21 +40,19 @@ export default class Drivers extends React.Component {
             <table>
                 <thead>
                     <tr>
-                        <td>Test</td>
+                        <td colSpan={4}>Drivers Championship Standings - 2013</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>Drivers Championship Standings - 2013</tr>
+                    
                     {this.state.drivers.map((driver, i) => {
                         console.log("drivers", driver);
                         return (
-                            <tr>
+                            <tr key={i} onClick={() => this.handleClickDetails(driver.Driver.driverId)}>
                                 <td>{driver.position}</td>
-                                <td>{driver.Driver.givenName}</td>
-                                <td>{driver.Driver.familyName}</td>
-                                <td>{driver.Constructors[0].constructorId}</td>
+                                <td>{driver.Driver.givenName} {driver.Driver.familyName}</td>
+                                <td>{driver.Constructors[0].name}</td>
                                 <td>{driver.points}</td>
-                                <td></td>
                             </tr>
                         );
                     })}
