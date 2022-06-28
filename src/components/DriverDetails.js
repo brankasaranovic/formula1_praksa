@@ -1,10 +1,12 @@
 import React from "react";
+import Loader from "./Loader";
 
 export default class DriverDetails extends React.Component{
 
     state = {
         driverDetails: null,
-        races: []
+        races: [],
+        isLoading: true
     }
 
     componentDidMount() {
@@ -29,13 +31,15 @@ export default class DriverDetails extends React.Component{
 
         this.setState({
             driverDetails: driverDetails,
-            races: driverRaces
+            races: driverRaces,
+            isLoading: false
+
         });
     }
 
     render(){
         if (!this.state.driverDetails) {
-            return (<div></div>)
+            return <Loader />
         }
         return(
             <div className="driver-details">
