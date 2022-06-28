@@ -41,7 +41,24 @@ export default class DriverDetails extends React.Component{
                         </tbody>
                     </table>
                 </div>
-                <div className="driver-race-details"></div>
+                <div className="driver-race-details">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td colSpan={5}>Formula 1 2013 Results</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Round</td>
+                                <td>Grand Prix</td>
+                                <td>Team</td>
+                                <td>Grid</td>
+                                <td>Race</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     };
