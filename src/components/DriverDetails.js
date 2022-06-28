@@ -3,7 +3,7 @@ import React from "react";
 export default class DriverDetails extends React.Component{
 
     state = {
-        driverDetails: null,
+        driverDetails: null
     }
 
     componentDidMount() {
@@ -20,7 +20,7 @@ export default class DriverDetails extends React.Component{
         const driverDetails = driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0];
 
         this.setState({
-            driverDetails: driverDetails,
+            driverDetails: driverDetails
         });
     }
 
