@@ -5,7 +5,6 @@ import history from "./history";
 import Drivers from "./components/Drivers";
 import DriverDetails from "./components/DriverDetails";
 import Teams from "./components/Teams";
-import DriverDetails from "./components/DriverDetails";
 
 export default class App extends React.Component {
     render() {
