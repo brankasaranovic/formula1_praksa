@@ -4,6 +4,7 @@ export default class DriverDetails extends React.Component{
 
     state = {
         driverDetails: null,
+        races: []
     }
 
     componentDidMount() {
@@ -13,14 +14,22 @@ export default class DriverDetails extends React.Component{
     getDriverDetails = async () => {
         console.log(this.props.match.params.id);
         let id = this.props.match.params.id;
-        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json` 
+        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
         const response = await fetch(url);
         const driver = await response.json();
         console.log("driver", driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
         const driverDetails = driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0];
 
+        const resultUrl = `https://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        const resultResponse = await fetch(resultUrl);
+        const results = await resultResponse.json();
+
+        let driverResults = results.MRData.RaceTable.Races;
+        console.log(driverResults);
+
         this.setState({
             driverDetails: driverDetails,
+            races: driverResults
         });
     }
 
@@ -56,6 +65,15 @@ export default class DriverDetails extends React.Component{
                                 <td>Grid</td>
                                 <td>Race</td>
                             </tr>
+                            {this.state.races.map((race) => {
+                                <tr>
+                                    <td>Round</td>
+                                    <td>Grand Prix</td>
+                                    <td>Team</td>
+                                    <td>Grid</td>
+                                    <td>Race</td>
+                                </tr>
+                            })}
                         </tbody>
                     </table>
                 </div>
