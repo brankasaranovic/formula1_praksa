@@ -4,6 +4,7 @@ import Races from "./components/Races";
 import history from "./history";
 import Drivers from "./components/Drivers";
 import Teams from "./components/Teams";
+import DriverDetails from "./components/DriverDetails";
 
 export default class App extends React.Component {
     render() {
@@ -11,18 +12,19 @@ export default class App extends React.Component {
             <div>
                 <Router history={history}>
                     <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Drivers</Link>
-                                <Link to="/teams">Teams</Link>
-                                <Link to="/races">Races</Link>
+                        <ul className="list-items">
+                            <li className="items">
+                                <Link className="item" to="/">Drivers</Link>
+                                <Link className="item" to="/teams">Teams</Link>
+                                <Link className="item" to="/races">Races</Link>
                             </li>
                         </ul>
                     </nav>
                     <Switch>
                         <Route path="/" exact component={Drivers} />
-                        <Route path="/" exact component={Teams} />
-                        <Route path="/" exact component={Races} />
+                        <Route path="/details/:id" exact component={DriverDetails} />
+                        <Route path="/teams" exact component={Teams} />
+                        <Route path="/races" exact component={Races} />
                     </Switch>
                 </Router>
             </div>

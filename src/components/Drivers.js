@@ -1,11 +1,12 @@
 import React from "react";
 import history from "../history";
-import Loader from "./Loader"
+import Loader from "./Loader";
+
 
 export default class Drivers extends React.Component {
 
     state = {
-        drivers: [],
+        drivers: []
         //isLoading: true
     }
 
@@ -18,50 +19,49 @@ export default class Drivers extends React.Component {
         const response = await fetch(url);
         const drivers = await response.json();
         console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
-        const allDrivers = drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+
         this.setState({
-            drivers: allDrivers
+            drivers: drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings
             //isLoading: false
         });
     }
 
-    /*handleClickDetails = (id) => {
-        console.log("id", id);
-        const linkTo = "/details/" + id;
+    handleClickDetails = (i) => {
+        console.log("i", i);
+        const linkTo = "/details/i";
         history.push(linkTo);
-    }*/
+    }
 
     render() {
         if (this.state.isLoading) {
             return <Loader />
         };
-        console.log(this.state.drivers)
+
         return (
-            <table>
-                <thead>
-                    <tr>
-                        <td>Test</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>Drivers Championship Standings - 2013</tr>
-                    {this.state.drivers.map((driver, i) => {
-                        console.log("drivers", driver);
-                        return (
-                            <tr>
-                                <td>{driver.position}</td>
-                                <td>{driver.Driver.givenName}</td>
-                                <td>{driver.Driver.familyName}</td>
-                                <td>{driver.Constructors[0].constructorId}</td>
-                                <td>{driver.points}</td>
-                                <td></td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        );
+            <>
+                <h1>Drivers Championship</h1>
+                <h3>Drivers Championship Standings - 2013</h3>
+
+                {this.state.drivers.map((driver, i) => {
+                    return (
+                        <div key={i} onClick={() => this.handleClickDetails(i)}>
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <td>{driver.position}</td>
+                                        <td>{driver.Driver.givenName}</td>
+                                        <td>{driver.Driver.familyName}</td>
+                                        <td>{driver.Constructors[0].constructorId}</td>
+                                        <td>{driver.points}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    );
+                })}
+
+            </>
+        )
     }
 }
-
 
