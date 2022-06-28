@@ -6,8 +6,8 @@ import Loader from "./Loader";
 export default class Drivers extends React.Component {
 
     state = {
-        drivers: []
-        //isLoading: true
+        drivers: [],
+        isLoading: true
     }
 
     componentDidMount() {
@@ -21,8 +21,8 @@ export default class Drivers extends React.Component {
         console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
 
         this.setState({
-            drivers: drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings
-            //isLoading: false
+            drivers: drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings,
+            isLoading: false
         });
     }
 
