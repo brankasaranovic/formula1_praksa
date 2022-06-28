@@ -1,14 +1,18 @@
 import React from "react";
+import Loader from "./Loader";
 
 export default class TeamDetails extends React.Component {
 
    state = {
-      teamDetails: null
+      teamDetails: null,
+      results: null,
+      isLoading: true
    }
 
 
    componentDidMount() {
       this.getTeamDetails();
+      this.getResults();
    }
 
    getTeamDetails = async () => {
@@ -30,9 +34,21 @@ export default class TeamDetails extends React.Component {
       console.log("teamsDeatils", teamDetails.points);
    };
 
+   getResults = () => {
+
+   }
+
 
 
    render() {
+      
+
+      if(this.state.isLoading) {
+         return(
+            <Loader />
+         );
+      }
+
       if (!this.state.teamDetails) {
          return(<div></div>);
       }
@@ -45,6 +61,10 @@ export default class TeamDetails extends React.Component {
                   <tr><td>Points: {this.state.teamDetails.points}</td></tr>
                   <tr><td><a href = {this.state.teamDetails.Constructor.url}>History:</a></td></tr>
                </tbody>
+            </table>
+
+            <table>
+
             </table>
          </div>
       );
