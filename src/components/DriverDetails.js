@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
 
-export default class DriverDetails extends React.Component{
+export default class DriverDetails extends React.Component {
 
     state = {
         driverDetails: null,
@@ -37,16 +37,19 @@ export default class DriverDetails extends React.Component{
         });
     }
 
-    render(){
+    render() {
         if (!this.state.driverDetails) {
-            return <Loader />
+            return <Loader />;
         }
-        return(
+
+        return (
             <div className="driver-details">
+
+                {/* leva tabela */}
                 <div className="driver-personal-details">
                     <table>
                         <tbody>
-                            <tr><td colSpan={2}>{this.state.driverDetails.name}</td></tr>
+                            <tr><td colSpan={2}>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</td></tr>
                             <tr><td>Country:</td><td>{this.state.driverDetails.Driver.nationality}</td></tr>
                             <tr><td>Team:</td><td>{this.state.driverDetails.Constructors[0].name}</td></tr>
                             <tr><td>Birth:</td><td>{this.state.driverDetails.Driver.dateOfBirth}</td></tr>
@@ -54,14 +57,14 @@ export default class DriverDetails extends React.Component{
                         </tbody>
                     </table>
                 </div>
+
+                {/* desna tabela */}
                 <div className="driver-race-details">
                     <table>
                         <thead>
                             <tr>
                                 <td colSpan={5}>Formula 1 2013 Results</td>
                             </tr>
-                        </thead>
-                        <tbody>
                             <tr>
                                 <td>Round</td>
                                 <td>Grand Prix</td>
@@ -69,14 +72,19 @@ export default class DriverDetails extends React.Component{
                                 <td>Grid</td>
                                 <td>Race</td>
                             </tr>
-                            {this.state.races.map((race, i) => {
-                                return (<tr key={i}>
-                                    <td>{race.round}</td>
-                                    <td>{race.raceName}</td>
-                                    <td>{race.Results[0].Constructor.name}</td>
-                                    <td>{race.Results[0].grid}</td>
-                                    <td>{race.Results[0].position}</td>
-                                </tr>)
+                        </thead>
+                        <tbody>
+                            {this.state.races.map(race => {
+                                //console.log("race", race);
+                                return (
+                                    <tr key={race.round}>
+                                        <td>{race.round}</td>
+                                        <td>{race.raceName}</td>
+                                        <td>{race.Results[0].Constructor.name}</td>
+                                        <td>{race.Results[0].grid}</td>
+                                        <td>{race.Results[0].position}</td>
+                                    </tr>
+                                );
                             })}
                         </tbody>
                     </table>

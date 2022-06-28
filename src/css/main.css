@@ -136,3 +136,12 @@ tr:nth-child(even){
 .item{
     text-decoration: none;
 }
+
+.driver-details {
+    display: flex;
+    justify-content: space-around;
+}
+
+.driver-details .driver-race-details thead td {
+    font-weight: bold;
+}
