@@ -20,16 +20,16 @@ export default class DriverDetails extends React.Component{
         console.log("driver", driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
         const driverDetails = driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0];
 
-        const resultUrl = `https://ergast.com/api/f1/2013/drivers/${id}/results.json`;
-        const resultResponse = await fetch(resultUrl);
-        const results = await resultResponse.json();
+        const raceUrl = `https://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        const raceResult = await fetch(raceUrl);
+        const races = await raceResult.json();
 
-        let driverResults = results.MRData.RaceTable.Races;
-        console.log(driverResults);
+        let driverRaces = races.MRData.RaceTable.Races;
+        console.log(driverRaces);
 
         this.setState({
             driverDetails: driverDetails,
-            races: driverResults
+            races: driverRaces
         });
     }
 
@@ -65,14 +65,14 @@ export default class DriverDetails extends React.Component{
                                 <td>Grid</td>
                                 <td>Race</td>
                             </tr>
-                            {this.state.races.map((race) => {
-                                <tr>
-                                    <td>Round</td>
-                                    <td>Grand Prix</td>
-                                    <td>Team</td>
-                                    <td>Grid</td>
-                                    <td>Race</td>
-                                </tr>
+                            {this.state.races.map((race, i) => {
+                                return (<tr key={i}>
+                                    <td>{race.round}</td>
+                                    <td>{race.raceName}</td>
+                                    <td>{race.Results[0].Constructor.name}</td>
+                                    <td>{race.Results[0].grid}</td>
+                                    <td>{race.Results[0].position}</td>
+                                </tr>)
                             })}
                         </tbody>
                     </table>
