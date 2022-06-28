@@ -3,7 +3,8 @@ import React from "react";
 export default class DriverDetails extends React.Component{
 
     state = {
-        driverDetails: null
+        driverDetails: null,
+        races: []
     }
 
     componentDidMount() {
@@ -13,14 +14,22 @@ export default class DriverDetails extends React.Component{
     getDriverDetails = async () => {
         console.log(this.props);
         let id = this.props.match.params.id;
-        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json` 
+        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
         const response = await fetch(url);
         const driver = await response.json();
         console.log("driver", driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
         const driverDetails = driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0];
 
+        const raceUrl = `https://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        const raceResult = await fetch(raceUrl);
+        const races = await raceResult.json();
+
+        let driverRaces = races.MRData.RaceTable.Races;
+        console.log(driverRaces);
+
         this.setState({
-            driverDetails: driverDetails
+            driverDetails: driverDetails,
+            races: driverRaces
         });
     }
 
@@ -56,6 +65,15 @@ export default class DriverDetails extends React.Component{
                                 <td>Grid</td>
                                 <td>Race</td>
                             </tr>
+                            {this.state.races.map((race, i) => {
+                                return (<tr key={i}>
+                                    <td>{race.round}</td>
+                                    <td>{race.raceName}</td>
+                                    <td>{race.Results[0].Constructor.name}</td>
+                                    <td>{race.Results[0].grid}</td>
+                                    <td>{race.Results[0].position}</td>
+                                </tr>)
+                            })}
                         </tbody>
                     </table>
                 </div>
