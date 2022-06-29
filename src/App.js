@@ -27,7 +27,7 @@ export default class App extends React.Component {
                         <Route path="/teamDetail/:id" exact component={TeamDetails} />
                         <Route path="/teams" exact component={Teams} />
                         <Route path="/races" exact component={Races} />
-                        <Route path="/races/:round" exact component={RacesDetails} />
+                        {/* <Route path="/races/:round" exact component={RacesDetails} /> */}
                     </Switch>
                 </Router>
             </div>

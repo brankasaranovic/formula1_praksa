@@ -129,24 +129,87 @@ tr:nth-child(even){
    font-size: 22px;
 } */
 
+
+
+
+
+/* Aplikacija - praksa */
+
 .items{
     display: flex;
     flex-direction: column;
 }
+
 .item{
     text-decoration: none;
 }
 
+
+/* Driver komponenta 1 */
+
+.DriversChampionship-wrapperDiv {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    background-color: gray;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.drivers-title {
+    color: white;
+    font-style: italic;
+
+}
+
+.DriversChampionshipStandings-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.DriversChampionshipStandings-table td {
+    border: 1px solid #dedede;
+    background-color: white;
+    padding: 4px;
+    white-space: nowrap;
+    color: gray;
+}
+
+.raceTable-headerMain td {
+    background-image: linear-gradient(#dedede, #aeaeae);
+    padding: 6px;
+
+}
+
+tr td.boldNumbers {
+    color:#333333;
+}
+/* Driver komponenta 2 */
+
+
 .driver-details {
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
+    font-size: 10px;
     background-color: gray;
+    font-weight: bold;
 }
 
 .driver-details .driver-personal-details-div {
     background-color: #333333;
     color: white;
+}
+
+.driver-details .driver-personal-details-div .driver-personal-details-header {
+    display: flex;
+    padding: 10px;
+}
+
+.driver-details .driver-personal-details-div .driver-personal-details-header img {
+    width: 80px;
+}
+
+.driver-details .driver-personal-details-div .driver-personal-details-header .driver-personal-details-name {
+    padding-left: 10px;
 }
 
 .driver-details .driver-personal-details-div .driver-personal-details-table {
@@ -156,7 +219,7 @@ tr:nth-child(even){
 
 .driver-details .driver-race-details-div {
     flex-grow: 2;
-    padding: 10px;
+    padding: 15px;
 }
 
 .driver-race-details-table {
@@ -169,15 +232,17 @@ tr:nth-child(even){
     background-color: white;
     padding: 4px;
     white-space: nowrap;
+    color: gray;
 }
 
 .raceTable-headerUp td {
     background-image: linear-gradient(#dedede, #aeaeae);
-    font-weight: 500;
+    padding: 6px;
 }
 
 .raceTable-headerDown td {
     background-color: #dedede;
-    font-weight: 600;
+    color: black;
+    padding: 5px;
 }
 

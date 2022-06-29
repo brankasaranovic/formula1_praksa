@@ -38,27 +38,32 @@ export default class Drivers extends React.Component {
         };
 
         return (
-            <table>
-                <thead>
-                    <tr>
-                        <td colSpan={4}>Drivers Championship Standings - 2013</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    {this.state.drivers.map(driver => {
-                        console.log("driver", driver);
-                        return (
-                            <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)}>
-                                <td>{driver.position}</td>
-                                <td>{driver.Driver.givenName} {driver.Driver.familyName}</td>
-                                <td>{driver.Constructors[0].name}</td>
-                                <td>{driver.points}</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+            <div className="DriversChampionship-wrapperDiv">
+
+                <h1 className="drivers-title">Drivers Championship</h1>
+
+                <table className="DriversChampionshipStandings-table">
+                    <thead>
+                        <tr className="raceTable-headerMain">
+                            <td colSpan={4}>Drivers Championship Standings - 2013</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {this.state.drivers.map(driver => {
+                            console.log(driver.Driver.driverId, driver.Driver.givenName, driver.Driver.familyName);
+                            return (
+                                <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)}>
+                                    <td className="boldNumbers">{driver.position}</td>
+                                    <td>{driver.Driver.givenName} {driver.Driver.familyName}</td>
+                                    <td>{driver.Constructors[0].name}</td>
+                                    <td className="boldNumbers">{driver.points}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }
