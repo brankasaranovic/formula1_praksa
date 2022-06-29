@@ -5,14 +5,14 @@ export default class TeamDetails extends React.Component {
 
    state = {
       teamDetails: null,
-      results: null,
+      //results: [],
       isLoading: true
    }
 
 
    componentDidMount() {
       this.getTeamDetails();
-      this.getResults();
+      //this.getResults();
    }
 
    getTeamDetails = async () => {
@@ -27,21 +27,27 @@ export default class TeamDetails extends React.Component {
       console.log("detail", detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0]);
       
       this.setState({
-         teamDetails:teamDetails
+         teamDetails:teamDetails,
+         isLoading: false
       });
       console.log("teamsDeatils", teamDetails.Constructor.nationality);
       console.log("teamsDeatils", teamDetails.position);
       console.log("teamsDeatils", teamDetails.points);
    };
 
-   getResults = () => {
+   // getResults = () => {
+   //    console.log("poruka", this.props.match.params.id);
+   //    const url = "http://ergast.com/api/f1/2013/constructors/id/results.json";
+   //    const response = await fetch(url);
+   //    const result = await response.json();
+   //    console.log("result", result);
+   //    this.setState({
+   //       results: result,
+   //       isLoading: false
+   //    });
+   // }
 
-   }
-
-
-
-   render() {
-      
+   render() {     
 
       if(this.state.isLoading) {
          return(
@@ -52,6 +58,7 @@ export default class TeamDetails extends React.Component {
       if (!this.state.teamDetails) {
          return(<div></div>);
       }
+      
       return (
          <div>
             <table>
