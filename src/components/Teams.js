@@ -5,8 +5,8 @@ import Loader from "./Loader"
 export default class Teams extends React.Component {
 
     state = {
-        teams: []
-        //isLoading: true
+        teams: [],
+        isLoading: true
     }
 
     componentDidMount() {
@@ -20,8 +20,8 @@ export default class Teams extends React.Component {
         console.log("teams", teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
 
         this.setState({
-            teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
-            //isLoading: false
+            teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
+            isLoading: false
         });
     }
 
@@ -32,6 +32,9 @@ export default class Teams extends React.Component {
     }
 
     render() {
+        if (this.state.isLoading) {
+            return <Loader />
+        };
 
         return (
             <>

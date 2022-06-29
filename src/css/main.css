@@ -136,3 +136,48 @@ tr:nth-child(even){
 .item{
     text-decoration: none;
 }
+
+.driver-details {
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color: gray;
+}
+
+.driver-details .driver-personal-details-div {
+    background-color: #333333;
+    color: white;
+}
+
+.driver-details .driver-personal-details-div .driver-personal-details-table {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.driver-details .driver-race-details-div {
+    flex-grow: 2;
+    padding: 10px;
+}
+
+.driver-race-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.driver-race-details-table td {
+    border: 1px solid #dedede;
+    background-color: white;
+    padding: 4px;
+    white-space: nowrap;
+}
+
+.raceTable-headerUp td {
+    background-image: linear-gradient(#dedede, #aeaeae);
+    font-weight: 500;
+}
+
+.raceTable-headerDown td {
+    background-color: #dedede;
+    font-weight: 600;
+}
+

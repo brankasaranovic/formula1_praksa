@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
 
-export default class DriverDetails extends React.Component{
+export default class DriverDetails extends React.Component {
 
     state = {
         driverDetails: null,
@@ -37,46 +37,56 @@ export default class DriverDetails extends React.Component{
         });
     }
 
-    render(){
+    render() {
         if (!this.state.driverDetails) {
-            return <Loader />
+            return <Loader />;
         }
-        return(
+
+        return (
             <div className="driver-details">
-                <div className="driver-personal-details">
-                    <table>
-                        <tbody>
-                            <tr><td colSpan={2}>{this.state.driverDetails.name}</td></tr>
-                            <tr><td>Country:</td><td>{this.state.driverDetails.Driver.nationality}</td></tr>
-                            <tr><td>Team:</td><td>{this.state.driverDetails.Constructors[0].name}</td></tr>
-                            <tr><td>Birth:</td><td>{this.state.driverDetails.Driver.dateOfBirth}</td></tr>
-                            <tr><td>Biography:</td><td><a href={this.state.driverDetails.Driver.url}>Wiki</a></td></tr>
-                        </tbody>
-                    </table>
+
+                {/* leva tabela */}
+                <div className="driver-personal-details-div">
+                    <div className="driver-personal-details-table">
+                        <table>
+                            <tbody>
+                                <tr><td colSpan={2}>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</td></tr>
+                                <tr><td>Country:</td><td>{this.state.driverDetails.Driver.nationality}</td></tr>
+                                <tr><td>Team:</td><td>{this.state.driverDetails.Constructors[0].name}</td></tr>
+                                <tr><td>Birth:</td><td>{this.state.driverDetails.Driver.dateOfBirth}</td></tr>
+                                <tr><td>Biography:</td><td><a href={this.state.driverDetails.Driver.url}>Wiki</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div className="driver-race-details">
-                    <table>
+
+                {/* desna tabela */}
+                <div className="driver-race-details-div">
+                    <table className="driver-race-details-table">
                         <thead>
-                            <tr>
+                            <tr className="raceTable-headerUp">
                                 <td colSpan={5}>Formula 1 2013 Results</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
+                            <tr className="raceTable-headerDown">
                                 <td>Round</td>
                                 <td>Grand Prix</td>
                                 <td>Team</td>
                                 <td>Grid</td>
                                 <td>Race</td>
                             </tr>
-                            {this.state.races.map((race, i) => {
-                                return (<tr key={i}>
-                                    <td>{race.round}</td>
-                                    <td>{race.raceName}</td>
-                                    <td>{race.Results[0].Constructor.name}</td>
-                                    <td>{race.Results[0].grid}</td>
-                                    <td>{race.Results[0].position}</td>
-                                </tr>)
+                        </thead>
+                        <tbody>
+                            {this.state.races.map(race => {
+                                //console.log("race", race);
+                                return (
+                                    <tr key={race.round}>
+                                        <td>{race.round}</td>
+                                        <td>{race.raceName}</td>
+                                        <td>{race.Results[0].Constructor.name}</td>
+                                        <td>{race.Results[0].grid}</td>
+                                        <td>{race.Results[0].position}</td>
+                                    </tr>
+                                );
                             })}
                         </tbody>
                     </table>

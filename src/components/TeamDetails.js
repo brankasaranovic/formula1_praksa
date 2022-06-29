@@ -5,7 +5,9 @@ export default class TeamDetails extends React.Component {
 
    state = {
       teamDetails: null,
-      //results: [],
+      result: [],
+      firstFamilyName: null,
+      secondFamilyName: null,
       isLoading: true
    }
 
@@ -22,10 +24,10 @@ export default class TeamDetails extends React.Component {
       const response = await fetch(url);
       const detail = await response.json();
 
-      
+
       const teamDetails = detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0];
       console.log("detail", detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0]);
-      
+
       this.setState({
          teamDetails:teamDetails,
          isLoading: false
@@ -35,44 +37,83 @@ export default class TeamDetails extends React.Component {
       console.log("teamsDeatils", teamDetails.points);
    };
 
-   // getResults = () => {
-   //    console.log("poruka", this.props.match.params.id);
-   //    const url = "http://ergast.com/api/f1/2013/constructors/id/results.json";
-   //    const response = await fetch(url);
-   //    const result = await response.json();
-   //    console.log("result", result);
-   //    this.setState({
-   //       results: result,
-   //       isLoading: false
-   //    });
-   // }
+   getResults = async () => {
+      console.log("REZULTATI", this.props.match.params.id);
+      let id = this.props.match.params.id;
+      const url = `http://ergast.com/api/f1/2013/constructors/${id}/results.json`;
+      const response = await fetch(url);
+      const result = await response.json();
 
-   render() {     
+      let teamResults = result.MRData.RaceTable.Races;
+      console.log("REZULTATI TIMA", teamResults);
 
-      if(this.state.isLoading) {
-         return(
+      // nisam mogao drugacije da se snadjem da za nazive kolona stoje prezimena vozaca sem da ubacim jos dva state-a
+      this.setState({
+         result: teamResults,
+         isLoading: false,
+         firstFamilyName: result.MRData.RaceTable.Races[0].Results[0].Driver.familyName,
+         secondFamilyName: result.MRData.RaceTable.Races[0].Results[1].Driver.familyName
+      });
+
+   }
+
+   render() {
+
+      if (this.state.isLoading) {
+         return (
             <Loader />
          );
       }
 
-      if (!this.state.teamDetails) {
-         return(<div></div>);
-      }
-      
       return (
-         <div>
-            <table>
-               <tbody>
-                  <tr><td>Country: {this.state.teamDetails.Constructor.nationality}</td></tr>
-                  <tr><td>Position: {this.state.teamDetails.position}</td></tr>
-                  <tr><td>Points: {this.state.teamDetails.points}</td></tr>
-                  <tr><td><a href = {this.state.teamDetails.Constructor.url}>History:</a></td></tr>
-               </tbody>
-            </table>
 
-            <table>
+         <div className="driver-details">
 
-            </table>
+            {/* leva tabela */}
+            <div className="driver-personal-details-div">
+               <div className="driver-personal-details-table">
+                  <table>
+                     <tbody>
+                        <tr><td colSpan={2}>{this.state.teamDetails.Constructor.name}</td></tr>
+                        <tr><td>Country:</td><td>{this.state.teamDetails.Constructor.nationality}</td></tr>
+                        <tr><td>Position:</td><td>{this.state.teamDetails.position}</td></tr>
+                        <tr><td>Points:</td><td>{this.state.teamDetails.points}</td></tr>
+                        <tr><td>History:</td><td><a href={this.state.teamDetails.Constructor.url}>el icon</a></td></tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+
+            {/* desna tabela */}
+            <div className="driver-race-details-div">
+               <table className="driver-race-details-table">
+                  <thead>
+                     <tr className="raceTable-headerUp">
+                        <td colSpan={5}>Formula 1 2013 Results</td>
+                     </tr>
+                     <tr className="raceTable-headerDown">
+                        <td>Round</td>
+                        <td>Grand Prix</td>
+                        <td>{this.state.firstFamilyName}</td>
+                        <td>{this.state.secondFamilyName}</td>
+                        <td>Points</td>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {this.state.result.map(result => {
+                        return (
+                           <tr key={result.round}>
+                              <td>{result.round}</td>
+                              <td>{result.raceName}</td>
+                              <td>{result.Results[0].position}</td>
+                              <td>{result.Results[1].position}</td>
+                              <td>{parseInt(result.Results[0].points) + parseInt(result.Results[1].points)}</td>
+                           </tr>
+                        );
+                     })}
+                  </tbody>
+               </table>
+            </div>
          </div>
       );
    };

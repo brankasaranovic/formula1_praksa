@@ -26,9 +26,9 @@ export default class Drivers extends React.Component {
         });
     }
 
-    handleClickDetails = (id) => {
-        console.log("id", id);
-        const linkTo = "/driver/" + id;
+    handleClickDetails = (driverId) => {
+        console.log("driverId", driverId);
+        const linkTo = "/driver/" + driverId;
         history.push(linkTo);
     }
 
@@ -46,10 +46,10 @@ export default class Drivers extends React.Component {
                 </thead>
                 <tbody>
                     
-                    {this.state.drivers.map((driver, i) => {
-                        //console.log("drivers", driver);
+                    {this.state.drivers.map(driver => {
+                        console.log("driver", driver);
                         return (
-                            <tr key={i} onClick={() => this.handleClickDetails(driver.Driver.driverId)}>
+                            <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)}>
                                 <td>{driver.position}</td>
                                 <td>{driver.Driver.givenName} {driver.Driver.familyName}</td>
                                 <td>{driver.Constructors[0].name}</td>
