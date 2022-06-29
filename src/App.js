@@ -6,6 +6,7 @@ import Drivers from "./components/Drivers";
 import DriverDetails from "./components/DriverDetails";
 import Teams from "./components/Teams";
 import TeamDetails from "./components/TeamDetails";
+import RacesDetails from "./components/RaceDetails";
 
 export default class App extends React.Component {
     render() {

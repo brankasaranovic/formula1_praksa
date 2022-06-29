@@ -58,7 +58,7 @@ export default class Races extends React.Component {
                         <tbody>
                             {this.state.races.map((race, i) => {
                                 return (
-                                    <tr key={i} onClick={() => this.handleClickDetails(race.Races.round)}>
+                                    <tr key={i} onClick={() => this.handleClickDetails(race.round)}>
                                         <td>{race.round}</td>
                                         <td>{race.raceName}</td>
                                         <td>{race.Circuit.circuitName}</td>
