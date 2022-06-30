@@ -55,10 +55,10 @@ export default class Races extends React.Component {
             <>
                 <h1>Race Calendar</h1>
                 <div className="driver-details">
-                    <table>
+                    <table className="table">
                         <thead>
                             <tr>
-                                <td>Race calendar - 2013</td>
+                                <td colSpan={5}>Race calendar - 2013</td>
                             </tr>
                             <tr>
                                 <th>Round</th>
@@ -78,12 +78,20 @@ export default class Races extends React.Component {
                                             {this.state.flags.map((flag, index) => {
                                                 if (race.Circuit.Location.country === flag.en_short_name) {
                                                     return (<Flag key={index} country={flag.alpha_2_code} />);
-                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality=== "British, UK") {
-                                                    return (<Flag key={index} country="GB"/>);
+                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                    return (<Flag key={index} country="GB" />);
+                                                } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                    return (<Flag key={index} country="AD" />);
+                                                } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                    return (<Flag key={index} country="US" />)
+                                                } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                    return (<Flag key={index} country="KP" />)
                                                 }
 
                                             })}
+                                            {race.raceName}
                                         </td>
+
                                         <td>{race.Circuit.circuitName}</td>
                                         <td>{race.date}</td>
                                         <td>{race.Results[0].Driver.familyName}</td>

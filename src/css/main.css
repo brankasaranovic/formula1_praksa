@@ -246,3 +246,19 @@ tr td.boldNumbers {
     padding: 5px;
 }
 
+.table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th,
+.table td{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
