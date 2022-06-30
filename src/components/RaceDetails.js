@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "./Loader";
+import Flag from 'react-flagkit';
 
 export default class RaceDetails extends React.Component {
 
@@ -7,6 +8,7 @@ export default class RaceDetails extends React.Component {
         locationDetails: [],
         raceResult: [],
         raceLocation: [],
+        flags: [],
         isLoading: true
     }
 
@@ -36,11 +38,17 @@ export default class RaceDetails extends React.Component {
         const location = qualifiers.MRData.RaceTable.Races;
         const raceResults = results.MRData.RaceTable.Races[0].Results;
 
+        const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+        const responseFlags = await fetch(urlFlags);
+        const convertedResponseFlags = await responseFlags.json();
+        console.log("convertedResponseFlags", convertedResponseFlags);
+
 
         this.setState({
             locationDetails: qualifiersDetails,
             raceResult: raceResults,
             raceLocation: location,
+            flags: convertedResponseFlags,
             isLoading: false
         })
     }
@@ -84,7 +92,7 @@ export default class RaceDetails extends React.Component {
                         times.push(detail.Q2);
                         times.push(detail.Q3);
                         times.sort();
-                        console.log("times", times);
+                        //console.log("times", times);
 
                         return (
                             <tbody key={i}>
@@ -114,7 +122,7 @@ export default class RaceDetails extends React.Component {
                     </thead>
 
                     {this.state.raceResult.map((result, index) => {
-                        console.log("time", result.Time)
+                        //console.log("time", result.Time)
                         return (
                             <tbody key={index}>
                                 <tr>

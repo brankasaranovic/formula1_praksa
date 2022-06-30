@@ -1,11 +1,13 @@
 import React from "react";
 import history from "./../history";
 import Loader from "./Loader";
+import Flag from 'react-flagkit';
 
 export default class Races extends React.Component {
 
     state = {
         races: [],
+        flags: [],
         isLoading: true
     }
 
@@ -20,10 +22,20 @@ export default class Races extends React.Component {
         const races = await response.json();
         const convertedRaces = races.MRData.RaceTable.Races;
         console.log("convertedRaces", convertedRaces);
+
+        const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+        const responseFlags = await fetch(urlFlags);
+        const convertedResponseFlags = await responseFlags.json();
+        console.log("convertedResponseFlags", convertedResponseFlags);
+
         this.setState({
             races: convertedRaces,
-            isLoading: false
+            flags: convertedResponseFlags,
+            isLoading: false,
         });
+
+        console.log("Prikazana nacionalnost: ", convertedRaces[0].Circuit.Location.country);
+        console.log("Prikazana nacionalnost iz Flag-a: ", convertedResponseFlags[0].en_short_name);
     }
 
     handleClickDetails = (id) => {
@@ -41,12 +53,12 @@ export default class Races extends React.Component {
 
         return (
             <>
-            <h1>Race Calendar</h1>
-            <div className="driver-details">
+                <h1>Race Calendar</h1>
+                <div className="driver-details">
                     <table>
                         <thead>
                             <tr>
-                            <td>Race calendar - 2013</td>
+                                <td>Race calendar - 2013</td>
                             </tr>
                             <tr>
                                 <th>Round</th>
@@ -62,7 +74,16 @@ export default class Races extends React.Component {
                                 return (
                                     <tr key={i} onClick={() => this.handleClickDetails(race.round)}>
                                         <td>{race.round}</td>
-                                        <td>{race.raceName}</td>
+                                        <td>
+                                            {this.state.flags.map((flag, index) => {
+                                                if (race.Circuit.Location.country === flag.en_short_name) {
+                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality=== "British, UK") {
+                                                    return (<Flag key={index} country="GB"/>);
+                                                }
+
+                                            })}
+                                        </td>
                                         <td>{race.Circuit.circuitName}</td>
                                         <td>{race.date}</td>
                                         <td>{race.Results[0].Driver.familyName}</td>
@@ -70,10 +91,9 @@ export default class Races extends React.Component {
                                 );
                             })}
                         </tbody>
-
                     </table>
-            </div>
-                </>
+                </div>
+            </>
         );
     };
 }

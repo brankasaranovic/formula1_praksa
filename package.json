@@ -15,11 +15,13 @@
     "@babel/preset-react": "^7.17.12",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.1"
@@ -27,6 +29,7 @@
   "dependencies": {
     "jquery": "^3.6.0",
     "prop-types": "^15.8.1",
+    "react-flagkit": "^2.0.4",
     "react-router-dom": "^5.3.1",
     "react-spinners": "^0.13.2"
   }
