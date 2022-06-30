@@ -49,7 +49,6 @@ export default class RaceDetails extends React.Component {
         if (this.state.isLoading) {
             return <Loader />;
         };
-
         return (
             <div className="driver-details">
                 <table>
@@ -131,6 +130,58 @@ export default class RaceDetails extends React.Component {
                     })}
 
                 </table>
+
+                {/* desna prva tabela
+                <h2>Qualifying Results</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Pos</td>
+                            <td>Driver</td>
+                            <td>Team</td>
+                            <td>Best Time</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.qualifyingResults.map(result => {
+                        return (
+                           <tr key={result.position}>
+                              <td>{result.position}</td>
+                              <td>{result.Driver.familyName}</td>
+                              <td>{result.Constructor.name}</td>
+                              <td>{(result.Q3!=null) ? result.Q3 : ((result.Q2!=null) ? result.Q2 : result.Q1)}</td>
+                           </tr>
+                        );
+                     })}
+                    </tbody>
+                </table> */}
+
+                {/* desna druga tabela
+                <h2>Race Results</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Pos</td>
+                            <td>Driver</td>
+                            <td>Team</td>
+                            <td>Result</td>
+                            <td>Points</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.raceResults.map(result => {
+                        return (
+                           <tr key={result.position}>
+                              <td>{result.position}</td>
+                              <td>{result.Driver.familyName}</td>
+                              <td>{result.Constructor.name}</td>
+                              <td>{(result.Time != undefined) ? result.Time.time : ""}</td>
+                              <td>{result.points}</td>
+                           </tr>
+                        );
+                     })}
+                    </tbody>
+                </table> */}
             </div>
         );
     }

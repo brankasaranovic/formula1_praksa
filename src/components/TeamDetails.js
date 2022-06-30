@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "./Loader";
+import history from "./../history";
 
 export default class TeamDetails extends React.Component {
 
@@ -14,7 +15,7 @@ export default class TeamDetails extends React.Component {
 
    componentDidMount() {
       this.getTeamDetails();
-      //this.getResults();
+      this.getResults();
    }
 
    getTeamDetails = async () => {
@@ -56,6 +57,12 @@ export default class TeamDetails extends React.Component {
       });
 
    }
+
+   handleClickDetails = (raceId) => {
+      console.log("raceId", raceId);
+      const linkTo = "/races/" + raceId;
+      history.push(linkTo);
+  }
 
    render() {
 
@@ -104,7 +111,7 @@ export default class TeamDetails extends React.Component {
                         return (
                            <tr key={result.round}>
                               <td>{result.round}</td>
-                              <td>{result.raceName}</td>
+                              <td onClick={()=> this.handleClickDetails(result.round)}>{result.raceName}</td>
                               <td>{result.Results[0].position}</td>
                               <td>{result.Results[1].position}</td>
                               <td>{parseInt(result.Results[0].points) + parseInt(result.Results[1].points)}</td>

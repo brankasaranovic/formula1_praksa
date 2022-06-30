@@ -37,28 +37,33 @@ export default class Teams extends React.Component {
         };
 
         return (
-            <>
-                <h1>Constructors Campionship</h1>
-                <h3>Constructors Championship Standings - 2013</h3>
+            <div className="driver-details">
 
-                {this.state.teams.map((team, i) => {
-                    console.log("team", team);
-                    return (
-                        <div key={i} onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
-                            <table className="table">
-                                <tbody>
-                                    <tr>
+                <div className="driver-race-details-div">
+                    <h1 className="drivers-title">Constructors Campionship</h1>
+
+                    <table className="driver-race-details-table">
+                        <thead>
+                            <tr className="raceTable-headerUp">
+                                <td colSpan={4}>Constructors Championship Standings - 2013</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.teams.map((team, i) => {
+                                console.log("team", team);
+                                return (
+                                    <tr key={i}>
                                         <td>{team.position}</td>
-                                        <td>{team.Constructor.constructorId}</td>
+                                        <td onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>{team.Constructor.constructorId}</td>
                                         <td><a href={team.Constructor.url}>Details</a></td>
                                         <td>{team.points}</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    );
-                })}
-            </>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         )
     }
 }
