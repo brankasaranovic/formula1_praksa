@@ -40,12 +40,14 @@ export default class Races extends React.Component {
 
 
         return (
-            <div>
-                <>
-                    <h2>Race calendar</h2>
+            <>
+            <h1>Race Calendar</h1>
+            <div className="driver-details">
                     <table>
-
                         <thead>
+                            <tr>
+                            <td>Race calendar - 2013</td>
+                            </tr>
                             <tr>
                                 <th>Round</th>
                                 <th>Grand Prix</th>
@@ -63,15 +65,15 @@ export default class Races extends React.Component {
                                         <td>{race.raceName}</td>
                                         <td>{race.Circuit.circuitName}</td>
                                         <td>{race.date}</td>
-                                        <td>{race.Results[0].Driver.driverId}</td>
+                                        <td>{race.Results[0].Driver.familyName}</td>
                                     </tr>
                                 );
                             })}
                         </tbody>
 
                     </table>
-                </>
             </div>
+                </>
         );
     };
 }
