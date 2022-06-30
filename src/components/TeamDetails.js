@@ -1,5 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
+import history from "./../history";
+import Flag from 'react-flagkit';
 
 export default class TeamDetails extends React.Component {
 
@@ -8,53 +10,50 @@ export default class TeamDetails extends React.Component {
       result: [],
       firstFamilyName: null,
       secondFamilyName: null,
+      flags: [],
       isLoading: true
    }
 
-
    componentDidMount() {
       this.getTeamDetails();
-      //this.getResults();
    }
 
    getTeamDetails = async () => {
       console.log("poruka", this.props.match.params.id);
-      let id = this.props.match.params.id;
+      const id = this.props.match.params.id;
       const url = `http://ergast.com/api/f1/2013/constructors/${id}/constructorStandings.json`;
       const response = await fetch(url);
       const detail = await response.json();
 
-
       const teamDetails = detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0];
       console.log("detail", detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0]);
 
-      this.setState({
-         teamDetails:teamDetails,
-         isLoading: false
-      });
-      console.log("teamsDeatils", teamDetails.Constructor.nationality);
-      console.log("teamsDeatils", teamDetails.position);
-      console.log("teamsDeatils", teamDetails.points);
-   };
+      const urlRes = `http://ergast.com/api/f1/2013/constructors/${id}/results.json`;
+      const responseRes = await fetch(urlRes);
+      const result = await responseRes.json();
 
-   getResults = async () => {
-      console.log("REZULTATI", this.props.match.params.id);
-      let id = this.props.match.params.id;
-      const url = `http://ergast.com/api/f1/2013/constructors/${id}/results.json`;
-      const response = await fetch(url);
-      const result = await response.json();
-
-      let teamResults = result.MRData.RaceTable.Races;
+      const teamResults = result.MRData.RaceTable.Races;
       console.log("REZULTATI TIMA", teamResults);
 
-      // nisam mogao drugacije da se snadjem da za nazive kolona stoje prezimena vozaca sem da ubacim jos dva state-a
-      this.setState({
-         result: teamResults,
-         isLoading: false,
-         firstFamilyName: result.MRData.RaceTable.Races[0].Results[0].Driver.familyName,
-         secondFamilyName: result.MRData.RaceTable.Races[0].Results[1].Driver.familyName
-      });
+      const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+      const responseFlags = await fetch(urlFlags);
+      const convertedResponseFlags = await responseFlags.json();
+      console.log("convertedResponseFlags", convertedResponseFlags);
 
+      this.setState({
+         teamDetails: teamDetails,
+         result: teamResults,
+         flags: convertedResponseFlags,
+         firstFamilyName: result.MRData.RaceTable.Races[0].Results[0].Driver.familyName,
+         secondFamilyName: result.MRData.RaceTable.Races[0].Results[1].Driver.familyName,
+         isLoading: false
+      });
+   };
+
+   handleClickDetails = (raceId) => {
+      console.log("raceId", raceId);
+      const linkTo = "/races/" + raceId;
+      history.push(linkTo);
    }
 
    render() {
@@ -71,10 +70,28 @@ export default class TeamDetails extends React.Component {
 
             {/* leva tabela */}
             <div className="driver-personal-details-div">
+               <div className="driver-personal-details-header">
+                  <div><img src={`/images/teams/${this.state.teamDetails.Constructor.constructorId}.png`} alt={this.state.teamDetails.Constructor.constructorId} /></div>
+                  <div className="driver-personal-details-name">
+                     <div>
+                        {this.state.flags.map((flag, index) => {
+                           if (this.state.teamDetails.Constructor.nationality === flag.nationality) {
+                              return (<Flag key={index} country={flag.alpha_2_code} />);
+                           } else if (this.state.teamDetails.Constructor.nationality === "British" && flag.nationality === "British, UK") {
+                              return (<Flag key={index} country="GB" />);
+                           }
+                        })}
+                     </div>
+                     <div>
+                        {this.state.teamDetails.Constructor.name}
+                     </div>
+                  </div>
+               </div>
+
                <div className="driver-personal-details-table">
                   <table>
                      <tbody>
-                        <tr><td colSpan={2}>{this.state.teamDetails.Constructor.name}</td></tr>
+                        <tr></tr>
                         <tr><td>Country:</td><td>{this.state.teamDetails.Constructor.nationality}</td></tr>
                         <tr><td>Position:</td><td>{this.state.teamDetails.position}</td></tr>
                         <tr><td>Points:</td><td>{this.state.teamDetails.points}</td></tr>
@@ -104,7 +121,18 @@ export default class TeamDetails extends React.Component {
                         return (
                            <tr key={result.round}>
                               <td>{result.round}</td>
-                              <td>{result.raceName}</td>
+                              <td onClick={() => this.handleClickDetails(result.round)}>
+                                 {this.state.flags.map((flag, index) => {
+                                    if (result.Circuit.Location.country === flag.en_short_name) {
+                                       return (<Flag key={index} country={flag.alpha_2_code} />);
+                                    } else if (result.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                       return (<Flag key={index} country="GB" />);
+                                    } else if (result.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                       return (<Flag key={index} country="KP" />);
+                                    }
+                                 })}
+                                 {result.raceName}
+                              </td>
                               <td>{result.Results[0].position}</td>
                               <td>{result.Results[1].position}</td>
                               <td>{parseInt(result.Results[0].points) + parseInt(result.Results[1].points)}</td>

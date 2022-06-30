@@ -1,11 +1,13 @@
 import React from "react";
 import history from "../history";
-import Loader from "./Loader"
+import Loader from "./Loader";
+import Flag from 'react-flagkit';
 
 export default class Teams extends React.Component {
 
     state = {
         teams: [],
+        flags: [],
         isLoading: true
     }
 
@@ -19,8 +21,14 @@ export default class Teams extends React.Component {
         const teams = await response.json();
         console.log("teams", teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
 
+        const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+        const responseFlags = await fetch(urlFlags);
+        const convertedResponseFlags = await responseFlags.json();
+        console.log("convertedResponseFlags", convertedResponseFlags);
+
         this.setState({
             teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
+            flags: convertedResponseFlags,
             isLoading: false
         });
     }
@@ -37,28 +45,41 @@ export default class Teams extends React.Component {
         };
 
         return (
-            <>
-                <h1>Constructors Campionship</h1>
-                <h3>Constructors Championship Standings - 2013</h3>
+            <div className="driver-details">
 
-                {this.state.teams.map((team, i) => {
-                    console.log("team", team);
-                    return (
-                        <div key={i} onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
-                            <table className="table">
-                                <tbody>
-                                    <tr>
+                <div className="driver-race-details-div">
+                    <h1 className="drivers-title">Constructors Campionship</h1>
+
+                    <table className="driver-race-details-table">
+                        <thead>
+                            <tr className="raceTable-headerUp">
+                                <td colSpan={4}>Constructors Championship Standings - 2013</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.teams.map((team, i) => {
+                                console.log("team", team);
+                                return (
+                                    <tr key={i}>
                                         <td>{team.position}</td>
-                                        <td>{team.Constructor.constructorId}</td>
+                                        <td onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
+                                            {this.state.flags.map((flag, index) => {
+                                                if (team.Constructor.nationality === flag.nationality) {
+                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                } else if (team.Constructor.nationality === "British" && flag.nationality === "British, UK") {
+                                                    return (<Flag key={index} country="GB" />);
+                                                }})}
+                                            {team.Constructor.constructorId}
+                                        </td>
                                         <td><a href={team.Constructor.url}>Details</a></td>
                                         <td>{team.points}</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    );
-                })}
-            </>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         )
     }
 }

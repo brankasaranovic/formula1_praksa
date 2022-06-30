@@ -1,10 +1,14 @@
 import React from "react";
 import Loader from "./Loader";
+import Flag from 'react-flagkit';
 
-export default class RacesDetails extends React.Component {
+export default class RaceDetails extends React.Component {
 
     state = {
-        racesDetails: {},
+        locationDetails: [],
+        raceResult: [],
+        raceLocation: [],
+        flags: [],
         isLoading: true
     }
 
@@ -14,49 +18,179 @@ export default class RacesDetails extends React.Component {
 
     getRaceDetails = async () => {
         console.log(this.props.match.params.round);
-        const round = this.props.match.params.round;
-        const url = `http://ergast.com/api/f1/2013/results/${round}.json`;
+        let id = this.props.match.params.round;
+        const url = `http://ergast.com/api/f1/2013/${id}/qualifying.json`;
+        const urlResults = `http://ergast.com/api/f1/2013/${id}/results.json`;
+
         const response = await fetch(url);
-        console.log("response", response);
-        const details = await response.json();
-        console.log("details", details);
+        const qualifiers = await response.json();
+        console.log("qualifiers", qualifiers)
+
+        const response1 = await fetch(urlResults);
+        const results = await response1.json();
+        console.log("results", results)
+
+
+        const qualifiersDetails = qualifiers.MRData.RaceTable.Races[0].QualifyingResults;
+        console.log("qualifiers", qualifiersDetails)
+
+
+        const location = qualifiers.MRData.RaceTable.Races;
+        const raceResults = results.MRData.RaceTable.Races[0].Results;
+
+        const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
+        const responseFlags = await fetch(urlFlags);
+        const convertedResponseFlags = await responseFlags.json();
+        console.log("convertedResponseFlags", convertedResponseFlags);
+
+
         this.setState({
-            racesDetails: details,
+            locationDetails: qualifiersDetails,
+            raceResult: raceResults,
+            raceLocation: location,
+            flags: convertedResponseFlags,
             isLoading: false
-        });
+        })
     }
 
     render() {
-
         if (this.state.isLoading) {
             return <Loader />;
         };
-        console.log("Nas state", this.state.racesDetails);
         return (
-            <div>
+            <div className="driver-details">
+                <table>
+                    {this.state.raceLocation.map((location, i) => {
+                        return (
+                            <tbody key={i}>
+                                <tr>
+                                    <tr> <td>{location.raceName}</td></tr>
+                                    <tr><td>Country: {location.Circuit.Location.country}</td></tr>
+                                    <tr><td>Location: {location.Circuit.Location.locality}</td></tr>
+                                    <tr><td>Date: {location.date}</td></tr>
+                                    <tr><td><a href={location.Circuit.url}>Full report </a></td></tr>
+                                </tr>
+                            </tbody>
+                        );
+                    })}
+                </table>
+
                 <table>
                     <thead>
-                        <tr>{this.state.racesDetails.MRData.RaceTable.Races[0].raceName}</tr>
+                        <tr><th>Qualifying result</th></tr>
+                        <tr>
+                            <td>Pos</td>
+                            <td>Driver</td>
+                            <td>Team</td>
+                            <td>Best time</td>
+                        </tr>
+                    </thead>
+
+                    {this.state.locationDetails.map((detail, i) => {
+                        let times = [];
+                        times.push(detail.Q1);
+                        times.push(detail.Q2);
+                        times.push(detail.Q3);
+                        times.sort();
+                        //console.log("times", times);
+
+                        return (
+                            <tbody key={i}>
+                                <tr>
+                                    <td>{detail.position}</td>
+                                    <td> {detail.Driver.familyName}</td>
+                                    <td> {detail.Constructor.name}</td>
+                                    <td> {times[0]}</td>
+                                </tr>
+                            </tbody>
+                        );
+                    })}
+                </table>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Race results</th>
+                        </tr>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Driver</th>
+                            <th>Team</th>
+                            <th>Result</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+
+                    {this.state.raceResult.map((result, index) => {
+                        //console.log("time", result.Time)
+                        return (
+                            <tbody key={index}>
+                                <tr>
+                                    <td>{result.position}</td>
+                                    <td>{result.Driver.familyName}</td>
+                                    <td>{result.Constructor.name}</td>
+                                     {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
+                                    <td>{result.Time?.time}</td>
+                                    <td>{result.points}</td>
+                                </tr>
+                            </tbody>
+                        );
+                    })}
+
+                </table>
+
+                {/* desna prva tabela
+                <h2>Qualifying Results</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Pos</td>
+                            <td>Driver</td>
+                            <td>Team</td>
+                            <td>Best Time</td>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Country:</td>
-                            <td>{this.state.racesDetails.MRData.RaceTable.Races[0].Circuit.Location.country}</td>
-                        </tr>
-                        <tr>
-                            <td>Location:</td>
-                            <td>{this.state.racesDetails.MRData.RaceTable.Races[0].Circuit.Location.locality}</td>
-                        </tr>
-                        <tr>
-                            <td>Date:</td>
-                            <td> {this.state.racesDetails.MRData.RaceTable.Races[0].date}</td>
-                        </tr>
-                        <tr>
-                            <td><a href={this.state.racesDetails.MRData.RaceTable.Races[0].url}>Full Report</a></td>
-                        </tr>
+                    {this.state.qualifyingResults.map(result => {
+                        return (
+                           <tr key={result.position}>
+                              <td>{result.position}</td>
+                              <td>{result.Driver.familyName}</td>
+                              <td>{result.Constructor.name}</td>
+                              <td>{(result.Q3!=null) ? result.Q3 : ((result.Q2!=null) ? result.Q2 : result.Q1)}</td>
+                           </tr>
+                        );
+                     })}
                     </tbody>
-                </table>
+                </table> */}
+
+                {/* desna druga tabela
+                <h2>Race Results</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Pos</td>
+                            <td>Driver</td>
+                            <td>Team</td>
+                            <td>Result</td>
+                            <td>Points</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.raceResults.map(result => {
+                        return (
+                           <tr key={result.position}>
+                              <td>{result.position}</td>
+                              <td>{result.Driver.familyName}</td>
+                              <td>{result.Constructor.name}</td>
+                              <td>{(result.Time != undefined) ? result.Time.time : ""}</td>
+                              <td>{result.points}</td>
+                           </tr>
+                        );
+                     })}
+                    </tbody>
+                </table> */}
             </div>
         );
-    };
+    }
 }
