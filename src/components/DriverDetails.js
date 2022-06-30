@@ -70,7 +70,8 @@ export default class DriverDetails extends React.Component {
                         </div>
                         
                         <div className="driver-personal-details-name">
-                            <div className="zastavica">div za zastavicu
+                            <div>
+                                <Flag country={this.state.flag.alpha_2_code}/>
                             </div>
                             <div>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</div>                            
                         </div>
