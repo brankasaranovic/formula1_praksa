@@ -36,6 +36,7 @@ export default class Races extends React.Component {
 
         console.log("Prikazana nacionalnost: ", convertedRaces[0].Circuit.Location.country);
         console.log("Prikazana nacionalnost iz Flag-a: ", convertedResponseFlags[0].en_short_name);
+        console.log("Prikazan flag: ", convertedResponseFlags);
     }
 
     handleClickDetails = (id) => {
