@@ -117,7 +117,7 @@ export default class RaceDetails extends React.Component {
                     })}
                 </table>
 
-                <table className="table-qualifying-results">
+                <table className="table-qualifying">
                     <thead>
                         <tr><th>Qualifying result</th></tr>
                         <tr>
@@ -160,7 +160,7 @@ export default class RaceDetails extends React.Component {
                     </tbody>
                 </table>
 
-                <table className="table-race-results">
+                <table className="table-race">
                     <thead>
                         <tr>
                             <th>Race results</th>

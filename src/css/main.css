@@ -336,27 +336,6 @@ RACE
 /*
 RACE DETAILS
 */
-
-.raceDetailsWraperDiv{
-    display: flex;
-    width: 100%;
-}
-
-table tr,
-table td{
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: left;
-}
- table{
-    border-collapse: collapse; 
- }
- .table-qualifying-results{
-    flex:0 0 40%;
-    margin-right: 50px;
-    background-color: #fff;
- }
-
 .table-qualifying-results th,
 .table-race-results th{
     padding: 20px;
@@ -369,6 +348,43 @@ table td{
 
  .raceDetailsWraperDiv{
     background-color: #737272;
+ } 
+
+ .raceDetailsWraperDiv{
+    display: flex;
+    width: 100%;
+}
+
+.table-race,
+.table-qualifying{
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+}
+
+.table-race td,
+.table-race tr{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.table-qualifying td,
+.table-qualifying tr{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.table-qualifying{
+    flex:0 0 40%;
+    margin-right: 50px;
+    background-color: #fff;
+ }
+
+ .table-race{
+    flex: 0 0 40%;
+    background-color: #fff;
  }
 
  .grand-prix-details{
@@ -380,4 +396,4 @@ table td{
   color: white;
   font-size: 20px;
  } 
- 
+
