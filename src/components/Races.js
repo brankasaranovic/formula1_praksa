@@ -36,6 +36,7 @@ export default class Races extends React.Component {
 
         console.log("Prikazana nacionalnost: ", convertedRaces[0].Circuit.Location.country);
         console.log("Prikazana nacionalnost iz Flag-a: ", convertedResponseFlags[0].en_short_name);
+        console.log("Prikazan flag: ", convertedResponseFlags);
     }
 
     handleClickDetails = (id) => {
@@ -94,7 +95,17 @@ export default class Races extends React.Component {
 
                                         <td>{race.Circuit.circuitName}</td>
                                         <td>{race.date}</td>
-                                        <td>{race.Results[0].Driver.familyName}</td>
+                                        <td>
+                                            {this.state.flags.map((flag, index) => {
+                                                //console.log("Only for your eyes: ", race.Results[0].Driver.nationality);
+                                                if (race.Results[0].Driver.nationality === flag.nationality) {
+                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                } else if (race.Results[0].Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                    return (<Flag key={index} country="GB" />);
+                                                }
+                                            })}
+                                            {race.Results[0].Driver.familyName}
+                                        </td>
                                     </tr>
                                 );
                             })}
