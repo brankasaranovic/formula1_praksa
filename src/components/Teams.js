@@ -2,6 +2,7 @@ import React from "react";
 import history from "../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export default class Teams extends React.Component {
 
@@ -61,18 +62,23 @@ export default class Teams extends React.Component {
                                 console.log("team", team);
                                 return (
                                     <tr key={i}>
-                                        <td>{team.position}</td>
-                                        <td onClick={() => this.handleClickDetails(team.Constructor.constructorId)}>
-                                            {this.state.flags.map((flag, index) => {
-                                                if (team.Constructor.nationality === flag.nationality) {
-                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
-                                                } else if (team.Constructor.nationality === "British" && flag.nationality === "British, UK") {
-                                                    return (<Flag key={index} country="GB" />);
-                                                }})}
-                                            {team.Constructor.constructorId}
+                                        <td className="boldNumbers">{team.position}</td>
+                                        <td onClick={() => this.handleClickDetails(team.Constructor.constructorId)} className="toClick teams-alignment">
+                                            <div>
+                                                {this.state.flags.map((flag, index) => {
+                                                    if (team.Constructor.nationality === flag.nationality) {
+                                                        return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                    } else if (team.Constructor.nationality === "British" && flag.nationality === "British, UK") {
+                                                        return (<Flag key={index} country="GB" />);
+                                                    }
+                                                })}
+                                            </div>
+                                            <div className="team-name-shift-right">
+                                                {team.Constructor.name}
+                                            </div>
                                         </td>
-                                        <td><a href={team.Constructor.url}>Details</a></td>
-                                        <td>{team.points}</td>
+                                        <td><a href={team.Constructor.url} className="teams-links">Details <FaExternalLinkAlt /></a></td>
+                                        <td className="boldNumbers">{team.points}</td>
                                     </tr>
                                 );
                             })}

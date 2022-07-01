@@ -440,3 +440,27 @@ td.position-10 {
 td.position-other {
     background-color: darkgray;
 }
+
+/* Linkovi u Teams */
+.teams-links {
+    text-decoration: none;
+    color: grey;
+}
+
+.teams-alignment {
+    display: flex;
+    align-items: center;
+}
+
+.team-name-shift-right {
+    padding-left: 3px;
+}
+
+/* zastavice i ime tima u TeamDetails */
+.driver-personal-details-div .driver-personal-details-header .driver-personal-details-name .team-details-flags img{
+    width: 30px;
+}
+
+.team-name {
+    white-space: nowrap;
+}
