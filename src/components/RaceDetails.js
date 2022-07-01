@@ -24,19 +24,20 @@ export default class RaceDetails extends React.Component {
 
         const response = await fetch(url);
         const qualifiers = await response.json();
-        console.log("qualifiers", qualifiers)
+        //console.log("qualifiers", qualifiers)
 
         const response1 = await fetch(urlResults);
         const results = await response1.json();
-        console.log("results", results)
+        //console.log("results", results)
 
 
         const qualifiersDetails = qualifiers.MRData.RaceTable.Races[0].QualifyingResults;
-        console.log("qualifiers", qualifiersDetails)
+        console.log("Qualifier details are: ", qualifiersDetails)
 
 
         const location = qualifiers.MRData.RaceTable.Races;
         const raceResults = results.MRData.RaceTable.Races[0].Results;
+        console.log("Race result is: ", raceResults);
 
         const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
         const responseFlags = await fetch(urlFlags);
@@ -64,10 +65,10 @@ export default class RaceDetails extends React.Component {
                         return (
                             <tbody className="grand-prix-details-wraper" key={i}>
                                 <tr className="grand-prix-details">
-                                    <p className="titleDeatils">{location.raceName}</p> 
+                                    <p className="titleDeatils">{location.raceName}</p>
                                     <p>Country: {location.Circuit.Location.country}</p>
                                     <p>Location: {location.Circuit.Location.locality}</p>
-                                    <p>Date: {location.date}</p> 
+                                    <p>Date: {location.date}</p>
                                     <p><a href={location.Circuit.url}>Full report </a></p>
                                 </tr>
                             </tbody>
@@ -86,25 +87,25 @@ export default class RaceDetails extends React.Component {
                         </tr>
                     </thead>
 
-                    {this.state.locationDetails.map((detail, i) => {
-                        let times = [];
-                        times.push(detail.Q1);
-                        times.push(detail.Q2);
-                        times.push(detail.Q3);
-                        times.sort();
-                        //console.log("times", times);
+                    <tbody>
+                        {this.state.locationDetails.map((detail, i) => {
+                            let times = [];
+                            times.push(detail.Q1);
+                            times.push(detail.Q2);
+                            times.push(detail.Q3);
+                            times.sort();
+                            //console.log("times", times);
 
-                        return (
-                            <tbody key={i}>
-                                <tr>
+                            return (
+                                <tr key={i}>
                                     <td>{detail.position}</td>
                                     <td> {detail.Driver.familyName}</td>
                                     <td> {detail.Constructor.name}</td>
                                     <td> {times[0]}</td>
                                 </tr>
-                            </tbody>
-                        );
-                    })}
+                            );
+                        })}
+                    </tbody>
                 </table>
 
                 <table className="table-race-results">
@@ -129,7 +130,7 @@ export default class RaceDetails extends React.Component {
                                     <td>{result.position}</td>
                                     <td>{result.Driver.familyName}</td>
                                     <td>{result.Constructor.name}</td>
-                                     {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
+                                    {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
                                     <td>{result.Time?.time}</td>
                                     <td>{result.points}</td>
                                 </tr>
