@@ -135,15 +135,6 @@ tr:nth-child(even){
 
 /* Aplikacija - praksa */
 
-.items{
-    display: flex;
-    flex-direction: column;
-}
-
-.item{
-    text-decoration: none;
-}
-
 
 /* Driver komponenta 1 */
 
@@ -153,6 +144,7 @@ tr:nth-child(even){
     background-color: gray;
     padding: 15px;
     font-weight: bold;
+    width: 100%;
 }
 
 .drivers-title {
@@ -202,6 +194,7 @@ tr td.boldNumbers {
     font-size: 10px;
     background-color: gray;
     font-weight: bold;
+    width: 100%;
 }
 
 .driver-details .driver-personal-details-div {
@@ -230,6 +223,7 @@ tr td.boldNumbers {
 .driver-details .driver-race-details-div {
     flex-grow: 2;
     padding: 15px;
+    width: 100%;
 }
 
 .driver-race-details-table {
@@ -256,14 +250,48 @@ tr td.boldNumbers {
     padding: 5px;
 }
 
-.table{
-    width: 100%;
-    border-collapse: collapse;
+
+
+/* Linkovi */
+
+.items{
+    display: flex;
+    flex-direction: column; 
 }
 
+.item{
+    text-decoration: none;
+    font-size: 25px;
+    color: #fff;
+}
+
+.main-route{
+    display: flex;
+    background-color:#333;
+}
+
+.navigation {
+    width: 10vw;
+    height: 100vh;
+    margin: 0
+}
+
+
+
+/*
+RACE
+*/
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@700&family=Roboto:wght@100&display=swap');
+
+.raceWraperDiv{
+    background-color: #8c8a8a;
+    width: 100%;
+   
+}
 .table{
     border-collapse: collapse;
     width: 100%;
+    background-color: #fff;
 }
 
 .table th,
@@ -272,3 +300,84 @@ tr td.boldNumbers {
     padding: 10px;
     text-align: left;
 }
+
+.title{
+    font-size: 40px;
+    color: #fff;
+    padding-top: 12px;
+    padding-left: 10px;  
+}
+
+.tableHeader td{
+    background-color: rgb(187, 186, 186);
+    font-size: 22px;
+}
+
+.table-header th{
+    background-color: rgb(205, 205, 205);
+    font-size: 22px;
+}
+
+.grand-prix{
+   display: flex;
+   justify-content: left;
+   align-items: center;
+}
+
+.flag{
+    margin: 10px;
+}
+
+.grand-prix{
+    cursor: pointer;
+}
+
+
+/*
+RACE DETAILS
+*/
+
+.raceDetailsWraperDiv{
+    display: flex;
+    width: 100%;
+}
+
+table tr,
+table td{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+ table{
+    border-collapse: collapse; 
+ }
+ .table-qualifying-results{
+    flex:0 0 40%;
+    margin-right: 50px;
+    background-color: #fff;
+ }
+
+.table-qualifying-results th,
+.table-race-results th{
+    padding: 20px;
+}
+
+ .table-race-results{
+    flex: 0 0 40%;
+    background-color: #fff;
+ }
+
+ .raceDetailsWraperDiv{
+    background-color: #737272;
+ }
+
+ .grand-prix-details{
+    background-color: #333333;
+ }
+
+ .grand-prix-details p{
+  padding: 10px 20px 0 20px;
+  color: white;
+  font-size: 20px;
+ } 
+ 

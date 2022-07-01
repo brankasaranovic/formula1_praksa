@@ -24,19 +24,20 @@ export default class RaceDetails extends React.Component {
 
         const response = await fetch(url);
         const qualifiers = await response.json();
-        console.log("qualifiers", qualifiers)
+        //console.log("qualifiers", qualifiers)
 
         const response1 = await fetch(urlResults);
         const results = await response1.json();
-        console.log("results", results)
+        //console.log("results", results)
 
 
         const qualifiersDetails = qualifiers.MRData.RaceTable.Races[0].QualifyingResults;
-        console.log("qualifiers", qualifiersDetails)
+        console.log("Qualifier details are: ", qualifiersDetails)
 
 
         const location = qualifiers.MRData.RaceTable.Races;
         const raceResults = results.MRData.RaceTable.Races[0].Results;
+        console.log("Race result is: ", raceResults);
 
         const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
         const responseFlags = await fetch(urlFlags);
@@ -58,24 +59,24 @@ export default class RaceDetails extends React.Component {
             return <Loader />;
         };
         return (
-            <div className="driver-details">
-                <table>
+            <div className="raceDetailsWraperDiv">
+                <table className="tableRaceDetails">
                     {this.state.raceLocation.map((location, i) => {
                         return (
-                            <tbody key={i}>
-                                <tr>
-                                    <tr> <td>{location.raceName}</td></tr>
-                                    <tr><td>Country: {location.Circuit.Location.country}</td></tr>
-                                    <tr><td>Location: {location.Circuit.Location.locality}</td></tr>
-                                    <tr><td>Date: {location.date}</td></tr>
-                                    <tr><td><a href={location.Circuit.url}>Full report </a></td></tr>
+                            <tbody className="grand-prix-details-wraper" key={i}>
+                                <tr className="grand-prix-details">
+                                    <p className="titleDeatils">{location.raceName}</p>
+                                    <p>Country: {location.Circuit.Location.country}</p>
+                                    <p>Location: {location.Circuit.Location.locality}</p>
+                                    <p>Date: {location.date}</p>
+                                    <p><a href={location.Circuit.url}>Full report </a></p>
                                 </tr>
                             </tbody>
                         );
                     })}
                 </table>
 
-                <table>
+                <table className="table-qualifying-results">
                     <thead>
                         <tr><th>Qualifying result</th></tr>
                         <tr>
@@ -86,28 +87,28 @@ export default class RaceDetails extends React.Component {
                         </tr>
                     </thead>
 
-                    {this.state.locationDetails.map((detail, i) => {
-                        let times = [];
-                        times.push(detail.Q1);
-                        times.push(detail.Q2);
-                        times.push(detail.Q3);
-                        times.sort();
-                        //console.log("times", times);
+                    <tbody>
+                        {this.state.locationDetails.map((detail, i) => {
+                            let times = [];
+                            times.push(detail.Q1);
+                            times.push(detail.Q2);
+                            times.push(detail.Q3);
+                            times.sort();
+                            //console.log("times", times);
 
-                        return (
-                            <tbody key={i}>
-                                <tr>
+                            return (
+                                <tr key={i}>
                                     <td>{detail.position}</td>
                                     <td> {detail.Driver.familyName}</td>
                                     <td> {detail.Constructor.name}</td>
                                     <td> {times[0]}</td>
                                 </tr>
-                            </tbody>
-                        );
-                    })}
+                            );
+                        })}
+                    </tbody>
                 </table>
 
-                <table>
+                <table className="table-race-results">
                     <thead>
                         <tr>
                             <th>Race results</th>
@@ -129,7 +130,7 @@ export default class RaceDetails extends React.Component {
                                     <td>{result.position}</td>
                                     <td>{result.Driver.familyName}</td>
                                     <td>{result.Constructor.name}</td>
-                                     {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
+                                    {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
                                     <td>{result.Time?.time}</td>
                                     <td>{result.points}</td>
                                 </tr>
