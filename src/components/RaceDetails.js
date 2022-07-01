@@ -99,7 +99,18 @@ export default class RaceDetails extends React.Component {
                             return (
                                 <tr key={i}>
                                     <td>{detail.position}</td>
-                                    <td> {detail.Driver.familyName}</td>
+                                    <td>
+                                        {this.state.flags.map((flag, index) => {
+                                            if (detail.Driver.nationality === flag.nationality) {
+                                                return (<Flag key={index} country={flag.alpha_2_code} />);
+                                            } else if (detail.Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                return (<Flag key={index} country="GB" />);
+                                            } else if (detail.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
+                                                return (<Flag key={index} country="NL" />);
+                                            }
+                                        })}
+                                        {detail.Driver.familyName}
+                                    </td>
                                     <td> {detail.Constructor.name}</td>
                                     <td> {times[0]}</td>
                                 </tr>
@@ -122,22 +133,32 @@ export default class RaceDetails extends React.Component {
                         </tr>
                     </thead>
 
-                    {this.state.raceResult.map((result, index) => {
-                        //console.log("time", result.Time)
-                        return (
-                            <tbody key={index}>
-                                <tr>
+                    <tbody>
+                        {this.state.raceResult.map((result, index) => {
+                            //console.log("time", result.Time)
+                            return (
+                                <tr key={index}>
                                     <td>{result.position}</td>
-                                    <td>{result.Driver.familyName}</td>
+                                    <td>
+                                        {this.state.flags.map((flag, index) => {
+                                            if (result.Driver.nationality === flag.nationality) {
+                                                return (<Flag key={index} country={flag.alpha_2_code} />);
+                                            } else if (result.Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                return (<Flag key={index} country="GB" />);
+                                            } else if (result.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
+                                                return (<Flag key={index} country="NL" />);
+                                            }
+                                        })}
+                                        {result.Driver.familyName}
+                                    </td>
                                     <td>{result.Constructor.name}</td>
                                     {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
                                     <td>{result.Time?.time}</td>
                                     <td>{result.points}</td>
                                 </tr>
-                            </tbody>
-                        );
-                    })}
-
+                            );
+                        })}
+                    </tbody>
                 </table>
 
                 {/* desna prva tabela
