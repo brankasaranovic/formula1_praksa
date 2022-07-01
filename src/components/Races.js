@@ -52,56 +52,67 @@ export default class Races extends React.Component {
 
 
         return (
-            <>
-                <h1>Race Calendar</h1>
-                <div className="driver-details">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <td colSpan={5}>Race calendar - 2013</td>
-                            </tr>
-                            <tr>
-                                <th>Round</th>
-                                <th>Grand Prix</th>
-                                <th>Circuit</th>
-                                <th>Date</th>
-                                <th>Winner</th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            {this.state.races.map((race, i) => {
-                                return (
-                                    <tr key={i} onClick={() => this.handleClickDetails(race.round)}>
-                                        <td>{race.round}</td>
-                                        <td>
-                                            {this.state.flags.map((flag, index) => {
-                                                if (race.Circuit.Location.country === flag.en_short_name) {
-                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
-                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
-                                                    return (<Flag key={index} country="GB" />);
-                                                } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
-                                                    return (<Flag key={index} country="AD" />);
-                                                } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
-                                                    return (<Flag key={index} country="US" />)
-                                                } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
-                                                    return (<Flag key={index} country="KP" />)
-                                                }
+            <div className="raceWraperDiv">
+                <h1 className="title">Race Calendar</h1>
 
-                                            })}
-                                            {race.raceName}
-                                        </td>
+                <table className="table">
+                    <thead>
+                        <tr className="tableHeader">
+                            <td colSpan={5}>Race calendar - 2013</td>
+                        </tr>
+                        <tr className="table-header">
+                            <th>Round</th>
+                            <th>Grand Prix</th>
+                            <th>Circuit</th>
+                            <th>Date</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
 
-                                        <td>{race.Circuit.circuitName}</td>
-                                        <td>{race.date}</td>
-                                        <td>{race.Results[0].Driver.familyName}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </>
+                    <tbody>
+                        {this.state.races.map((race, i) => {
+                            return (
+                                <tr key={i} onClick={() => this.handleClickDetails(race.round)}>
+                                    <td>{race.round}</td>
+                                    <td className="grand-prix">
+                                        {this.state.flags.map((flag, index) => {
+                                            if (race.Circuit.Location.country === flag.en_short_name) {
+                                                return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
+                                            } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                return (<Flag className="flag" key={index} country="GB" />);
+                                            } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                return (<Flag className="flag" key={index} country="AD" />);
+                                            } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                return (<Flag className="flag" key={index} country="US" />)
+                                            } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                return (<Flag className="flag" key={index} country="KP" />)
+                                            }
+
+                                        })}
+                                        {race.raceName}
+                                    </td>
+
+                                    <td>{race.Circuit.circuitName}</td>
+                                    <td>{race.date}</td>
+                                    <td>
+                                        {this.state.flags.map((flag, index) => {
+                                            //console.log("Only for your eyes: ", race.Results[0].Driver.nationality);
+                                            if (race.Results[0].Driver.nationality === flag.nationality) {
+                                                return (<Flag key={index} country={flag.alpha_2_code} />);
+                                            } else if (race.Results[0].Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                return (<Flag key={index} country="GB" />);
+                                            }
+                                        })}
+                                        {race.Results[0].Driver.familyName}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+
+            </div>
         );
     };
 }

@@ -11,9 +11,9 @@ import RaceDetails from "./components/RaceDetails";
 export default class App extends React.Component {
     render() {
         return (
-            <div>
+            <div className="main-route">
                 <Router history={history}>
-                    <nav>
+                    <nav className="navigation">
                         <ul className="list-items">
                             <li className="items">
                                 <Link className="item" to="/">Drivers</Link>

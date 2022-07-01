@@ -58,24 +58,24 @@ export default class RaceDetails extends React.Component {
             return <Loader />;
         };
         return (
-            <div className="driver-details">
-                <table>
+            <div className="raceDetailsWraperDiv">
+                <table className="tableRaceDetails">
                     {this.state.raceLocation.map((location, i) => {
                         return (
-                            <tbody key={i}>
-                                <tr>
-                                    <tr> <td>{location.raceName}</td></tr>
-                                    <tr><td>Country: {location.Circuit.Location.country}</td></tr>
-                                    <tr><td>Location: {location.Circuit.Location.locality}</td></tr>
-                                    <tr><td>Date: {location.date}</td></tr>
-                                    <tr><td><a href={location.Circuit.url}>Full report </a></td></tr>
+                            <tbody className="grand-prix-details-wraper" key={i}>
+                                <tr className="grand-prix-details">
+                                    <p className="titleDeatils">{location.raceName}</p> 
+                                    <p>Country: {location.Circuit.Location.country}</p>
+                                    <p>Location: {location.Circuit.Location.locality}</p>
+                                    <p>Date: {location.date}</p> 
+                                    <p><a href={location.Circuit.url}>Full report </a></p>
                                 </tr>
                             </tbody>
                         );
                     })}
                 </table>
 
-                <table>
+                <table className="table-qualifying-results">
                     <thead>
                         <tr><th>Qualifying result</th></tr>
                         <tr>
@@ -107,7 +107,7 @@ export default class RaceDetails extends React.Component {
                     })}
                 </table>
 
-                <table>
+                <table className="table-race-results">
                     <thead>
                         <tr>
                             <th>Race results</th>
