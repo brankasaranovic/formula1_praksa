@@ -9,6 +9,7 @@ export default class DriverDetails extends React.Component {
         driverDetails: null,
         races: [],
         flag: null,
+        allFlags: [],
         isLoading: true
     }
 
@@ -39,7 +40,7 @@ export default class DriverDetails extends React.Component {
 
 
         const driverFlag = flags.find((flag) => flag.nationality.indexOf(driverDetails.Driver.nationality) > -1);
-        console.log(driverFlag);
+        //console.log(driverFlag);
 
 
         this.setState({
@@ -47,8 +48,8 @@ export default class DriverDetails extends React.Component {
             driverDetails: driverDetails,
             races: driverRaces,
             flag: driverFlag,
+            allFlags: flags, 
             isLoading: false
-
         });
     }
 
@@ -122,7 +123,22 @@ export default class DriverDetails extends React.Component {
                                 return (
                                     <tr key={race.round}>
                                         <td className="boldNumbers">{race.round}</td>
-                                        <td>{race.raceName}</td>
+                                        <td>
+                                            {this.state.allFlags.map((flag, index) => {
+                                                if (race.Circuit.Location.country === flag.en_short_name) {
+                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                    return (<Flag key={index} country="GB" />);
+                                                } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                    return (<Flag key={index} country="AD" />);
+                                                } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                    return (<Flag key={index} country="US" />)
+                                                } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                    return (<Flag key={index} country="KP" />)
+                                                }
+                                            })}
+                                            {race.raceName}
+                                        </td>
                                         <td>{race.Results[0].Constructor.name}</td>
                                         <td className="boldNumbers">{race.Results[0].grid}</td>
                                         <td className="boldNumbers">{race.Results[0].position}</td>
