@@ -144,6 +144,7 @@ tr:nth-child(even){
     background-color: gray;
     padding: 15px;
     font-weight: bold;
+    width: 100%;
 }
 
 .drivers-title {
@@ -193,6 +194,7 @@ tr td.boldNumbers {
     font-size: 10px;
     background-color: gray;
     font-weight: bold;
+    width: 100%;
 }
 
 .driver-details .driver-personal-details-div {
@@ -221,6 +223,7 @@ tr td.boldNumbers {
 .driver-details .driver-race-details-div {
     flex-grow: 2;
     padding: 15px;
+    width: 100%;
 }
 
 .driver-race-details-table {
