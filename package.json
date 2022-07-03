@@ -27,6 +27,9 @@
     "webpack-dev-server": "^4.9.1"
   },
   "dependencies": {
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "jquery": "^3.6.0",
     "prop-types": "^15.8.1",
     "react-flagkit": "^2.0.4",
