@@ -53,6 +53,18 @@ export default class DriverDetails extends React.Component {
         });
     }
 
+    getPositionClass(position) {
+        let classes = ["boldNumbers"];
+
+        if (position <= 10) {
+            classes.push(`position-${position}`)
+        } else {
+            classes.push("position-other")
+        }
+
+        return classes.join(" ");
+    }
+
     render() {
         
         if (this.state.isLoading) {
@@ -141,7 +153,7 @@ export default class DriverDetails extends React.Component {
                                         </td>
                                         <td>{race.Results[0].Constructor.name}</td>
                                         <td className="boldNumbers">{race.Results[0].grid}</td>
-                                        <td className="boldNumbers">{race.Results[0].position}</td>
+                                        <td className={this.getPositionClass(race.Results[0].position)}>{race.Results[0].position}</td>
                                     </tr>
                                 );
                             })}

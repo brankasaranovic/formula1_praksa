@@ -487,3 +487,70 @@ td.flag-flex-result {
     margin-right: 10px;
 }
 
+td.position-1 {
+    background-color: yellow;
+}
+
+td.position-2 {
+    background-color: gray;
+}
+
+td.position-3 {
+    background-color: orange;
+}
+
+td.position-4 {
+    background-color: lightgreen;
+}
+
+td.position-5 {
+    background-color: lightblue;
+}
+
+td.position-6 {
+    background-color: cyan;
+}
+
+td.position-7 {
+    background-color: magenta;
+}
+
+td.position-8 {
+    background-color: red
+}
+
+td.position-9 {
+    background-color: darkorchid;
+}
+
+td.position-10 {
+    background-color: darkkhaki;
+}
+
+td.position-other {
+    background-color: darkgray;
+}
+
+/* Linkovi u Teams */
+.teams-links {
+    text-decoration: none;
+    color: grey;
+}
+
+.teams-alignment {
+    display: flex;
+    align-items: center;
+}
+
+.team-name-shift-right {
+    padding-left: 3px;
+}
+
+/* zastavice i ime tima u TeamDetails */
+.driver-personal-details-div .driver-personal-details-header .driver-personal-details-name .team-details-flags img{
+    width: 30px;
+}
+
+.team-name {
+    white-space: nowrap;
+}
