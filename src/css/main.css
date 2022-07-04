@@ -618,7 +618,7 @@ td.position-other {
     
 }
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1300px){
     .raceDetailsWraperDiv {
         flex-direction: column;
     }
@@ -636,3 +636,4 @@ td.position-other {
         padding-bottom: 20px;
     }
 }
+
