@@ -596,6 +596,10 @@ td.position-other {
     .logo-wraper {
         margin: 5px;
     }
+    .logo {
+        width: 180px;
+        margin-right: 10px;
+    }
 
     .list-items {
         margin: 0;
@@ -604,8 +608,14 @@ td.position-other {
         flex-direction: row;
         padding: 0;
     }
+    .item .icons {
+        margin-right: 10px;
+        font-size: 30px;
+    }
     .item .iconsDiv .itemText {
-        display: none;
+        /* display: none; */
+        line-height: 30px;
+        font-size: 20px;
     }
 
     .item:not(:first-child) {
