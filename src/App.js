@@ -8,11 +8,7 @@ import Teams from "./components/Teams";
 import TeamDetails from "./components/TeamDetails";
 import RaceDetails from "./components/RaceDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHelmetSafety } from "@fortawesome/free-solid-svg-icons";
-import { faPeopleLine } from "@fortawesome/free-solid-svg-icons";
-import { faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
-
-
+import { faHelmetSafety, faPeopleLine, faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
 
 export default class App extends React.Component {
     render() {

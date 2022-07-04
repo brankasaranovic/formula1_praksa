@@ -1,6 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export default class DriverDetails extends React.Component {
 
@@ -107,7 +108,7 @@ export default class DriverDetails extends React.Component {
                                 </tr>
                                 <tr>
                                     <td>Biography:</td>
-                                    <td><a href={this.state.driverDetails.Driver.url}>Wiki</a></td>
+                                    <td><a href={this.state.driverDetails.Driver.url}><FaExternalLinkAlt color="white" /></a></td>
                                 </tr>
                             </tbody>
                         </table>
