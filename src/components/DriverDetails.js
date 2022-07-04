@@ -54,12 +54,12 @@ export default class DriverDetails extends React.Component {
     }
 
     getPositionClass(position) {
-        let classes = ["boldNumbers"];
+        let classes = ["boldNumbers "];
 
         if (position <= 10) {
-            classes.push(`position-${position}`)
+            classes.push(`position-${position}`);
         } else {
-            classes.push("position-other")
+            classes.push("position-other");
         }
 
         return classes.join(" ");
@@ -78,7 +78,7 @@ export default class DriverDetails extends React.Component {
                 <div className="driver-personal-details-div">
                     <div className="driver-personal-details-header">
                         
-                        <div>
+                        <div className="driver-personal-details-profile-image">
                             <img src={`/images/drivers/${this.state.driverId}.jpg`} alt={this.state.driverId} />
                         </div>
                         
@@ -135,7 +135,7 @@ export default class DriverDetails extends React.Component {
                                 return (
                                     <tr key={race.round}>
                                         <td className="boldNumbers">{race.round}</td>
-                                        <td>
+                                        <td><div className="driverDetails-raceDetails">
                                             {this.state.allFlags.map((flag, index) => {
                                                 if (race.Circuit.Location.country === flag.en_short_name) {
                                                     return (<Flag key={index} country={flag.alpha_2_code} />);
@@ -149,8 +149,8 @@ export default class DriverDetails extends React.Component {
                                                     return (<Flag key={index} country="KP" />)
                                                 }
                                             })}
-                                            {race.raceName}
-                                        </td>
+                                            <div className="driverDetails-raceName">{race.raceName}</div>
+                                        </div></td>
                                         <td>{race.Results[0].Constructor.name}</td>
                                         <td className="boldNumbers">{race.Results[0].grid}</td>
                                         <td className={this.getPositionClass(race.Results[0].position)}>{race.Results[0].position}</td>

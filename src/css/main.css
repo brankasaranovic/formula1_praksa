@@ -207,7 +207,7 @@ tr td.boldNumbers {
     padding: 10px;
 }
 
-.driver-details .driver-personal-details-div .driver-personal-details-header img {
+.driver-details .driver-personal-details-div .driver-personal-details-header .driver-personal-details-profile-image img {
     width: 80px;
 }
 
@@ -250,6 +250,13 @@ tr td.boldNumbers {
     padding: 5px;
 }
 
+.driverDetails-raceDetails {
+    display: flex;
+}
+
+.driverDetails-raceName {
+    margin: auto 5px;
+}
 
 
 /* Linkovi */
@@ -418,23 +425,23 @@ td.position-5 {
 }
 
 td.position-6 {
-    background-color: cyan;
+    background-color: aqua;
 }
 
 td.position-7 {
-    background-color: magenta;
+    background-color: coral;
 }
 
 td.position-8 {
-    background-color: red
+    background-color: brown
 }
 
 td.position-9 {
-    background-color: darkorchid;
+    background-color: red;
 }
 
 td.position-10 {
-    background-color: darkkhaki;
+    background-color: cyan;
 }
 
 td.position-other {
