@@ -58,35 +58,35 @@ export default class RaceDetails extends React.Component {
         let color = "";
         //console.log("position", position)
         switch (position) {
-            case "1":
+            case "25":
                 color = "yellow";
                 break;
-            case "2":
+            case "18":
                 color = "gray";
                 break;
-            case "3":
+            case "15":
                 color = "orange";
                 break;
-            case "4":
+            case "12":
                 color = "lightgreen";
                 break;
-            case "5":
+            case "10":
                 color = "lightblue";
                 break;
-            case "6":
+            case "8":
                 color = "aqua";
                 break;
-            case "7":
-                color = "red";
+            case "6":
+                color = "coral";
                 break;
-            case "8":
+            case "4":
                 color = "brown";
                 break;
-            case "9":
-                color = "cyan";
+            case "2":
+                color = "red";
                 break;
-            case "10":
-                color = "coral";
+            case "1":
+                color = "cyan";
                 break;
             default:
                 color = "darkgrey";
@@ -106,25 +106,45 @@ export default class RaceDetails extends React.Component {
                         return (
                             <tbody className="grand-prix-details-wraper" key={i}>
                                 <tr className="grand-prix-details">
-                                    <p className="titleDeatils">{location.raceName}</p>
-                                    <p>Country: {location.Circuit.Location.country}</p>
-                                    <p>Location: {location.Circuit.Location.locality}</p>
-                                    <p>Date: {location.date}</p>
-                                    <p><a href={location.Circuit.url}>Full report </a></p>
+                                    <td className="titleDeatils">
+
+                                        {this.state.flags.map((flag, index) => {
+                                            if (location.Circuit.Location.country === flag.en_short_name) {
+                                                return (<Flag  width={120} height={120}  key={index} country={flag.alpha_2_code} />);
+                                            } else if (location.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                return (<Flag width={120} height={120} key={index} country="GB" />);
+                                            } else if (location.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                return (<Flag width={120} height={120} key={index} country="AD" />);
+                                            } else if (location.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                return (<Flag width={120} height={120} key={index} country="US" />)
+                                            } else if (location.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                return (<Flag width={120} height={120} key={index} country="KP" />)
+                                            }
+                                        })}
+                                        <br />
+                                        {location.raceName}
+                                    </td>
+                                    <td>Country: {location.Circuit.Location.country}</td>
+                                    <td>Location: {location.Circuit.Location.locality}</td>
+                                    <td>Date: {location.date}</td>
+                                    <td><a href={location.Circuit.url}>Full report </a></td>
                                 </tr>
                             </tbody>
+
                         );
                     })}
                 </table>
 
                 <table className="table-qualifying">
                     <thead>
-                        <tr><th>Qualifying result</th></tr>
-                        <tr>
-                            <td>Pos</td>
-                            <td>Driver</td>
-                            <td>Team</td>
-                            <td>Best time</td>
+                        <tr className="qualifying-header">
+                            <th colSpan={5}>Qualifying results</th>
+                        </tr>
+                        <tr className="qualifying-header-down">
+                            <th>Pos</th>
+                            <th>Driver</th>
+                            <th>Team</th>
+                            <th>Best time</th>
                         </tr>
                     </thead>
 
@@ -140,14 +160,14 @@ export default class RaceDetails extends React.Component {
                             return (
                                 <tr key={i}>
                                     <td>{detail.position}</td>
-                                    <td>
+                                    <td className="flag-flex-qualifying">
                                         {this.state.flags.map((flag, index) => {
                                             if (detail.Driver.nationality === flag.nationality) {
-                                                return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                return (<Flag className="flag1" key={index} country={flag.alpha_2_code} />);
                                             } else if (detail.Driver.nationality === "British" && flag.nationality === "British, UK") {
-                                                return (<Flag key={index} country="GB" />);
+                                                return (<Flag className="flag1" key={index} country="GB" />);
                                             } else if (detail.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
-                                                return (<Flag key={index} country="NL" />);
+                                                return (<Flag className="flag1" key={index} country="NL" />);
                                             }
                                         })}
                                         {detail.Driver.familyName}
@@ -162,10 +182,10 @@ export default class RaceDetails extends React.Component {
 
                 <table className="table-race">
                     <thead>
-                        <tr>
-                            <th>Race results</th>
+                        <tr className="race-header">
+                            <th colSpan={5}>Race results</th>
                         </tr>
-                        <tr>
+                        <tr className="race-header-down">
                             <th>Pos</th>
                             <th>Driver</th>
                             <th>Team</th>
@@ -180,14 +200,14 @@ export default class RaceDetails extends React.Component {
                             return (
                                 <tr key={index}>
                                     <td>{result.position}</td>
-                                    <td>
+                                    <td className="flag-flex-result">
                                         {this.state.flags.map((flag, index) => {
                                             if (result.Driver.nationality === flag.nationality) {
-                                                return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                return (<Flag className="flag2" key={index} country={flag.alpha_2_code} />);
                                             } else if (result.Driver.nationality === "British" && flag.nationality === "British, UK") {
-                                                return (<Flag key={index} country="GB" />);
+                                                return (<Flag className="flag2" key={index} country="GB" />);
                                             } else if (result.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
-                                                return (<Flag key={index} country="NL" />);
+                                                return (<Flag className="flag2" key={index} country="NL" />);
                                             }
                                         })}
                                         {result.Driver.familyName}

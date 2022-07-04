@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "./Loader";
 import history from "./../history";
 import Flag from 'react-flagkit';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export default class TeamDetails extends React.Component {
 
@@ -56,6 +57,18 @@ export default class TeamDetails extends React.Component {
       history.push(linkTo);
    }
 
+   getPositionClass(position) {
+      const classes = ["boldNumbers"];
+
+      if (position <= 10) {
+         classes.push(`position-${position}`)
+      } else {
+         classes.push("position-other")
+      }
+
+      return classes.join(" ");
+   }
+
    render() {
 
       if (this.state.isLoading) {
@@ -73,7 +86,7 @@ export default class TeamDetails extends React.Component {
                <div className="driver-personal-details-header">
                   <div><img src={`/images/teams/${this.state.teamDetails.Constructor.constructorId}.png`} alt={this.state.teamDetails.Constructor.constructorId} /></div>
                   <div className="driver-personal-details-name">
-                     <div>
+                     <div className="team-details-flags">
                         {this.state.flags.map((flag, index) => {
                            if (this.state.teamDetails.Constructor.nationality === flag.nationality) {
                               return (<Flag key={index} country={flag.alpha_2_code} />);
@@ -82,7 +95,7 @@ export default class TeamDetails extends React.Component {
                            }
                         })}
                      </div>
-                     <div>
+                     <div className="team-name">
                         {this.state.teamDetails.Constructor.name}
                      </div>
                   </div>
@@ -95,7 +108,7 @@ export default class TeamDetails extends React.Component {
                         <tr><td>Country:</td><td>{this.state.teamDetails.Constructor.nationality}</td></tr>
                         <tr><td>Position:</td><td>{this.state.teamDetails.position}</td></tr>
                         <tr><td>Points:</td><td>{this.state.teamDetails.points}</td></tr>
-                        <tr><td>History:</td><td><a href={this.state.teamDetails.Constructor.url}>el icon</a></td></tr>
+                        <tr><td>History:</td><td><a href={this.state.teamDetails.Constructor.url}><FaExternalLinkAlt color="white" /></a></td></tr>
                      </tbody>
                   </table>
                </div>
@@ -120,8 +133,8 @@ export default class TeamDetails extends React.Component {
                      {this.state.result.map(result => {
                         return (
                            <tr key={result.round}>
-                              <td>{result.round}</td>
-                              <td onClick={() => this.handleClickDetails(result.round)}>
+                              <td className="boldNumbers">{result.round}</td>
+                              <td onClick={() => this.handleClickDetails(result.round)} className="toClick teams-alignment">
                                  {this.state.flags.map((flag, index) => {
                                     if (result.Circuit.Location.country === flag.en_short_name) {
                                        return (<Flag key={index} country={flag.alpha_2_code} />);
@@ -131,11 +144,13 @@ export default class TeamDetails extends React.Component {
                                        return (<Flag key={index} country="KP" />);
                                     }
                                  })}
-                                 {result.raceName}
+                                 <div className="team-name-shift-right">
+                                    {result.raceName}
+                                 </div>
                               </td>
-                              <td>{result.Results[0].position}</td>
-                              <td>{result.Results[1].position}</td>
-                              <td>{parseInt(result.Results[0].points) + parseInt(result.Results[1].points)}</td>
+                              <td className={this.getPositionClass(result.Results[0].position)}>{result.Results[0].position}</td>
+                              <td className={this.getPositionClass(result.Results[1].position)}>{result.Results[1].position}</td>
+                              <td className="boldNumbers">{parseInt(result.Results[0].points) + parseInt(result.Results[1].points)}</td>
                            </tr>
                         );
                      })}

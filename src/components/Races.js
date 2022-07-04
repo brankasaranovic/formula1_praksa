@@ -51,12 +51,9 @@ export default class Races extends React.Component {
             return <Loader />
         };
 
-
         return (
-
             <div className="raceWraperDiv">
-                <h1 className="title">Race Calendar</h1>
-
+             <h1 className="title">Race Calendar</h1>
                 <table className="table">
                     <thead>
                         <tr className="tableHeader">
@@ -74,9 +71,9 @@ export default class Races extends React.Component {
                     <tbody>
                         {this.state.races.map((race, i) => {
                             return (
-                                <tr key={i} onClick={() => this.handleClickDetails(race.round)}>
+                                <tr className="grand-prix" key={i} onClick={() => this.handleClickDetails(race.round)}>
                                     <td>{race.round}</td>
-                                    <td className="grand-prix">
+                                    <td className="second">
                                         {this.state.flags.map((flag, index) => {
                                             if (race.Circuit.Location.country === flag.en_short_name) {
                                                 return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
@@ -89,20 +86,19 @@ export default class Races extends React.Component {
                                             } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
                                                 return (<Flag className="flag" key={index} country="KP" />)
                                             }
-
                                         })}
                                         {race.raceName}
                                     </td>
 
                                     <td>{race.Circuit.circuitName}</td>
                                     <td>{race.date}</td>
-                                    <td>
+                                    <td className="second">
                                         {this.state.flags.map((flag, index) => {
-                                            //console.log("Only for your eyes: ", race.Results[0].Driver.nationality);
+                                            // console.log("Only for your eyes: ", race.Results[0].Driver.nationality);
                                             if (race.Results[0].Driver.nationality === flag.nationality) {
-                                                return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
                                             } else if (race.Results[0].Driver.nationality === "British" && flag.nationality === "British, UK") {
-                                                return (<Flag key={index} country="GB" />);
+                                                return (<Flag className="flag" key={index} country="GB" />);
                                             }
                                         })}
                                         {race.Results[0].Driver.familyName}
@@ -112,7 +108,6 @@ export default class Races extends React.Component {
                         })}
                     </tbody>
                 </table>
-
             </div>
         );
     };

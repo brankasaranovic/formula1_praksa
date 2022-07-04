@@ -173,7 +173,7 @@ tr:nth-child(even){
 }
 
 tr td.boldNumbers {
-    color:#333333;
+    color: #333333;
 }
 
 .toClick {
@@ -261,148 +261,238 @@ tr td.boldNumbers {
 
 /* Linkovi */
 
-.items{
-    display: flex;
-    flex-direction: column; 
+.logo-wraper {
+    margin: 30px;
 }
 
-.item{
+.iconsDiv {
+    display: flex;  
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}
+
+.icons {
+    margin-right: 25px;
+    margin-bottom: 30px;
+}
+
+.item {
+    font-style: italic;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 35px;
     color: #fff;
 }
 
-.main-route{
+.item:hover {
+    color: rgb(179, 169, 169);
+    transition: ease-out;
+}
+
+.main-route {
     display: flex;
-    background-color:#333;
+    /* flex-wrap: wrap; */
+    background-color: #333;
 }
 
 .navigation {
     width: 10vw;
     height: 100vh;
-    margin: 0
 }
-
-
 
 /*
 RACE
 */
-@import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@700&family=Roboto:wght@100&display=swap');
 
-.raceWraperDiv{
-    background-color: #8c8a8a;
+.raceWraperDiv {
+    background-color: #737272;
     width: 100%;
-   
+    padding: 10px 40px 40px 40px
 }
-.table{
+
+.title {
+    font-size: 40px;
+    font-style: italic;
+    color: #fff;
+}
+
+.table {
     border-collapse: collapse;
     width: 100%;
     background-color: #fff;
+
 }
 
-.table th,
-.table td{
+.table td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 5px;
     text-align: left;
 }
-
-.title{
-    font-size: 40px;
-    color: #fff;
-    padding-top: 12px;
-    padding-left: 10px;  
+.table th{
+    padding: 10px;
 }
 
-.tableHeader td{
+.tableHeader td {
     background-color: rgb(187, 186, 186);
     font-size: 22px;
+    padding: 10px;
 }
 
-.table-header th{
+.table-header th {
     background-color: rgb(205, 205, 205);
     font-size: 22px;
 }
 
-.grand-prix{
-   display: flex;
-   justify-content: left;
-   align-items: center;
+tr .grand-prix {
+    display: flex;
+    flex-wrap: wrap;
+  
 }
 
-.flag{
-    margin: 10px;
+td .second{
+    padding-bottom: 10px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
 }
 
-.grand-prix{
+
+
+.flag {
+    margin-right: 10px;
     cursor: pointer;
 }
-
 
 /*
 RACE DETAILS
 */
-.table-qualifying-results th,
-.table-race-results th{
-    padding: 20px;
-}
-
- .table-race-results{
-    flex: 0 0 40%;
-    background-color: #fff;
- }
-
- .raceDetailsWraperDiv{
+.raceDetailsWraperDiv {
     background-color: #737272;
- } 
-
- .raceDetailsWraperDiv{
     display: flex;
     width: 100%;
 }
 
-.table-race,
-.table-qualifying{
-    border-collapse: collapse;
-    width: 100%;
+.tableRaceDetails {
+    background-color: #2e2d2d;
+    border-left: 2px solid black;
+    flex: 0 0 18%;
+}
+
+
+.grand-prix-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.grand-prix-details td {
+    color: white;
+    margin-left: 15px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.grand-prix-details td:first-child {
+    font-size: 26px;
+    padding-bottom: 20px;
+    padding-top: 15px;
+}
+
+.grand-prix-details td:last-child a {
+    color: white;
+    font-size: 20px;
+}
+
+.grand-prix-details td {
+    color: #fff;
+}
+
+.qualifying-header th,
+.race-header th {
+    background-color: rgb(187, 186, 186);
+    padding: 10px;
+}
+
+.qualifying-header-down,
+.race-header-down {
+    background-color: rgb(205, 205, 205);
+}
+
+table .table-race,
+table .table-qualifying {
     background-color: #fff;
 }
 
 .table-race td,
-.table-race tr{
+.table-race tr {
     border: 1px solid #ccc;
-    padding: 10px;
     text-align: left;
+    padding: 10px;
+}
+
+.table-race th,
+.table-qualifying th {
+    padding-left: 10px;
+    font-size: 20px;
+    padding: 10px;
 }
 
 .table-qualifying td,
-.table-qualifying tr{
+.table-qualifying tr {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding-left: 10px;
     text-align: left;
 }
 
-.table-qualifying{
-    flex:0 0 40%;
-    margin-right: 50px;
+.table-qualifying {
+    border-collapse: collapse;
+    flex: 0 0 30%;
     background-color: #fff;
- }
+    margin: 25px;
+}
 
- .table-race{
-    flex: 0 0 40%;
+.table-race {
+    border-collapse: collapse;
+    flex: 0 0 44%;
     background-color: #fff;
- }
+    margin: 25px;
+}
 
- .grand-prix-details{
-    background-color: #333333;
- }
+.flag-flex-qualifying {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+    padding-top: 10px;
+}
 
- .grand-prix-details p{
-  padding: 10px 20px 0 20px;
-  color: white;
-  font-size: 20px;
- } 
+td.flag-flex-qualifying {
+    border: none;
+}
+
+.flag1 {
+    margin-right: 10px;
+}
+
+.flag-flex-result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: center;
+}
+
+td.flag-flex-result {
+    border: none;
+}
+
+.flag2 {
+    margin-right: 10px;
+}
 
 td.position-1 {
     background-color: yellow;
@@ -446,4 +536,28 @@ td.position-10 {
 
 td.position-other {
     background-color: darkgray;
+}
+
+/* Linkovi u Teams */
+.teams-links {
+    text-decoration: none;
+    color: grey;
+}
+
+.teams-alignment {
+    display: flex;
+    align-items: center;
+}
+
+.team-name-shift-right {
+    padding-left: 3px;
+}
+
+/* zastavice i ime tima u TeamDetails */
+.driver-personal-details-div .driver-personal-details-header .driver-personal-details-name .team-details-flags img{
+    width: 30px;
+}
+
+.team-name {
+    white-space: nowrap;
 }
