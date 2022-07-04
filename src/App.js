@@ -20,22 +20,28 @@ export default class App extends React.Component {
             <div className="main-route">
                 <Router history={history}>
                     <div className="logo-wraper">
-                        <img src={require('./css/img/logo.png').default} width={250} />
+                        <img className="logo" src={require('./css/img/logo.png').default} />
                         <nav className="navigation">
                             <ul className="list-items">
                                 <li className="items">
-                                    <div className="iconsDiv">  <FontAwesomeIcon className="item icons" icon={faHelmetSafety} />
-                                    <Link className="item" to="/">Drivers</Link>
-                                    </div>
-                                    <div className="iconsDiv">
-                                    <FontAwesomeIcon className="item icons" icon={faPeopleLine} />
-                                    <Link className="item" to="/teams">Teams</Link>
-                                    </div>
-                                   <div className="iconsDiv">
-                                   <FontAwesomeIcon className="item icons" icon={faFlagCheckered} />
-                                    <Link className="item" to="/races">Races</Link>
-                                   </div>
-                                  
+                                    <Link className="item" to="/">
+                                        <div className="iconsDiv">
+                                            <FontAwesomeIcon className="icons" icon={faHelmetSafety} />
+                                            <span className="itemText">Drivers</span>
+                                        </div>
+                                    </Link>
+                                    <Link className="item" to="/teams">
+                                        <div className="iconsDiv">
+                                            <FontAwesomeIcon className="icons" icon={faPeopleLine} />
+                                            <span className="itemText">Teams</span>
+                                        </div>
+                                    </Link>
+                                    <Link className="item" to="/races">
+                                        <div className="iconsDiv">
+                                            <FontAwesomeIcon className="icons" icon={faFlagCheckered} />
+                                            <span className="itemText">Races</span>
+                                        </div>
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>

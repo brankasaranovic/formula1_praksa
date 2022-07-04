@@ -140,7 +140,7 @@ tr:nth-child(even){
 
 .DriversChampionship-wrapperDiv {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     background-color: gray;
     padding: 15px;
     font-weight: bold;
@@ -150,7 +150,6 @@ tr:nth-child(even){
 .drivers-title {
     color: white;
     font-style: italic;
-
 }
 
 .DriversChampionshipStandings-table {
@@ -169,7 +168,6 @@ tr:nth-child(even){
 .raceTable-headerMain td {
     background-image: linear-gradient(#dedede, #aeaeae);
     padding: 6px;
-
 }
 
 tr td.boldNumbers {
@@ -262,11 +260,20 @@ tr td.boldNumbers {
 /* Linkovi */
 
 .logo-wraper {
-    margin: 30px;
+    margin: 15px;
+}
+
+.logo {
+    width: 200px;
 }
 
 .iconsDiv {
-    display: flex;  
+    display: flex;
+    padding: 5px;
+}
+
+.list-items {
+    padding: 0;
 }
 
 .items {
@@ -278,14 +285,24 @@ tr td.boldNumbers {
 
 .icons {
     margin-right: 25px;
-    margin-bottom: 30px;
+    font-size: 35px;
 }
 
 .item {
     font-style: italic;
     text-decoration: none;
-    font-size: 35px;
+    font-size: 22px;
     color: #fff;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.itemText {
+    line-height: 35px;
+}
+
+a.item:not(:first-child) {
+    border-top: 0;
 }
 
 .item:hover {
@@ -300,7 +317,6 @@ tr td.boldNumbers {
 }
 
 .navigation {
-    width: 10vw;
     height: 100vh;
 }
 
@@ -560,4 +576,19 @@ td.position-other {
 
 .team-name {
     white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+    .logo-wraper {
+        margin: 5px;
+    }
+
+    .logo {
+        width: 100%;
+    }
+
+    .item .iconsDiv .itemText {
+        display: none;
+    }
+    
 }

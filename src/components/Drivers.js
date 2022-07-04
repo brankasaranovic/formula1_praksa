@@ -1,12 +1,14 @@
 import React from "react";
 import history from "../history";
 import Loader from "./Loader";
+import Flag from 'react-flagkit';
 
 
 export default class Drivers extends React.Component {
 
     state = {
         drivers: [],
+        allFlags: [],
         isLoading: true
     }
 
@@ -20,10 +22,19 @@ export default class Drivers extends React.Component {
         const drivers = await response.json();
         console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
 
+        const flagUrl = `https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`;
+        const flagResult = await fetch(flagUrl);
+        const flags = await flagResult.json();
+
         this.setState({
             drivers: drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings,
+            allFlags: flags,
             isLoading: false
         });
+    }
+    
+    getDriverFlag(driver) {
+        return this.state.allFlags.find((flag) => flag.nationality.indexOf(driver.Driver.nationality) > -1);
     }
 
     handleClickDetails = (driverId) => {
@@ -54,7 +65,11 @@ export default class Drivers extends React.Component {
                             return (
                                 <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)} className="toClick">
                                     <td className="boldNumbers">{driver.position}</td>
-                                    <td>{driver.Driver.givenName} {driver.Driver.familyName}</td>
+                                    <td><div className="driverDetails-raceDetails">
+                                            <Flag country={this.getDriverFlag(driver).alpha_2_code} />
+                                            <div className="driverDetails-raceName">{driver.Driver.givenName} {driver.Driver.familyName}</div>
+                                        </div>
+                                       </td>
                                     <td>{driver.Constructors[0].name}</td>
                                     <td className="boldNumbers">{driver.points}</td>
                                 </tr>
