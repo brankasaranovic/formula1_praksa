@@ -559,18 +559,19 @@ td.position-other {
     color: grey;
 }
 
-.teams-alignment {
+/* .teams-alignment {
     display: flex;
     align-items: center;
-}
+} */
 
-.team-name-shift-right {
+/* .team-name-shift-right {
     padding-left: 3px;
-}
+} */
 
 /* zastavice i ime tima u TeamDetails */
 .driver-personal-details-div .driver-personal-details-header .driver-personal-details-name .team-details-flags img{
-    width: 30px;
+    width: 24px;
+    height: 24px;
 }
 
 .team-name {
