@@ -130,7 +130,10 @@ tr:nth-child(even){
 } */
 
 
-
+body {
+    min-width: 600px;
+    overflow-x: auto;
+}
 
 
 /* Aplikacija - praksa */
@@ -299,10 +302,6 @@ tr td.boldNumbers {
 
 .itemText {
     line-height: 35px;
-}
-
-a.item:not(:first-child) {
-    border-top: 0;
 }
 
 .item:hover {
@@ -578,17 +577,43 @@ td.position-other {
     white-space: nowrap;
 }
 
+@media screen and (min-width: 769px) {
+    .item:not(:first-child) {
+        border-top: 0;
+    }
+}
+
 @media screen and (max-width: 768px) {
+    .main-route {
+        flex-direction: column;
+    }
+    .logo-wraper {
+        display: flex;
+    }
+    .navigation {
+        height: unset;
+    }
     .logo-wraper {
         margin: 5px;
     }
 
-    .logo {
-        width: 100%;
+    .list-items {
+        margin: 0;
     }
-
+    .items {
+        flex-direction: row;
+        padding: 0;
+    }
     .item .iconsDiv .itemText {
         display: none;
+    }
+
+    .item:not(:first-child) {
+        border-left: 0;
+    }
+
+    .DriversChampionship-wrapperDiv, .raceWraperDiv {
+        width: unset;
     }
     
 }
