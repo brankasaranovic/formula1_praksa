@@ -58,35 +58,35 @@ export default class RaceDetails extends React.Component {
         let color = "";
         //console.log("position", position)
         switch (position) {
-            case "1":
+            case "25":
                 color = "yellow";
                 break;
-            case "2":
+            case "18":
                 color = "gray";
                 break;
-            case "3":
+            case "15":
                 color = "orange";
                 break;
-            case "4":
+            case "12":
                 color = "lightgreen";
                 break;
-            case "5":
+            case "10":
                 color = "lightblue";
                 break;
-            case "6":
+            case "8":
                 color = "aqua";
                 break;
-            case "7":
-                color = "red";
+            case "6":
+                color = "coral";
                 break;
-            case "8":
+            case "4":
                 color = "brown";
                 break;
-            case "9":
-                color = "cyan";
+            case "2":
+                color = "red";
                 break;
-            case "10":
-                color = "coral";
+            case "1":
+                color = "cyan";
                 break;
             default:
                 color = "darkgrey";
