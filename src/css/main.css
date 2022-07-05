@@ -364,16 +364,26 @@ RACE
     padding: 10px;
 }
 
+tr.table-header{
+    text-align: left;
+}
+
 .table-header th {
     background-color: rgb(205, 205, 205);
     font-size: 22px;
 }
 
+ /* .race-table {
+    font-size: 22px;
+} */
 
 tr .grand-prix {
     display: flex;
     flex-wrap: wrap;
-  
+}
+
+tr .second{
+    cursor: pointer;
 }
 
 td .second{
@@ -641,6 +651,55 @@ td.position-other {
     
 }
 
+
+/*
+RACE
+*/
+@media screen  and (max-width: 1230px ) {
+    .raceWraperDiv{
+        width:100%;
+       
+    }
+}
+
+@media screen  and (max-width: 1040px ) {
+    .raceWraperDiv{
+        width:100%;
+       
+    }
+}
+
+@media screen  and (max-width: 960px ) {
+    .raceWraperDiv{
+        width:100%;
+        
+    }
+}
+
+@media screen  and (max-width: 800px ) {
+    .raceWraperDiv{
+        width:100%;
+        
+    }
+}
+
+@media screen  and (max-width: 768px ) {
+    .raceWraperDiv{
+        width:90%;
+        
+    }
+}
+
+@media screen  and (max-width: 350px ) {
+    .raceWraperDiv{
+        width:80%;
+        
+    }
+}
+
+/*
+RACE DETAILS
+*/
 @media screen and (max-width: 1300px){
     .raceDetailsWraperDiv {
         flex-direction: column;
@@ -659,10 +718,3 @@ td.position-other {
         padding-bottom: 20px;
     }
 }
-
-@media screen  and (max-width: 1020px ) {
-    .table{
-        width: 100%;
-    }
-}
-
