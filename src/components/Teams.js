@@ -51,7 +51,7 @@ export default class Teams extends React.Component {
                 <div className="driver-race-details-div">
                     <h1 className="drivers-title">Constructors Campionship</h1>
 
-                    <table className="driver-race-details-table">
+                    <table className="driver-race-details-table teams-table">
                         <thead>
                             <tr className="raceTable-headerUp">
                                 <td colSpan={4}>Constructors Championship Standings - 2013</td>
@@ -63,8 +63,8 @@ export default class Teams extends React.Component {
                                 return (
                                     <tr key={i}>
                                         <td className="boldNumbers">{team.position}</td>
-                                        <td onClick={() => this.handleClickDetails(team.Constructor.constructorId)} className="toClick teams-alignment">
-                                            <div>
+                                        <td onClick={() => this.handleClickDetails(team.Constructor.constructorId)} className="toClick">
+                                            <div className="driverDetails-raceDetails">
                                                 {this.state.flags.map((flag, index) => {
                                                     if (team.Constructor.nationality === flag.nationality) {
                                                         return (<Flag key={index} country={flag.alpha_2_code} />);
@@ -72,9 +72,9 @@ export default class Teams extends React.Component {
                                                         return (<Flag key={index} country="GB" />);
                                                     }
                                                 })}
-                                            </div>
-                                            <div className="team-name-shift-right">
+                                            <div className="driverDetails-raceName">
                                                 {team.Constructor.name}
+                                            </div>
                                             </div>
                                         </td>
                                         <td><a href={team.Constructor.url} className="teams-links">Details <FaExternalLinkAlt /></a></td>

@@ -84,7 +84,7 @@ export default class TeamDetails extends React.Component {
             {/* leva tabela */}
             <div className="driver-personal-details-div">
                <div className="driver-personal-details-header">
-                  <div><img src={`/images/teams/${this.state.teamDetails.Constructor.constructorId}.png`} alt={this.state.teamDetails.Constructor.constructorId} /></div>
+                  <div className="driver-personal-details-profile-image"><img src={`/images/teams/${this.state.teamDetails.Constructor.constructorId}.png`} alt={this.state.teamDetails.Constructor.constructorId} /></div>
                   <div className="driver-personal-details-name">
                      <div className="team-details-flags">
                         {this.state.flags.map((flag, index) => {
@@ -134,18 +134,20 @@ export default class TeamDetails extends React.Component {
                         return (
                            <tr key={result.round}>
                               <td className="boldNumbers">{result.round}</td>
-                              <td onClick={() => this.handleClickDetails(result.round)} className="toClick teams-alignment">
-                                 {this.state.flags.map((flag, index) => {
-                                    if (result.Circuit.Location.country === flag.en_short_name) {
-                                       return (<Flag key={index} country={flag.alpha_2_code} />);
-                                    } else if (result.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
-                                       return (<Flag key={index} country="GB" />);
-                                    } else if (result.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
-                                       return (<Flag key={index} country="KP" />);
-                                    }
-                                 })}
-                                 <div className="team-name-shift-right">
-                                    {result.raceName}
+                              <td onClick={() => this.handleClickDetails(result.round)} className="toClick">
+                                 <div className="driverDetails-raceDetails">
+                                    {this.state.flags.map((flag, index) => {
+                                       if (result.Circuit.Location.country === flag.en_short_name) {
+                                          return (<Flag key={index} country={flag.alpha_2_code} />);
+                                       } else if (result.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                          return (<Flag key={index} country="GB" />);
+                                       } else if (result.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                          return (<Flag key={index} country="KP" />);
+                                       }
+                                    })}
+                                    <div className="driverDetails-raceName">
+                                       {result.raceName}
+                                    </div>
                                  </div>
                               </td>
                               <td className={this.getPositionClass(result.Results[0].position)}>{result.Results[0].position}</td>
