@@ -132,6 +132,7 @@ tr:nth-child(even){
 
 body {
     min-width: 600px;
+    margin: 0;
     overflow-x: auto;
 }
 
@@ -192,7 +193,7 @@ tr td.boldNumbers {
 .driver-details {
     display: flex;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     background-color: gray;
     font-weight: bold;
     width: 100%;
@@ -217,7 +218,8 @@ tr td.boldNumbers {
 }
 
 .driver-details .driver-personal-details-div .driver-personal-details-table {
-    border: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 10px;
 }
 
@@ -263,10 +265,12 @@ tr td.boldNumbers {
 /* Linkovi */
 
 .logo-wraper {
-    margin: 15px;
+    margin: 0;
+    border: 1px solid black;
 }
 
 .logo {
+    margin: 15px;
     width: 200px;
 }
 
@@ -277,13 +281,13 @@ tr td.boldNumbers {
 
 .list-items {
     padding: 0;
+    margin: 0;
 }
 
 .items {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    padding-top: 20px;
 }
 
 .icons {
@@ -296,8 +300,11 @@ tr td.boldNumbers {
     text-decoration: none;
     font-size: 22px;
     color: #fff;
-    border: 1px solid black;
     padding: 5px;
+    border-bottom: 1px solid black;
+}
+.item:first-child {
+    border-top: 1px solid black;
 }
 
 .itemText {
@@ -578,9 +585,6 @@ td.position-other {
 }
 
 @media screen and (min-width: 769px) {
-    .item:not(:first-child) {
-        border-top: 0;
-    }
 }
 
 @media screen and (max-width: 768px) {
@@ -593,34 +597,43 @@ td.position-other {
     .navigation {
         height: unset;
     }
-    .logo-wraper {
-        margin: 5px;
-    }
     .logo {
         width: 180px;
-        margin-right: 10px;
+        margin: 0;
+        padding: 5px 10px 5px 5px;
     }
 
     .list-items {
-        margin: 0;
+        height: 100%;
     }
     .items {
         flex-direction: row;
-        padding: 0;
+        height: 100%;
     }
-    .item .icons {
-        margin-right: 10px;
+    .item {
+        border-bottom: 0;
+        border-right: 1px solid black;
+    }
+    .item:first-child {
+        border-left: 1px solid black;
+        border-top: 0;
+    }
+    
+    .item .iconsDiv {
+        padding: 0 5px;
+        height: 100%;
+    }
+    .item .iconsDiv .icons {
+        margin: auto 10px auto 0;
         font-size: 30px;
     }
     .item .iconsDiv .itemText {
-        /* display: none; */
+        margin: auto 0;
         line-height: 30px;
         font-size: 20px;
     }
 
-    .item:not(:first-child) {
-        border-left: 0;
-    }
+    
 
     .DriversChampionship-wrapperDiv, .raceWraperDiv {
         width: unset;
