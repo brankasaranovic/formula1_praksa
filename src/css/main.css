@@ -362,6 +362,7 @@ RACE
     font-size: 22px;
 }
 
+
 tr .grand-prix {
     display: flex;
     flex-wrap: wrap;
@@ -376,8 +377,6 @@ td .second{
     cursor: pointer;
 
 }
-
-
 
 .flag {
     margin-right: 10px;
@@ -645,6 +644,12 @@ td.position-other {
     .table-race {
         flex: 0 0 30%; 
         padding-bottom: 20px;
+    }
+}
+
+@media screen  and (max-width: 1020px ) {
+    .table{
+        width: 100%;
     }
 }
 
