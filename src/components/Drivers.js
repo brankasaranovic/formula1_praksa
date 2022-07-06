@@ -9,18 +9,22 @@ export default class Drivers extends React.Component {
     state = {
         drivers: [],
         allFlags: [],
+        selectedSeason: null,
         isLoading: true
     }
 
-    componentDidMount() {
-        this.getDrivers();
+    componentDidUpdate() {
+        const season = localStorage.getItem("selectedSeason")
+        if (season !== this.state.selectedSeason) {
+            this.getDrivers(season);
+        }
     }
 
-    getDrivers = async () => {
-        const url = "http://ergast.com/api/f1/2013/driverStandings.json";
+    getDrivers = async (season) => {
+        const url = `http://ergast.com/api/f1/${season}/driverStandings.json`;
         const response = await fetch(url);
         const drivers = await response.json();
-        console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
+        //console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
 
         const flagUrl = `https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`;
         const flagResult = await fetch(flagUrl);
@@ -29,16 +33,21 @@ export default class Drivers extends React.Component {
         this.setState({
             drivers: drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings,
             allFlags: flags,
+            selectedSeason: season,
             isLoading: false
         });
     }
     
     getDriverFlag(driver) {
-        return this.state.allFlags.find((flag) => flag.nationality.indexOf(driver.Driver.nationality) > -1);
+        let nationality = driver.Driver.nationality
+        if (nationality === "Monegasque") {
+            nationality = "Monacan"
+        }
+        return this.state.allFlags.find((flag) => flag.nationality.indexOf(nationality) > -1);
     }
 
     handleClickDetails = (driverId) => {
-        console.log("driverId", driverId);
+        //console.log("driverId", driverId);
         const linkTo = "/driver/" + driverId;
         history.push(linkTo);
     }
@@ -56,17 +65,23 @@ export default class Drivers extends React.Component {
                 <table className="DriversChampionshipStandings-table">
                     <thead>
                         <tr className="raceTable-headerMain">
-                            <td colSpan={4}>Drivers Championship Standings - 2013</td>
+                            <td colSpan={4}>Drivers Championship Standings - {this.state.selectedSeason}</td>
                         </tr>
                     </thead>
                     <tbody>
-
                         {this.state.drivers.map(driver => {
                             return (
                                 <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)} className="toClick">
                                     <td className="boldNumbers">{driver.position}</td>
                                     <td><div className="driverDetails-raceDetails">
-                                            <Flag country={this.getDriverFlag(driver).alpha_2_code} />
+                                            {(() => {
+                                                let flag = this.getDriverFlag(driver);
+                                                if (flag) {
+                                                    return (<Flag country={flag.alpha_2_code} />)
+                                                } else {
+                                                    return `[${driver.Driver.nationality}]`
+                                                }
+                                            })()}
                                             <div className="driverDetails-raceName">{driver.Driver.givenName} {driver.Driver.familyName}</div>
                                         </div>
                                        </td>

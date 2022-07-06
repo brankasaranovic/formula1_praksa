@@ -136,6 +136,15 @@ body {
     overflow-x: auto;
 }
 
+.seasonSelectionWrapper {
+    display: flex;
+    padding: 10px;
+}
+
+.seasonSelectionWrapper select {
+    margin: auto;
+}
+
 
 /* Aplikacija - praksa */
 
@@ -598,6 +607,9 @@ td.position-other {
 }
 
 @media screen and (max-width: 768px) {
+    body {
+        min-width: 650px;
+    }
     .main-route {
         flex-direction: column;
     }

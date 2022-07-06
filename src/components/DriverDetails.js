@@ -1,6 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
+import history from "../history";
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export default class DriverDetails extends React.Component {
@@ -11,6 +12,7 @@ export default class DriverDetails extends React.Component {
         races: [],
         flag: null,
         allFlags: [],
+        selectedSeason: null,
         isLoading: true
     }
 
@@ -18,18 +20,31 @@ export default class DriverDetails extends React.Component {
         this.getDriverDetails();
     }
 
-    getDriverDetails = async () => {
+    componentDidUpdate() {
+        this.getDriverDetails();
+    }
 
+    getDriverDetails = async () => {
+        const season = localStorage.getItem("selectedSeason");
+        if (season === this.state.selectedSeason) {
+            return
+        }
         // console.log(this.props);
         let id = this.props.match.params.id;
 
-        const url = `http://ergast.com/api/f1/2013/drivers/${id}/driverStandings.json`;
+        const url = `http://ergast.com/api/f1/${season}/drivers/${id}/driverStandings.json`;
         const response = await fetch(url);
         const driver = await response.json();
         // console.log("driver", driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
-        const driverDetails = driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0];
+        const driverDetails = driver.MRData.StandingsTable?.StandingsLists[0]?.DriverStandings[0];
 
-        const raceUrl = `https://ergast.com/api/f1/2013/drivers/${id}/results.json`;
+        if (!driverDetails) {
+            history.push("/");
+            window.location.reload();
+            return
+        }
+
+        const raceUrl = `https://ergast.com/api/f1/${season}/drivers/${id}/results.json`;
         const raceResult = await fetch(raceUrl);
         const races = await raceResult.json();
         const driverRaces = races.MRData.RaceTable.Races;
@@ -49,7 +64,8 @@ export default class DriverDetails extends React.Component {
             driverDetails: driverDetails,
             races: driverRaces,
             flag: driverFlag,
-            allFlags: flags, 
+            allFlags: flags,
+            selectedSeason: season,
             isLoading: false
         });
     }
@@ -120,7 +136,7 @@ export default class DriverDetails extends React.Component {
                     <table className="driver-race-details-table">
                         <thead>
                             <tr className="raceTable-headerUp">
-                                <td colSpan={5}>Formula 1 2013 Results</td>
+                                <td colSpan={5}>Formula 1 {this.state.selectedSeason} Results</td>
                             </tr>
                             <tr className="raceTable-headerDown">
                                 <td>Round</td>
