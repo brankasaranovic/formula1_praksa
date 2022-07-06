@@ -13,14 +13,19 @@ export default class Drivers extends React.Component {
         isLoading: true
     }
 
-    componentDidUpdate() {
-        const season = localStorage.getItem("selectedSeason")
-        if (season !== this.state.selectedSeason) {
-            this.getDrivers(season);
-        }
+    componentDidMount() {
+        this.getDrivers();
     }
 
-    getDrivers = async (season) => {
+    componentDidUpdate() {
+        this.getDrivers();
+    }
+
+    getDrivers = async () => {
+        const season = localStorage.getItem("selectedSeason")
+        if (season === this.state.selectedSeason) {
+            return
+        }
         const url = `http://ergast.com/api/f1/${season}/driverStandings.json`;
         const response = await fetch(url);
         const drivers = await response.json();
