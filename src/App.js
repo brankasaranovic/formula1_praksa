@@ -11,6 +11,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHelmetSafety, faPeopleLine, faFlagCheckered } from "@fortawesome/free-solid-svg-icons";
 
 export default class App extends React.Component {
+
+    // state = {
+    //     breadcrumb: []
+    // }
+
     render() {
         return (
             <div className="main-route">

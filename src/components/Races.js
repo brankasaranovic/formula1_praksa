@@ -2,6 +2,7 @@ import React from "react";
 import history from "./../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
+import Breadcrumb from "./Breadcrumb";
 
 export default class Races extends React.Component {
 
@@ -47,12 +48,21 @@ export default class Races extends React.Component {
 
     render() {
 
+        const breadcrumb = [
+            {
+                title: "Races",
+                url: ""
+            }
+        ];
+
         if (this.state.isLoading) {
             return <Loader />
         };
 
         return (
             <div className="raceWraperDiv">
+             <Breadcrumb breadcrumb={breadcrumb} />
+         
              <h1 className="title">Race Calendar</h1>
                 <table className="table">
                     <thead>
