@@ -134,6 +134,7 @@ body {
     min-width: 600px;
     margin: 0;
     overflow-x: auto;
+    background-color: gray;
 }
 
 .seasonSelectionWrapper {

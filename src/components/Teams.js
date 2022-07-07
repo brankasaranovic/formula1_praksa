@@ -87,19 +87,19 @@ export default class Teams extends React.Component {
 
         const breadcrumb = [
             {
-                title: "/Teams",
+                title: "Teams",
                 url: "/teams"
             }
         ];
 
         return (
-            <div className="driver-details">
-                {/* <Breadcrumb breadcrumb={breadcrumb} /> */}
-                {/* <SearchBar searchProp={this.state.teams}/> */}
-
-                <div className="driver-race-details-div">
+            <div className="DriversChampionship-wrapperDiv">
+                <div className="breadcrumbsWrapper">
                     <Breadcrumb breadcrumb={breadcrumb} />
                     <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
+                </div>
+
+                <div className="driversTableWrapper">
                     <h1 className="drivers-title">Constructors Campionship</h1>
 
                     <table className="driver-race-details-table teams-table">
