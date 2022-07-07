@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import Breadcrumb from "./Breadcrumb";
+import history from "../history";
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export default class RaceDetails extends React.Component {
@@ -11,6 +12,7 @@ export default class RaceDetails extends React.Component {
         raceResult: [],
         raceLocation: [],
         flags: [],
+        selectedSeason: null,
         isLoading: true
     }
 
@@ -18,11 +20,20 @@ export default class RaceDetails extends React.Component {
         this.getRaceDetails();
     }
 
+    componentDidUpdate() {
+        this.getRaceDetails();
+    }
+
     getRaceDetails = async () => {
+        const season = localStorage.getItem("selectedSeason")
+        if (season === this.state.selectedSeason) {
+            return
+        }
+
         console.log(this.props.match.params.round);
         let id = this.props.match.params.round;
-        const url = `http://ergast.com/api/f1/2013/${id}/qualifying.json`;
-        const urlResults = `http://ergast.com/api/f1/2013/${id}/results.json`;
+        const url = `http://ergast.com/api/f1/${season}/${id}/qualifying.json`;
+        const urlResults = `http://ergast.com/api/f1/${season}/${id}/results.json`;
 
         const response = await fetch(url);
         const qualifiers = await response.json();
@@ -33,7 +44,13 @@ export default class RaceDetails extends React.Component {
         //console.log("results", results)
 
 
-        const qualifiersDetails = qualifiers.MRData.RaceTable.Races[0].QualifyingResults;
+        const qualifiersDetails = qualifiers.MRData.RaceTable?.Races[0]?.QualifyingResults;
+        if (!qualifiersDetails) {
+            history.push("/races");
+            window.location.reload();
+            return
+        }
+
         console.log("Qualifier details are: ", qualifiersDetails)
 
 
@@ -52,6 +69,7 @@ export default class RaceDetails extends React.Component {
             raceResult: raceResults,
             raceLocation: location,
             flags: convertedResponseFlags,
+            selectedSeason: season,
             isLoading: false
         })
     }

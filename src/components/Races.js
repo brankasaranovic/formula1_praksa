@@ -9,6 +9,7 @@ export default class Races extends React.Component {
     state = {
         races: [],
         flags: [],
+        selectedSeason: null,
         isLoading: true
     }
 
@@ -16,8 +17,16 @@ export default class Races extends React.Component {
         this.getRaces();
     }
 
+    componentDidUpdate() {
+        this.getRaces();
+    }
+
     getRaces = async () => {
-        const url = "http://ergast.com/api/f1/2013/results/1.json";
+        const season = localStorage.getItem("selectedSeason")
+        if (season === this.state.selectedSeason) {
+            return
+        }
+        const url = `http://ergast.com/api/f1/${season}/results/1.json`;
         const response = await fetch(url);
         console.log("response", response);
         const races = await response.json();
@@ -32,6 +41,7 @@ export default class Races extends React.Component {
         this.setState({
             races: convertedRaces,
             flags: convertedResponseFlags,
+            selectedSeason: season,
             isLoading: false,
         });
 
@@ -67,7 +77,7 @@ export default class Races extends React.Component {
                 <table className="table">
                     <thead>
                         <tr className="tableHeader">
-                            <td colSpan={5}>Race calendar - 2013</td>
+                            <td colSpan={5}>Race calendar - {this.state.selectedSeason}</td>
                         </tr>
                         <tr className="table-header">
                             <th>Round</th>
