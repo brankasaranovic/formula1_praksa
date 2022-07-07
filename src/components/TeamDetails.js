@@ -38,14 +38,21 @@ export default class TeamDetails extends React.Component {
       const response = await fetch(url);
       const detail = await response.json();
 
+      console.log("NE POSTOJI ZA OVU GODINU", detail);
+      if (detail.MRData.StandingsTable.StandingsLists.length === 0) {
+         alert("This team did not exist that year. Go back to the Teams.");
+         history.push("/teams");
+         window.location.reload();
+      }
+
       const teamDetails = detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0];
       console.log("detail", detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0]);
 
-      if (!teamDetails) {
-         history.push("/");
-         window.location.reload();
-         return
-      }
+      // if (!teamDetails) {
+      //    history.push("/");
+      //    window.location.reload();
+      //    return
+      // }
 
       const urlRes = `http://ergast.com/api/f1/${season}/constructors/${id}/results.json`;
       const responseRes = await fetch(urlRes);
@@ -64,7 +71,7 @@ export default class TeamDetails extends React.Component {
          result: teamResults,
          flags: convertedResponseFlags,
          firstFamilyName: result.MRData.RaceTable.Races[0].Results[0].Driver.familyName,
-         secondFamilyName: result.MRData.RaceTable.Races[0].Results[1].Driver.familyName,
+         secondFamilyName: result.MRData.RaceTable.Races[0].Results[1]?.Driver.familyName,
          selectedSeason: season,
          isLoading: false
       });
@@ -111,7 +118,7 @@ export default class TeamDetails extends React.Component {
       return (
 
          <div className="driver-details">
-            <SearchBar searchProp={this.state.result} />
+            {/* <SearchBar searchProp={this.state.result} /> */}
 
             {/* leva tabela */}
             <div className="driver-personal-details-div">
@@ -190,8 +197,8 @@ export default class TeamDetails extends React.Component {
                                  </div>
                               </td>
                               <td className={this.getPositionClass(result.Results[0].position)}>{result.Results[0].position}</td>
-                              <td className={this.getPositionClass(result.Results[1].position)}>{result.Results[1].position}</td>
-                              <td className="boldNumbers">{parseInt(result.Results[0].points) + parseInt(result.Results[1].points)}</td>
+                              <td className={this.getPositionClass(result.Results[1]?.position)}>{result.Results[1]?.position}</td>
+                              <td className="boldNumbers">{(parseInt(result.Results[0].points) + (isNaN(parseInt(result.Results[1]?.points))? 0 : parseInt(result.Results[1]?.points)))}</td>
                            </tr>
                         );
                      })}

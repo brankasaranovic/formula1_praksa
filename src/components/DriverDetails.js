@@ -36,6 +36,14 @@ export default class DriverDetails extends React.Component {
         const url = `http://ergast.com/api/f1/${season}/drivers/${id}/driverStandings.json`;
         const response = await fetch(url);
         const driver = await response.json();
+
+        console.log("NE POSTOJI ZA OVU GODINU", driver);
+        if (driver.MRData.StandingsTable.StandingsLists.length === 0) {
+            alert("This driver did not race that year. Go back to the Drivers.");
+            history.push("/");
+            window.location.reload();
+        }
+
         // console.log("driver", driver.MRData.StandingsTable.StandingsLists[0].DriverStandings[0]);
         const driverDetails = driver.MRData.StandingsTable?.StandingsLists[0]?.DriverStandings[0];
 
@@ -95,7 +103,7 @@ export default class DriverDetails extends React.Component {
                 url: "/"
             },
             {
-                title: this.state.driverDetails.Driver.givenName +" "+ this.state.driverDetails.Driver.familyName,
+                title: this.state.driverDetails.Driver.givenName + " " + this.state.driverDetails.Driver.familyName,
                 url: "/driver/:id"
             }
         ];

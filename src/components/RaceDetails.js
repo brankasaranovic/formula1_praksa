@@ -43,6 +43,11 @@ export default class RaceDetails extends React.Component {
         const results = await response1.json();
         //console.log("results", results)
 
+        if (qualifiers.MRData.RaceTable.Races.length === 0) {
+            alert("Sorry, we do not have grand prix data for that year. Go back to the Races.");
+            history.push("/races");
+            window.location.reload();
+        }
 
         const qualifiersDetails = qualifiers.MRData.RaceTable?.Races[0]?.QualifyingResults;
         if (!qualifiersDetails) {

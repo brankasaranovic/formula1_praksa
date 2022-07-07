@@ -15,7 +15,7 @@ export default class Teams extends React.Component {
         selectedSeason: null,
         isLoading: true,
         searchApiData: [],
-        filterValue: ""
+        // filterValue: ""
     }
 
     componentDidMount() {
@@ -35,12 +35,18 @@ export default class Teams extends React.Component {
         const url = `http://ergast.com/api/f1/${season}/constructorStandings.json`;
         const response = await fetch(url);
         const teams = await response.json();
-        console.log("teams", teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
+        // console.log("teams", teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
 
         const urlFlags = "https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json";
         const responseFlags = await fetch(urlFlags);
         const convertedResponseFlags = await responseFlags.json();
-        console.log("convertedResponseFlags", convertedResponseFlags);
+        // console.log("convertedResponseFlags", convertedResponseFlags);
+        
+        if (teams.MRData.StandingsTable.StandingsLists.length === 0) {
+            alert("Sorry, we do not teams data for that year. Go back to Home page and try another year.");
+            history.push("/");
+            window.location.reload();
+        }
 
         this.setState({
             teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
@@ -63,10 +69,10 @@ export default class Teams extends React.Component {
                 teams: this.state.searchApiData,
             });
         } else {
+            console.log("API", this.state.searchApiData);
             const filterResult = this.state.searchApiData.filter(
-                (teams) => teams.position.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
-                    teams.Constructor.constructorId.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
-                    teams.Constructors[0].name.toLowerCase().includes(searchText.target.value.toLowerCase()) || teams.Constructor.url.toLowerCase().includes(searchText.target.value.toLowerCase())
+                (teams) => teams.Constructor.name.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
+                    teams.Constructor.constructorId.toLowerCase().includes(searchText.target.value.toLowerCase())
             );
             this.setState({
                 teams: filterResult,
@@ -117,6 +123,8 @@ export default class Teams extends React.Component {
                                                         return (<Flag key={index} country="GB" />);
                                                     } else if (team.Constructor.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
                                                         return (<Flag key={index} country="NL" />);
+                                                    } else if (team.Constructor.nationality === "Hong Kong" && flag.nationality === "Hong Kong, Hong Kongese") {
+                                                        return (<Flag key={index} country="HK" />);
                                                     }
                                                 })}
                                                 <div className="driverDetails-raceName">
