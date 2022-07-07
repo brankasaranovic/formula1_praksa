@@ -340,22 +340,33 @@ RACE
 */
 
 .raceWraperDiv {
-    background-color: #737272;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color: gray;
+    padding: 15px;
+    font-weight: bold;
     width: 100%;
-    padding: 10px 40px 40px 40px
+}
+
+.raceDetailsContent {
+    width: 100%;
 }
 
 .title {
-    font-size: 40px;
     font-style: italic;
     color: #fff;
+}
+
+.titleDeatils {
+    padding-bottom: 15px;
+    font-weight: bold;
 }
 
 .table {
     border-collapse: collapse;
     width: 100%;
     background-color: #fff;
-
+    color: gray;
 }
 
 .table td {
@@ -363,14 +374,15 @@ RACE
     padding: 5px;
     text-align: left;
 }
-.table th{
-    padding: 10px;
+.table th {
+    padding: 6px;
+    color: black;
 }
 
 .tableHeader td {
     background-color: rgb(187, 186, 186);
-    font-size: 22px;
-    padding: 10px;
+    background-image: linear-gradient(#dedede, #aeaeae);
+    padding: 6px;
 }
 
 tr.table-header{
@@ -379,7 +391,6 @@ tr.table-header{
 
 .table-header th {
     background-color: rgb(205, 205, 205);
-    font-size: 22px;
 }
 
  /* .race-table {
@@ -416,46 +427,46 @@ RACE DETAILS
     background-color: #737272;
     display: flex;
     width: 100%;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tableRaceDetailsWrapper {
+    background-color: #2e2d2d;
+    border-left: 2px solid black;
+    color: white;
+    font-weight: bold;
+}
+
+.tableRaceDetailsContent {
+    border-bottom: 1px solid black;
+    padding: 10px;
 }
 
 .tableRaceDetails {
-    background-color: #2e2d2d;
-    border-left: 2px solid black;
-    flex: 0 0 18%;
+    flex-grow: 1;
+    margin-right: 15px;
 }
 
-
-.grand-prix-details {
-    display: flex;
-    flex-direction: column;
+.tableRaceDetails a {
+    color: white;
 }
 
 .grand-prix-details td {
     color: white;
-    margin-left: 15px;
-    font-size: 20px;
     padding-bottom: 5px;
 }
 
 .grand-prix-details td:first-child {
-    font-size: 26px;
     padding-bottom: 20px;
-    padding-top: 15px;
 }
 
 .grand-prix-details td:last-child a {
     color: white;
-    font-size: 20px;
 }
 
 .grand-prix-details td {
     color: #fff;
-}
-
-.qualifying-header th,
-.race-header th {
-    background-color: rgb(187, 186, 186);
-    padding: 10px;
 }
 
 .qualifying-header-down,
@@ -472,35 +483,42 @@ table .table-qualifying {
 .table-race tr {
     border: 1px solid #ccc;
     text-align: left;
-    padding: 10px;
-}
-
-.table-race th,
-.table-qualifying th {
-    padding-left: 10px;
-    font-size: 20px;
-    padding: 10px;
 }
 
 .table-qualifying td,
 .table-qualifying tr {
     border: 1px solid #ccc;
-    padding-left: 10px;
     text-align: left;
 }
 
-.table-qualifying {
-    border-collapse: collapse;
-    flex: 0 0 30%;
-    background-color: #fff;
-    margin: 25px;
+.tableQualifyingWrapper, .tableRaceWrapper {
+    padding: 10px;
+    flex-grow: 3;
 }
 
-.table-race {
+.table-qualifying, .table-race {
     border-collapse: collapse;
-    flex: 0 0 44%;
     background-color: #fff;
-    margin: 25px;
+    width: 100%;
+}
+
+.table-qualifying th, .table-race th {
+    padding: 4px;
+    color: black;
+}
+
+.qualifying-header th,
+.race-header th {
+    background-color: rgb(187, 186, 186);
+    background-image: linear-gradient(#dedede, #aeaeae);
+    color: gray;
+    padding: 6px;
+}
+
+.table-qualifying td, .table-race td {
+    padding: 4px;
+    color: gray;
+    font-weight: bold;
 }
 
 .flag-flex-qualifying {
@@ -508,7 +526,6 @@ table .table-qualifying {
     flex-wrap: wrap;
     justify-content: left;
     align-items: center;
-    padding-top: 10px;
 }
 
 td.flag-flex-qualifying {
@@ -670,42 +687,36 @@ RACE
 @media screen  and (max-width: 1230px ) {
     .raceWraperDiv{
         width:100%;
-       
     }
 }
 
 @media screen  and (max-width: 1040px ) {
     .raceWraperDiv{
         width:100%;
-       
     }
 }
 
 @media screen  and (max-width: 960px ) {
     .raceWraperDiv{
         width:100%;
-        
     }
 }
 
 @media screen  and (max-width: 800px ) {
     .raceWraperDiv{
         width:100%;
-        
     }
 }
 
 @media screen  and (max-width: 768px ) {
     .raceWraperDiv{
         width:90%;
-        
     }
 }
 
 @media screen  and (max-width: 350px ) {
     .raceWraperDiv{
         width:80%;
-        
     }
 }
 
@@ -717,17 +728,8 @@ RACE DETAILS
         flex-direction: column;
     }
 
-    .tableRaceDetails {
-        flex: 0 0 14%;
-    }
-
-    .table-qualifying {
-        flex: 0 0 25%; 
-    }
-
-    .table-race {
-        flex: 0 0 30%; 
-        padding-bottom: 20px;
+    .raceDetailsWraperDiv .tableRaceDetails {
+        margin: auto;
     }
 }
 

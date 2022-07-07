@@ -137,181 +137,145 @@ export default class RaceDetails extends React.Component {
             }
         ];
         return (
-            <div >
+            <div className="raceDetailsContent">
                 <Breadcrumb breadcrumb={breadcrumb} />
                 <div className="raceDetailsWraperDiv">
-                    <table className="tableRaceDetails">
-                        {this.state.raceLocation.map((location, i) => {
-                            return (
-                                <tbody className="grand-prix-details-wraper" key={i}>
-                                    <tr className="grand-prix-details">
-                                        <td className="titleDeatils">
+                    <div className="tableRaceDetailsWrapper">
+                        <div className="tableRaceDetailsContent">
+                            <table className="tableRaceDetails">
+                                {this.state.raceLocation.map((location, i) => {
+                                    return (
+                                        <tbody className="grand-prix-details-wraper" key={i}>
+                                            <tr>
+                                                <td className="titleDeatils" colSpan={2}>
+                                                    {this.state.flags.map((flag, index) => {
+                                                        if (location.Circuit.Location.country === flag.en_short_name) {
+                                                            return (<Flag width={80} height={80} key={index} country={flag.alpha_2_code} />);
+                                                        } else if (location.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                            return (<Flag width={80} height={80} key={index} country="GB" />);
+                                                        } else if (location.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                            return (<Flag width={80} height={80} key={index} country="AD" />);
+                                                        } else if (location.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                            return (<Flag width={80} height={80} key={index} country="US" />)
+                                                        } else if (location.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                            return (<Flag width={80} height={80} key={index} country="KP" />)
+                                                        }
+                                                    })}
+                                                    <br />
+                                                    {location.raceName}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Country:</td><td>{location.Circuit.Location.country}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Location:</td><td>{location.Circuit.Location.locality}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date:</td><td>{location.date}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Full report:</td><td><a href={location.Circuit.url} className="justForOneLink"><FaExternalLinkAlt /></a></td>
+                                            </tr>
+                                        </tbody>
 
-                                            {this.state.flags.map((flag, index) => {
-                                                if (location.Circuit.Location.country === flag.en_short_name) {
-                                                    return (<Flag width={120} height={120} key={index} country={flag.alpha_2_code} />);
-                                                } else if (location.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
-                                                    return (<Flag width={120} height={120} key={index} country="GB" />);
-                                                } else if (location.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
-                                                    return (<Flag width={120} height={120} key={index} country="AD" />);
-                                                } else if (location.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
-                                                    return (<Flag width={120} height={120} key={index} country="US" />)
-                                                } else if (location.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
-                                                    return (<Flag width={120} height={120} key={index} country="KP" />)
-                                                }
-                                            })}
-                                            <br />
-                                            {location.raceName}
-                                        </td>
-                                        <td>Country: {location.Circuit.Location.country}</td>
-                                        <td>Location: {location.Circuit.Location.locality}</td>
-                                        <td>Date: {location.date}</td>
-                                        <td><a href={location.Circuit.url} className= "justForOneLink">Full report: <FaExternalLinkAlt /></a></td>
-                                    </tr>
-                                </tbody>
+                                    );
+                                })}
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div className="tableQualifyingWrapper">
+                        <table className="table-qualifying">
+                            <thead>
+                                <tr className="qualifying-header">
+                                    <th colSpan={5}>Qualifying results</th>
+                                </tr>
+                                <tr className="qualifying-header-down">
+                                    <th>Pos</th>
+                                    <th>Driver</th>
+                                    <th>Team</th>
+                                    <th>Best time</th>
+                                </tr>
+                            </thead>
 
-                            );
-                        })}
-                    </table>
+                            <tbody>
+                                {this.state.locationDetails.map((detail, i) => {
+                                    let times = [];
+                                    times.push(detail.Q1);
+                                    times.push(detail.Q2);
+                                    times.push(detail.Q3);
+                                    times.sort();
+                                    //console.log("times", times);
 
-                    <table className="table-qualifying">
-                        <thead>
-                            <tr className="qualifying-header">
-                                <th colSpan={5}>Qualifying results</th>
-                            </tr>
-                            <tr className="qualifying-header-down">
-                                <th>Pos</th>
-                                <th>Driver</th>
-                                <th>Team</th>
-                                <th>Best time</th>
-                            </tr>
-                        </thead>
+                                    return (
+                                        <tr key={i}>
+                                            <td className="boldNumbers">{detail.position}</td>
+                                            <td className="flag-flex-qualifying">
+                                                {this.state.flags.map((flag, index) => {
+                                                    if (detail.Driver.nationality === flag.nationality) {
+                                                        return (<Flag className="flag1" key={index} country={flag.alpha_2_code} />);
+                                                    } else if (detail.Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                        return (<Flag className="flag1" key={index} country="GB" />);
+                                                    } else if (detail.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
+                                                        return (<Flag className="flag1" key={index} country="NL" />);
+                                                    }
+                                                })}
+                                                {detail.Driver.familyName}
+                                            </td>
+                                            <td> {detail.Constructor.name}</td>
+                                            <td className="boldNumbers"> {times[0]}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div className="tableRaceWrapper">
+                        <table className="table-race">
+                            <thead>
+                                <tr className="race-header">
+                                    <th colSpan={5}>Race results</th>
+                                </tr>
+                                <tr className="race-header-down">
+                                    <th>Pos</th>
+                                    <th>Driver</th>
+                                    <th>Team</th>
+                                    <th>Result</th>
+                                    <th>Points</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-                            {this.state.locationDetails.map((detail, i) => {
-                                let times = [];
-                                times.push(detail.Q1);
-                                times.push(detail.Q2);
-                                times.push(detail.Q3);
-                                times.sort();
-                                //console.log("times", times);
-
-                                return (
-                                    <tr key={i}>
-                                        <td>{detail.position}</td>
-                                        <td className="flag-flex-qualifying">
-                                            {this.state.flags.map((flag, index) => {
-                                                if (detail.Driver.nationality === flag.nationality) {
-                                                    return (<Flag className="flag1" key={index} country={flag.alpha_2_code} />);
-                                                } else if (detail.Driver.nationality === "British" && flag.nationality === "British, UK") {
-                                                    return (<Flag className="flag1" key={index} country="GB" />);
-                                                } else if (detail.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
-                                                    return (<Flag className="flag1" key={index} country="NL" />);
-                                                }
-                                            })}
-                                            {detail.Driver.familyName}
-                                        </td>
-                                        <td> {detail.Constructor.name}</td>
-                                        <td> {times[0]}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-
-                    <table className="table-race">
-                        <thead>
-                            <tr className="race-header">
-                                <th colSpan={5}>Race results</th>
-                            </tr>
-                            <tr className="race-header-down">
-                                <th>Pos</th>
-                                <th>Driver</th>
-                                <th>Team</th>
-                                <th>Result</th>
-                                <th>Points</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            {this.state.raceResult.map((result, index) => {
-                                //console.log("time", result.Time)
-                                return (
-                                    <tr key={index}>
-                                        <td>{result.position}</td>
-                                        <td className="flag-flex-result">
-                                            {this.state.flags.map((flag, index) => {
-                                                if (result.Driver.nationality === flag.nationality) {
-                                                    return (<Flag className="flag2" key={index} country={flag.alpha_2_code} />);
-                                                } else if (result.Driver.nationality === "British" && flag.nationality === "British, UK") {
-                                                    return (<Flag className="flag2" key={index} country="GB" />);
-                                                } else if (result.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
-                                                    return (<Flag className="flag2" key={index} country="NL" />);
-                                                }
-                                            })}
-                                            {result.Driver.familyName}
-                                        </td>
-                                        <td>{result.Constructor.name}</td>
-                                        {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
-                                        <td>{result.Time?.time}</td>
-                                        <td style={{ "backgroundColor": this.setColor(result.points) }}>{result.points}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                            <tbody>
+                                {this.state.raceResult.map((result, index) => {
+                                    //console.log("time", result.Time)
+                                    return (
+                                        <tr key={index}>
+                                            <td className="boldNumbers">{result.position}</td>
+                                            <td className="flag-flex-result">
+                                                {this.state.flags.map((flag, index) => {
+                                                    if (result.Driver.nationality === flag.nationality) {
+                                                        return (<Flag className="flag2" key={index} country={flag.alpha_2_code} />);
+                                                    } else if (result.Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                        return (<Flag className="flag2" key={index} country="GB" />);
+                                                    } else if (result.Driver.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
+                                                        return (<Flag className="flag2" key={index} country="NL" />);
+                                                    }
+                                                })}
+                                                {result.Driver.familyName}
+                                            </td>
+                                            <td>{result.Constructor.name}</td>
+                                            {/* <td>{result.Time !== undefined ? result.Time.time: ""}</td>   */}
+                                            <td className="boldNumbers">{result.Time?.time}</td>
+                                            <td className="boldNumbers" style={{ "backgroundColor": this.setColor(result.points) }}>{result.points}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                {/* desna prva tabela
-                <h2>Qualifying Results</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Pos</td>
-                            <td>Driver</td>
-                            <td>Team</td>
-                            <td>Best Time</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.qualifyingResults.map(result => {
-                        return (
-                           <tr key={result.position}>
-                              <td>{result.position}</td>
-                              <td>{result.Driver.familyName}</td>
-                              <td>{result.Constructor.name}</td>
-                              <td>{(result.Q3!=null) ? result.Q3 : ((result.Q2!=null) ? result.Q2 : result.Q1)}</td>
-                           </tr>
-                        );
-                     })}
-                    </tbody>
-                </table> */}
-
-                {/* desna druga tabela
-                <h2>Race Results</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <td>Pos</td>
-                            <td>Driver</td>
-                            <td>Team</td>
-                            <td>Result</td>
-                            <td>Points</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.state.raceResults.map(result => {
-                        return (
-                           <tr key={result.position}>
-                              <td>{result.position}</td>
-                              <td>{result.Driver.familyName}</td>
-                              <td>{result.Constructor.name}</td>
-                              <td>{(result.Time != undefined) ? result.Time.time : ""}</td>
-                              <td>{result.points}</td>
-                           </tr>
-                        );
-                     })}
-                    </tbody>
-                </table> */}
             </div>
         );
     }

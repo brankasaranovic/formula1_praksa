@@ -114,7 +114,7 @@ export default class Races extends React.Component {
                         {this.state.races.map((race, i) => {
                             return (
                                 <tr className="grand-prix second" key={i} onClick={() => this.handleClickDetails(race.round)}>
-                                    <td>{race.round}</td>
+                                    <td className="boldNumbers">{race.round}</td>
                                     <td className="second">
                                         {this.state.flags.map((flag, index) => {
                                             if (race.Circuit.Location.country === flag.en_short_name) {
@@ -133,7 +133,7 @@ export default class Races extends React.Component {
                                     </td>
 
                                     <td>{race.Circuit.circuitName}</td>
-                                    <td>{race.date}</td>
+                                    <td className="boldNumbers">{race.date}</td>
                                     <td className="second">
                                         {this.state.flags.map((flag, index) => {
                                             // console.log("Only for your eyes: ", race.Results[0].Driver.nationality);

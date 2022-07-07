@@ -10,7 +10,7 @@ const breadcrumb = {
 export default class Breadcrumb extends React.Component {
     render() {
         return (
-            <nav className="row justify-content-center mt-4">
+            <nav className="justify-content-center">
                 <ul className="breadcrumb" style={breadcrumb}>
                     <Link className="linkOne" to="/">F1 starting drivers</Link>
                     {
