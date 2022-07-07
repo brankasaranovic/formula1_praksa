@@ -3,6 +3,7 @@ import history from "../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import Breadcrumb from "./Breadcrumb";
 
 export default class Teams extends React.Component {
 
@@ -45,10 +46,18 @@ export default class Teams extends React.Component {
             return <Loader />
         };
 
+        const breadcrumb = [
+            {
+                title: "/Teams",
+                url: "/teams"
+            }
+        ];
+
         return (
             <div className="driver-details">
 
                 <div className="driver-race-details-div">
+                    <Breadcrumb breadcrumb={breadcrumb} />
                     <h1 className="drivers-title">Constructors Campionship</h1>
 
                     <table className="driver-race-details-table teams-table">
@@ -72,9 +81,9 @@ export default class Teams extends React.Component {
                                                         return (<Flag key={index} country="GB" />);
                                                     }
                                                 })}
-                                            <div className="driverDetails-raceName">
-                                                {team.Constructor.name}
-                                            </div>
+                                                <div className="driverDetails-raceName">
+                                                    {team.Constructor.name}
+                                                </div>
                                             </div>
                                         </td>
                                         <td><a href={team.Constructor.url} className="teams-links">Details <FaExternalLinkAlt /></a></td>

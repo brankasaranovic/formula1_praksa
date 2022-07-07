@@ -12,15 +12,15 @@ export default class Breadcrumb extends React.Component {
         return (
             <nav className="row justify-content-center mt-4">
                 <ul className="breadcrumb" style={breadcrumb}>
-                    <Link to="/">F1 poceni link</Link>
+                    <Link to="/">F1 starting drivers</Link>
                     {
-                        this.props.breadcrumb.map((crumb, ci) => {
+                        this.props.breadcrumb.map((crumb, i) => {
 
                             //const disabled = isLast(ci) ? "disabled" : "";
 
                             return (
                                 <li
-                                    key={ci}
+                                    key={i}
                                     className="breadcrumb-item align-items-center"
                                 ><Link to={crumb.url}> {crumb.title}</Link>
                                 </li>

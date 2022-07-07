@@ -718,3 +718,7 @@ RACE DETAILS
         padding-bottom: 20px;
     }
 }
+
+.justForOneLink {
+    text-decoration: none;
+}

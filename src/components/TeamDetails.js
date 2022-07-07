@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import history from "./../history";
 import Flag from 'react-flagkit';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import Breadcrumb from "./Breadcrumb";
 
 export default class TeamDetails extends React.Component {
 
@@ -77,6 +78,18 @@ export default class TeamDetails extends React.Component {
          );
       }
 
+      const breadcrumb = [
+         {
+            title: "/Teams",
+            url: "/teams"
+         },
+         {
+            title: this.state.teamDetails.Constructor.constructorId,
+            url: "/teamDetail/:id"
+         }
+      ];
+
+      //console.log("Daj da vidim: ", this.state.teamDetails.Constructor);
       return (
 
          <div className="driver-details">
@@ -116,6 +129,7 @@ export default class TeamDetails extends React.Component {
 
             {/* desna tabela */}
             <div className="driver-race-details-div">
+               <Breadcrumb breadcrumb={breadcrumb} />
                <table className="driver-race-details-table">
                   <thead>
                      <tr className="raceTable-headerUp">

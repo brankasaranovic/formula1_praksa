@@ -48,22 +48,22 @@ export default class Races extends React.Component {
 
     render() {
 
-        const breadcrumb = [
-            {
-                title: "Races",
-                url: ""
-            }
-        ];
-
         if (this.state.isLoading) {
             return <Loader />
         };
 
+        const breadcrumb = [
+            {
+                title: "/Races",
+                url: "/races"
+            }
+        ];
+
         return (
             <div className="raceWraperDiv">
-             <Breadcrumb breadcrumb={breadcrumb} />
-         
-             <h1 className="title">Race Calendar</h1>
+                <Breadcrumb breadcrumb={breadcrumb} />
+
+                <h1 className="title">Race Calendar</h1>
                 <table className="table">
                     <thead>
                         <tr className="tableHeader">
