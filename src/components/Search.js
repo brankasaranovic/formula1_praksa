@@ -6,9 +6,8 @@ export default class Search extends React.Component {
             <input
                 placeholder="Search"
                 defaultValue={this.props.filterValue}
-                onChange={(e) => this.props.handleFilter(e)}>
-            </input>
+                onChange={(e) => this.props.handleFilter(e)}
+            ></input>
         );
     }
-
 }
