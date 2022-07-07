@@ -3,6 +3,7 @@ import history from "../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import SearchBar from "./SearchBar";
 import Breadcrumb from "./Breadcrumb";
 
 export default class Teams extends React.Component {
@@ -10,6 +11,7 @@ export default class Teams extends React.Component {
     state = {
         teams: [],
         flags: [],
+        selectedSeason: null,
         isLoading: true
     }
 
@@ -17,8 +19,17 @@ export default class Teams extends React.Component {
         this.getTeams();
     }
 
+    componentDidUpdate() {
+        this.getTeams();
+    }
+
     getTeams = async () => {
-        const url = "http://ergast.com/api/f1/2013/constructorStandings.json";
+        const season = localStorage.getItem("selectedSeason")
+        if (season === this.state.selectedSeason) {
+            return
+        }
+
+        const url = `http://ergast.com/api/f1/${season}/constructorStandings.json`;
         const response = await fetch(url);
         const teams = await response.json();
         console.log("teams", teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings);
@@ -31,6 +42,7 @@ export default class Teams extends React.Component {
         this.setState({
             teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
             flags: convertedResponseFlags,
+            selectedSeason: season,
             isLoading: false
         });
     }
@@ -55,6 +67,8 @@ export default class Teams extends React.Component {
 
         return (
             <div className="driver-details">
+                {/* <Breadcrumb breadcrumb={breadcrumb} /> */}
+                <SearchBar searchProp={this.state.teams}/>
 
                 <div className="driver-race-details-div">
                     <Breadcrumb breadcrumb={breadcrumb} />
@@ -63,7 +77,7 @@ export default class Teams extends React.Component {
                     <table className="driver-race-details-table teams-table">
                         <thead>
                             <tr className="raceTable-headerUp">
-                                <td colSpan={4}>Constructors Championship Standings - 2013</td>
+                                <td colSpan={4}>Constructors Championship Standings - {this.state.selectedSeason}</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,6 +93,8 @@ export default class Teams extends React.Component {
                                                         return (<Flag key={index} country={flag.alpha_2_code} />);
                                                     } else if (team.Constructor.nationality === "British" && flag.nationality === "British, UK") {
                                                         return (<Flag key={index} country="GB" />);
+                                                    } else if (team.Constructor.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
+                                                        return (<Flag key={index} country="NL" />);
                                                     }
                                                 })}
                                                 <div className="driverDetails-raceName">

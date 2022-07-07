@@ -17,6 +17,13 @@ export default class App extends React.Component {
                 <Router history={history}>
                     <div className="logo-wraper">
                         <img className="logo" src={require('./css/img/logo.png').default} />
+                        <div className="seasonSelectionWrapper">
+                            <select onChange={this.seasonChanged} value={this.state.selectedSeason}>
+                                {this.state.seasons.map((season) => {
+                                    return (<option key={season.season}>{season.season}</option>)
+                                })}
+                            </select>
+                        </div>
                         <nav className="navigation">
                             <ul className="list-items">
                                 <li className="items">
