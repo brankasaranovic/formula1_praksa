@@ -2,6 +2,7 @@ import React from "react";
 import history from "../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
+import Breadcrumb from "./Breadcrumb";
 
 
 export default class Drivers extends React.Component {
@@ -62,8 +63,16 @@ export default class Drivers extends React.Component {
             return <Loader />
         };
 
+        const breadcrumb = [
+            {
+                title: "/Drivers",
+                url: "/"
+            }
+        ];
+
         return (
             <div className="DriversChampionship-wrapperDiv">
+                <Breadcrumb breadcrumb={breadcrumb} />
 
                 <h1 className="drivers-title">Drivers Championship</h1>
 

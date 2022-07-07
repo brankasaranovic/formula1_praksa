@@ -3,6 +3,8 @@ import Loader from "./Loader";
 import history from "./../history";
 import Flag from 'react-flagkit';
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import Breadcrumb from "./Breadcrumb";
+import SearchBar from "./SearchBar";
 
 export default class TeamDetails extends React.Component {
 
@@ -12,6 +14,7 @@ export default class TeamDetails extends React.Component {
       firstFamilyName: null,
       secondFamilyName: null,
       flags: [],
+      selectedSeason: null,
       isLoading: true
    }
 
@@ -19,17 +22,32 @@ export default class TeamDetails extends React.Component {
       this.getTeamDetails();
    }
 
+   componentDidUpdate() {
+      this.getTeamDetails();
+   }
+
    getTeamDetails = async () => {
+      const season = localStorage.getItem("selectedSeason");
+      if (season === this.state.selectedSeason) {
+         return
+      }
+
       console.log("poruka", this.props.match.params.id);
       const id = this.props.match.params.id;
-      const url = `http://ergast.com/api/f1/2013/constructors/${id}/constructorStandings.json`;
+      const url = `http://ergast.com/api/f1/${season}/constructors/${id}/constructorStandings.json`;
       const response = await fetch(url);
       const detail = await response.json();
 
       const teamDetails = detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0];
       console.log("detail", detail.MRData.StandingsTable.StandingsLists[0].ConstructorStandings[0]);
 
-      const urlRes = `http://ergast.com/api/f1/2013/constructors/${id}/results.json`;
+      if (!teamDetails) {
+         history.push("/");
+         window.location.reload();
+         return
+      }
+
+      const urlRes = `http://ergast.com/api/f1/${season}/constructors/${id}/results.json`;
       const responseRes = await fetch(urlRes);
       const result = await responseRes.json();
 
@@ -47,6 +65,7 @@ export default class TeamDetails extends React.Component {
          flags: convertedResponseFlags,
          firstFamilyName: result.MRData.RaceTable.Races[0].Results[0].Driver.familyName,
          secondFamilyName: result.MRData.RaceTable.Races[0].Results[1].Driver.familyName,
+         selectedSeason: season,
          isLoading: false
       });
    };
@@ -77,9 +96,22 @@ export default class TeamDetails extends React.Component {
          );
       }
 
+      const breadcrumb = [
+         {
+            title: "/Teams",
+            url: "/teams"
+         },
+         {
+            title: this.state.teamDetails.Constructor.constructorId,
+            url: "/teamDetail/:id"
+         }
+      ];
+
+      //console.log("Daj da vidim: ", this.state.teamDetails.Constructor);
       return (
 
          <div className="driver-details">
+            <SearchBar searchProp={this.state.result} />
 
             {/* leva tabela */}
             <div className="driver-personal-details-div">
@@ -92,6 +124,8 @@ export default class TeamDetails extends React.Component {
                               return (<Flag key={index} country={flag.alpha_2_code} />);
                            } else if (this.state.teamDetails.Constructor.nationality === "British" && flag.nationality === "British, UK") {
                               return (<Flag key={index} country="GB" />);
+                           } else if (this.state.teamDetails.Constructor.nationality === "Dutch" && flag.nationality === "Dutch, Netherlandic") {
+                              return (<Flag key={index} country="NL" />);
                            }
                         })}
                      </div>
@@ -116,10 +150,11 @@ export default class TeamDetails extends React.Component {
 
             {/* desna tabela */}
             <div className="driver-race-details-div">
+               <Breadcrumb breadcrumb={breadcrumb} />
                <table className="driver-race-details-table">
                   <thead>
                      <tr className="raceTable-headerUp">
-                        <td colSpan={5}>Formula 1 2013 Results</td>
+                        <td colSpan={5}>Formula 1 {this.state.season} Results</td>
                      </tr>
                      <tr className="raceTable-headerDown">
                         <td>Round</td>
@@ -143,6 +178,10 @@ export default class TeamDetails extends React.Component {
                                           return (<Flag key={index} country="GB" />);
                                        } else if (result.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
                                           return (<Flag key={index} country="KP" />);
+                                       } else if (result.Circuit.Location.country === "USA" && flag.nationality === "American") {
+                                          return (<Flag key={index} country="US" />);
+                                       } else if (result.Circuit.Location.country === "Russia" && flag.nationality === "Russian") {
+                                          return (<Flag key={index} country="RU" />);
                                        }
                                     })}
                                     <div className="driverDetails-raceName">

@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import history from "../history";
 import { FaExternalLinkAlt } from 'react-icons/fa';
+import Breadcrumb from "./Breadcrumb";
 
 export default class DriverDetails extends React.Component {
 
@@ -83,10 +84,21 @@ export default class DriverDetails extends React.Component {
     }
 
     render() {
-        
+
         if (this.state.isLoading) {
-            return <Loader/>;
+            return <Loader />;
         }
+
+        const breadcrumb = [
+            {
+                title: "/Drivers",
+                url: "/"
+            },
+            {
+                title: this.state.driverDetails.Driver.givenName +" "+ this.state.driverDetails.Driver.familyName,
+                url: "/driver/:id"
+            }
+        ];
 
         return (
             <div className="driver-details">
@@ -94,16 +106,16 @@ export default class DriverDetails extends React.Component {
                 {/* leva tabela */}
                 <div className="driver-personal-details-div">
                     <div className="driver-personal-details-header">
-                        
+
                         <div className="driver-personal-details-profile-image">
                             <img src={`/images/drivers/${this.state.driverId}.jpg`} alt={this.state.driverId} />
                         </div>
-                        
+
                         <div className="driver-personal-details-name">
                             <div>
-                                <Flag country={this.state.flag.alpha_2_code}/>
+                                <Flag country={this.state.flag.alpha_2_code} />
                             </div>
-                            <div>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</div>                            
+                            <div>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</div>
                         </div>
                     </div>
                     <div className="driver-personal-details-table">
@@ -133,6 +145,7 @@ export default class DriverDetails extends React.Component {
 
                 {/* desna tabela */}
                 <div className="driver-race-details-div">
+                    <Breadcrumb breadcrumb={breadcrumb} />
                     <table className="driver-race-details-table">
                         <thead>
                             <tr className="raceTable-headerUp">

@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import Breadcrumb from "./Breadcrumb";
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 export default class RaceDetails extends React.Component {
 
@@ -104,12 +105,12 @@ export default class RaceDetails extends React.Component {
 
         const breadcrumb = [
             {
-                title: "Races",
+                title: "/Races",
                 url: "/races"
             },
             {
-                title: this.state.raceLocation[0].Circuit.Location.country,
-                url: ""
+                title: this.state.raceLocation[0].raceName,
+                url: "/races/:round"
             }
         ];
         return (
@@ -142,7 +143,7 @@ export default class RaceDetails extends React.Component {
                                         <td>Country: {location.Circuit.Location.country}</td>
                                         <td>Location: {location.Circuit.Location.locality}</td>
                                         <td>Date: {location.date}</td>
-                                        <td><a href={location.Circuit.url}>Full report </a></td>
+                                        <td><a href={location.Circuit.url} className= "justForOneLink">Full report: <FaExternalLinkAlt /></a></td>
                                     </tr>
                                 </tbody>
 
