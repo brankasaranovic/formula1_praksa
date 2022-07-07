@@ -29,7 +29,7 @@ export default class Drivers extends React.Component {
         const url = `http://ergast.com/api/f1/${season}/driverStandings.json`;
         const response = await fetch(url);
         const drivers = await response.json();
-        //console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
+        console.log("drivers", drivers.MRData.StandingsTable.StandingsLists[0].DriverStandings);
 
         const flagUrl = `https://raw.githubusercontent.com/Dinuks/country-nationality-list/master/countries.json`;
         const flagResult = await fetch(flagUrl);
