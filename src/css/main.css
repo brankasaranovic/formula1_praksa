@@ -734,3 +734,19 @@ RACE DETAILS
 .justForOneLink {
     text-decoration: none;
 }
+
+
+/*
+Breadcrumb
+*/
+
+.linkOne{
+    color: white;
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.linkOne:hover{
+   color:rgb(144, 140, 134) ;
+}
