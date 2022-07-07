@@ -99,7 +99,7 @@ export default class DriverDetails extends React.Component {
 
         const breadcrumb = [
             {
-                title: "/Drivers",
+                title: "Drivers",
                 url: "/"
             },
             {
@@ -109,94 +109,97 @@ export default class DriverDetails extends React.Component {
         ];
 
         return (
-            <div className="driver-details">
+            <div className="driver-details-wrapper">
+                <div className="breadcrumbsWrapper">
+                    <Breadcrumb breadcrumb={breadcrumb} />
+                </div>
+                <div className="driver-details">
+                    {/* leva tabela */}
+                    <div className="driver-personal-details-div">
+                        <div className="driver-personal-details-header">
 
-                {/* leva tabela */}
-                <div className="driver-personal-details-div">
-                    <div className="driver-personal-details-header">
-
-                        <div className="driver-personal-details-profile-image">
-                            <img src={`/images/drivers/${this.state.driverId}.jpg`} alt={this.state.driverId} />
-                        </div>
-
-                        <div className="driver-personal-details-name">
-                            <div>
-                                <Flag country={this.state.flag.alpha_2_code} />
+                            <div className="driver-personal-details-profile-image">
+                                <img src={`/images/drivers/${this.state.driverId}.jpg`} alt={this.state.driverId} />
                             </div>
-                            <div>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</div>
+
+                            <div className="driver-personal-details-name">
+                                <div>
+                                    <Flag country={this.state.flag.alpha_2_code} />
+                                </div>
+                                <div>{this.state.driverDetails.Driver.givenName} {this.state.driverDetails.Driver.familyName}</div>
+                            </div>
+                        </div>
+                        <div className="driver-personal-details-table">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Country:</td>
+                                        <td>{this.state.driverDetails.Driver.nationality}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Team:</td>
+                                        <td>{this.state.driverDetails.Constructors[0].name}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Birth:</td>
+                                        <td>{this.state.driverDetails.Driver.dateOfBirth}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Biography:</td>
+                                        <td><a href={this.state.driverDetails.Driver.url}><FaExternalLinkAlt color="white" /></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div className="driver-personal-details-table">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Country:</td>
-                                    <td>{this.state.driverDetails.Driver.nationality}</td>
-                                </tr>
 
-                                <tr>
-                                    <td>Team:</td>
-                                    <td>{this.state.driverDetails.Constructors[0].name}</td>
+                    {/* desna tabela */}
+                    <div className="driver-race-details-div">
+                        <table className="driver-race-details-table">
+                            <thead>
+                                <tr className="raceTable-headerUp">
+                                    <td colSpan={5}>Formula 1 {this.state.selectedSeason} Results</td>
                                 </tr>
-                                <tr>
-                                    <td>Birth:</td>
-                                    <td>{this.state.driverDetails.Driver.dateOfBirth}</td>
+                                <tr className="raceTable-headerDown">
+                                    <td>Round</td>
+                                    <td>Grand Prix</td>
+                                    <td>Team</td>
+                                    <td>Grid</td>
+                                    <td>Race</td>
                                 </tr>
-                                <tr>
-                                    <td>Biography:</td>
-                                    <td><a href={this.state.driverDetails.Driver.url}><FaExternalLinkAlt color="white" /></a></td>
-                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.races.map(race => {
+                                    //console.log("race", race);
+                                    return (
+                                        <tr key={race.round}>
+                                            <td className="boldNumbers">{race.round}</td>
+                                            <td><div className="driverDetails-raceDetails">
+                                                {this.state.allFlags.map((flag, index) => {
+                                                    if (race.Circuit.Location.country === flag.en_short_name) {
+                                                        return (<Flag key={index} country={flag.alpha_2_code} />);
+                                                    } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                        return (<Flag key={index} country="GB" />);
+                                                    } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                        return (<Flag key={index} country="AD" />);
+                                                    } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                        return (<Flag key={index} country="US" />)
+                                                    } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                        return (<Flag key={index} country="KP" />)
+                                                    }
+                                                })}
+                                                <div className="driverDetails-raceName">{race.raceName}</div>
+                                            </div></td>
+                                            <td>{race.Results[0].Constructor.name}</td>
+                                            <td className="boldNumbers">{race.Results[0].grid}</td>
+                                            <td className={this.getPositionClass(race.Results[0].position)}>{race.Results[0].position}</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
-                </div>
-
-                {/* desna tabela */}
-                <div className="driver-race-details-div">
-                    <Breadcrumb breadcrumb={breadcrumb} />
-                    <table className="driver-race-details-table">
-                        <thead>
-                            <tr className="raceTable-headerUp">
-                                <td colSpan={5}>Formula 1 {this.state.selectedSeason} Results</td>
-                            </tr>
-                            <tr className="raceTable-headerDown">
-                                <td>Round</td>
-                                <td>Grand Prix</td>
-                                <td>Team</td>
-                                <td>Grid</td>
-                                <td>Race</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.races.map(race => {
-                                //console.log("race", race);
-                                return (
-                                    <tr key={race.round}>
-                                        <td className="boldNumbers">{race.round}</td>
-                                        <td><div className="driverDetails-raceDetails">
-                                            {this.state.allFlags.map((flag, index) => {
-                                                if (race.Circuit.Location.country === flag.en_short_name) {
-                                                    return (<Flag key={index} country={flag.alpha_2_code} />);
-                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
-                                                    return (<Flag key={index} country="GB" />);
-                                                } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
-                                                    return (<Flag key={index} country="AD" />);
-                                                } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
-                                                    return (<Flag key={index} country="US" />)
-                                                } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
-                                                    return (<Flag key={index} country="KP" />)
-                                                }
-                                            })}
-                                            <div className="driverDetails-raceName">{race.raceName}</div>
-                                        </div></td>
-                                        <td>{race.Results[0].Constructor.name}</td>
-                                        <td className="boldNumbers">{race.Results[0].grid}</td>
-                                        <td className={this.getPositionClass(race.Results[0].position)}>{race.Results[0].position}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
                 </div>
             </div>
         );

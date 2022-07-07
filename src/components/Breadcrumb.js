@@ -1,28 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-const breadcrumb = {
-    backgroundColor: "black",
-    border: "1px solid rgb(0,0,0, .125)",
-    borderRadius: "0.37rem"
-}
+import { FaHome } from 'react-icons/fa';
 
 export default class Breadcrumb extends React.Component {
     render() {
         return (
-            <nav className="justify-content-center">
-                <ul className="breadcrumb" style={breadcrumb}>
-                    <Link className="linkOne" to="/">F1 starting drivers</Link>
+            <nav className="breadcrumbs">
+                <ul className="breadcrumb">
+                    <li className="breadcrumb-elem align-items-center">
+                        <Link className="linkOne btn btn-secondary btn-sm" to="/">
+                            <FaHome color="white" />
+                            <span className="lineOneHome">F1 starting drivers</span>
+                        </Link>
+                    </li>
                     {
                         this.props.breadcrumb.map((crumb, i) => {
-
-                            //const disabled = isLast(ci) ? "disabled" : "";
-
                             return (
-                                <li
-                                    key={i}
-                                    className="breadcrumb-item align-items-center"
-                                ><Link className="linkOne" to={crumb.url}> {crumb.title}</Link>
+                                <li key={i} className="breadcrumb-elem align-items-center">
+                                    <Link className="linkOne btn btn-secondary btn-sm" to={crumb.url}> {crumb.title}</Link>
                                 </li>
                             );
                         })

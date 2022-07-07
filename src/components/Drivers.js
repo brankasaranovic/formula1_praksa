@@ -88,48 +88,51 @@ export default class Drivers extends React.Component {
 
         const breadcrumb = [
             {
-                title: "/Drivers",
+                title: "Drivers",
                 url: "/"
             }
         ];
 
         return (
-            <div className="DriversChampionship-wrapperDiv">
-                <Breadcrumb breadcrumb={breadcrumb} />
-                <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
+            <div  className="DriversChampionship-wrapperDiv">
+                <div className="breadcrumbsWrapper">
+                    <Breadcrumb breadcrumb={breadcrumb} />
+                    <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
+                </div>
+                <div className="driversTableWrapper">
+                    <h1 className="drivers-title">Drivers Championship</h1>
 
-                <h1 className="drivers-title">Drivers Championship</h1>
-
-                <table className="DriversChampionshipStandings-table">
-                    <thead>
-                        <tr className="raceTable-headerMain">
-                            <td colSpan={4}>Drivers Championship Standings - {this.state.selectedSeason}</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.drivers.map(driver => {
-                            return (
-                                <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)} className="toClick">
-                                    <td className="boldNumbers">{driver.position}</td>
-                                    <td><div className="driverDetails-raceDetails">
-                                        {(() => {
-                                            let flag = this.getDriverFlag(driver);
-                                            if (flag) {
-                                                return (<Flag country={flag.alpha_2_code} />)
-                                            } else {
-                                                return `[${driver.Driver.nationality}]`
-                                            }
-                                        })()}
-                                        <div className="driverDetails-raceName">{driver.Driver.givenName} {driver.Driver.familyName}</div>
-                                    </div>
-                                    </td>
-                                    <td>{driver.Constructors[0].name}</td>
-                                    <td className="boldNumbers">{driver.points}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                    <table className="DriversChampionshipStandings-table">
+                        <thead>
+                            <tr className="raceTable-headerMain">
+                                <td colSpan={4}>Drivers Championship Standings - {this.state.selectedSeason}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.drivers.map(driver => {
+                                return (
+                                    <tr key={driver.position} onClick={() => this.handleClickDetails(driver.Driver.driverId)} className="toClick">
+                                        <td className="boldNumbers">{driver.position}</td>
+                                        <td><div className="driverDetails-raceDetails">
+                                            {(() => {
+                                                let flag = this.getDriverFlag(driver);
+                                                if (flag) {
+                                                    return (<Flag country={flag.alpha_2_code} />)
+                                                } else {
+                                                    return `[${driver.Driver.nationality}]`
+                                                }
+                                            })()}
+                                            <div className="driverDetails-raceName">{driver.Driver.givenName} {driver.Driver.familyName}</div>
+                                        </div>
+                                        </td>
+                                        <td>{driver.Constructors[0].name}</td>
+                                        <td className="boldNumbers">{driver.points}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

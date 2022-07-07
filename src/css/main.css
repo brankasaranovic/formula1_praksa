@@ -155,9 +155,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     background-color: gray;
-    padding: 15px;
     font-weight: bold;
     width: 100%;
+}
+
+.driversTableWrapper {
+    padding: 15px;
 }
 
 .drivers-title {
@@ -198,14 +201,19 @@ tr td.boldNumbers {
 
 /* Driver komponenta 2 */
 
+.driver-details-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 
 .driver-details {
     display: flex;
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     background-color: gray;
     font-weight: bold;
-    width: 100%;
 }
 
 .driver-details .driver-personal-details-div {
@@ -708,18 +716,6 @@ RACE
     }
 }
 
-@media screen  and (max-width: 768px ) {
-    .raceWraperDiv{
-        width:90%;
-    }
-}
-
-@media screen  and (max-width: 350px ) {
-    .raceWraperDiv{
-        width:80%;
-    }
-}
-
 /*
 RACE DETAILS
 */
@@ -742,11 +738,33 @@ RACE DETAILS
 Breadcrumb
 */
 
+.breadcrumbsWrapper {
+    display: flex;
+    padding: 10px 20px;
+    border-bottom: 1px solid black;
+    background-color: #333333;
+}
+
+.breadcrumbsWrapper .breadcrumbs {
+    flex-grow: 2;
+}
+
+.breadcrumbsWrapper .breadcrumb {
+    margin: 0;
+}
+
 .linkOne{
     color: white;
     text-decoration: none;
     margin-right: 10px;
-    font-size: 20px;
+}
+
+.lineOneHome {
+    margin-left: 5px;
+}
+
+.breadcrumb-elem:last-child .linkOne.btn-secondary {
+    background-color: #2699b9;
 }
 
 .linkOne:hover{
