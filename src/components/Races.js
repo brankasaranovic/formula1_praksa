@@ -3,13 +3,16 @@ import history from "./../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import Breadcrumb from "./Breadcrumb";
+import Search from "./Search";
 
 export default class Races extends React.Component {
 
     state = {
         races: [],
         flags: [],
-        isLoading: true
+        isLoading: true,
+        searchApiData: [],
+        filterValue: ""
     }
 
     componentDidMount() {
@@ -33,6 +36,7 @@ export default class Races extends React.Component {
             races: convertedRaces,
             flags: convertedResponseFlags,
             isLoading: false,
+            searchApiData: convertedRaces
         });
 
         console.log("Prikazana nacionalnost: ", convertedRaces[0].Circuit.Location.country);
@@ -45,6 +49,23 @@ export default class Races extends React.Component {
         const linkTo = "/races/" + id;
         history.push(linkTo);
     }
+
+    handleFilter = (searchText) => {
+        if (searchText.target.value == "") {
+            return this.setState({
+                races: this.state.searchApiData,
+            });
+        } else {
+            const filterResult = this.state.searchApiData.filter(
+                (races) => races.Circuit.Location.country.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
+                    races.Circuit.circuitName.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
+                    races.date.toLowerCase().includes(searchText.target.value.toLowerCase()) || races.Results[0].Driver.familyName.toLowerCase().includes(searchText.target.value.toLowerCase())
+            );
+            this.setState({
+                races: filterResult,
+            });
+        }
+    };
 
     render() {
 
@@ -62,6 +83,7 @@ export default class Races extends React.Component {
         return (
             <div className="raceWraperDiv">
                 <Breadcrumb breadcrumb={breadcrumb} />
+                <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
 
                 <h1 className="title">Race Calendar</h1>
                 <table className="table">

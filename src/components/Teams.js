@@ -3,8 +3,9 @@ import history from "../history";
 import Loader from "./Loader";
 import Flag from 'react-flagkit';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import SearchBar from "./SearchBar";
+//import SearchBar from "./SearchBar";
 import Breadcrumb from "./Breadcrumb";
+import Search from "./Search";
 
 export default class Teams extends React.Component {
 
@@ -12,7 +13,9 @@ export default class Teams extends React.Component {
         teams: [],
         flags: [],
         selectedSeason: null,
-        isLoading: true
+        isLoading: true,
+        searchApiData: [],
+        filterValue: ""
     }
 
     componentDidMount() {
@@ -43,7 +46,8 @@ export default class Teams extends React.Component {
             teams: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings,
             flags: convertedResponseFlags,
             selectedSeason: season,
-            isLoading: false
+            isLoading: false,
+            searchApiData: teams.MRData.StandingsTable.StandingsLists[0].ConstructorStandings
         });
     }
 
@@ -52,6 +56,23 @@ export default class Teams extends React.Component {
         const linkTo = "/teamDetail/" + id;
         history.push(linkTo);
     }
+
+    handleFilter = (searchText) => {
+        if (searchText.target.value == "") {
+            return this.setState({
+                teams: this.state.searchApiData,
+            });
+        } else {
+            const filterResult = this.state.searchApiData.filter(
+                (teams) => teams.position.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
+                    teams.Constructor.constructorId.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
+                    teams.Constructors[0].name.toLowerCase().includes(searchText.target.value.toLowerCase()) || teams.Constructor.url.toLowerCase().includes(searchText.target.value.toLowerCase())
+            );
+            this.setState({
+                teams: filterResult,
+            });
+        }
+    };
 
     render() {
         if (this.state.isLoading) {
@@ -68,10 +89,11 @@ export default class Teams extends React.Component {
         return (
             <div className="driver-details">
                 {/* <Breadcrumb breadcrumb={breadcrumb} /> */}
-                <SearchBar searchProp={this.state.teams}/>
+                {/* <SearchBar searchProp={this.state.teams}/> */}
 
                 <div className="driver-race-details-div">
                     <Breadcrumb breadcrumb={breadcrumb} />
+                    <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
                     <h1 className="drivers-title">Constructors Campionship</h1>
 
                     <table className="driver-race-details-table teams-table">
