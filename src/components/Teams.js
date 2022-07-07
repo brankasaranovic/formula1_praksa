@@ -72,7 +72,7 @@ export default class Teams extends React.Component {
             console.log("API", this.state.searchApiData);
             const filterResult = this.state.searchApiData.filter(
                 (teams) => teams.Constructor.name.toLowerCase().includes(searchText.target.value.toLowerCase()) ||
-                    teams.Constructor.constructorId.toLowerCase().includes(searchText.target.value.toLowerCase())
+                    teams.Constructor.constructorId.toLowerCase().includes(searchText.target.value.toLowerCase()) || teams.points.toLowerCase().includes(searchText.target.value.toLowerCase())
             );
             this.setState({
                 teams: filterResult,
