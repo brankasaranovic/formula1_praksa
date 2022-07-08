@@ -128,7 +128,7 @@ export default class RaceDetails extends React.Component {
 
         const breadcrumb = [
             {
-                title: "/Races",
+                title: "Races",
                 url: "/races"
             },
             {
@@ -138,7 +138,9 @@ export default class RaceDetails extends React.Component {
         ];
         return (
             <div className="raceDetailsContent">
-                <Breadcrumb breadcrumb={breadcrumb} />
+                <div className="breadcrumbsWrapper">
+                    <Breadcrumb breadcrumb={breadcrumb} />
+                </div>
                 <div className="raceDetailsWraperDiv">
                     <div className="tableRaceDetailsWrapper">
                         <div className="tableRaceDetailsContent">

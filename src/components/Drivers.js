@@ -94,7 +94,7 @@ export default class Drivers extends React.Component {
         ];
 
         return (
-            <div  className="DriversChampionship-wrapperDiv">
+            <div className="DriversChampionship-wrapperDiv">
                 <div className="breadcrumbsWrapper">
                     <Breadcrumb breadcrumb={breadcrumb} />
                     <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />

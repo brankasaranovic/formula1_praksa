@@ -85,71 +85,74 @@ export default class Races extends React.Component {
 
         const breadcrumb = [
             {
-                title: "/Races",
+                title: "Races",
                 url: "/races"
             }
         ];
 
         return (
-            <div className="raceWraperDiv">
-                <Breadcrumb breadcrumb={breadcrumb} />
-                <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
+            <div className="DriversChampionship-wrapperDiv">
+                <div className="breadcrumbsWrapper">
+                    <Breadcrumb breadcrumb={breadcrumb} />
+                    <Search filterValue={this.state.filterValue} handleFilter={this.handleFilter} />
+                </div>
+                <div className="raceWraperDiv">
+                    <h1 className="title">Race Calendar</h1>
+                    <table className="table">
+                        <thead>
+                            <tr className="tableHeader">
+                                <td colSpan={5}>Race calendar - {this.state.selectedSeason}</td>
+                            </tr>
+                            <tr className="table-header">
+                                <th>Round</th>
+                                <th>Grand Prix</th>
+                                <th>Circuit</th>
+                                <th>Date</th>
+                                <th>Winner</th>
+                            </tr>
+                        </thead>
 
-                <h1 className="title">Race Calendar</h1>
-                <table className="table">
-                    <thead>
-                        <tr className="tableHeader">
-                            <td colSpan={5}>Race calendar - {this.state.selectedSeason}</td>
-                        </tr>
-                        <tr className="table-header">
-                            <th>Round</th>
-                            <th>Grand Prix</th>
-                            <th>Circuit</th>
-                            <th>Date</th>
-                            <th>Winner</th>
-                        </tr>
-                    </thead>
+                        <tbody className="race-table">
+                            {this.state.races.map((race, i) => {
+                                return (
+                                    <tr className="grand-prix second" key={i} onClick={() => this.handleClickDetails(race.round)}>
+                                        <td className="boldNumbers">{race.round}</td>
+                                        <td className="second">
+                                            {this.state.flags.map((flag, index) => {
+                                                if (race.Circuit.Location.country === flag.en_short_name) {
+                                                    return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
+                                                } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
+                                                    return (<Flag className="flag" key={index} country="GB" />);
+                                                } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
+                                                    return (<Flag className="flag" key={index} country="AD" />);
+                                                } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
+                                                    return (<Flag className="flag" key={index} country="US" />)
+                                                } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
+                                                    return (<Flag className="flag" key={index} country="KP" />)
+                                                }
+                                            })}
+                                            {race.raceName}
+                                        </td>
 
-                    <tbody className="race-table">
-                        {this.state.races.map((race, i) => {
-                            return (
-                                <tr className="grand-prix second" key={i} onClick={() => this.handleClickDetails(race.round)}>
-                                    <td className="boldNumbers">{race.round}</td>
-                                    <td className="second">
-                                        {this.state.flags.map((flag, index) => {
-                                            if (race.Circuit.Location.country === flag.en_short_name) {
-                                                return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
-                                            } else if (race.Circuit.Location.country === "UK" && flag.nationality === "British, UK") {
-                                                return (<Flag className="flag" key={index} country="GB" />);
-                                            } else if (race.Circuit.Location.country === "UAE" && flag.nationality === "Emirati, Emirian, Emiri") {
-                                                return (<Flag className="flag" key={index} country="AD" />);
-                                            } else if (race.Circuit.Location.country === "USA" && flag.alpha_3_code === "USA") {
-                                                return (<Flag className="flag" key={index} country="US" />)
-                                            } else if (race.Circuit.Location.country === "Korea" && flag.nationality === "North Korean") {
-                                                return (<Flag className="flag" key={index} country="KP" />)
-                                            }
-                                        })}
-                                        {race.raceName}
-                                    </td>
-
-                                    <td>{race.Circuit.circuitName}</td>
-                                    <td className="boldNumbers">{race.date}</td>
-                                    <td className="second">
-                                        {this.state.flags.map((flag, index) => {
-                                            // console.log("Only for your eyes: ", race.Results[0].Driver.nationality);
-                                            if (race.Results[0].Driver.nationality === flag.nationality) {
-                                                return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
-                                            } else if (race.Results[0].Driver.nationality === "British" && flag.nationality === "British, UK") {
-                                                return (<Flag className="flag" key={index} country="GB" />);
-                                            }
-                                        })}
-                                        {race.Results[0].Driver.familyName}
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                                        <td>{race.Circuit.circuitName}</td>
+                                        <td className="boldNumbers">{race.date}</td>
+                                        <td className="second">
+                                            {this.state.flags.map((flag, index) => {
+                                                // console.log("Only for your eyes: ", race.Results[0].Driver.nationality);
+                                                if (race.Results[0].Driver.nationality === flag.nationality) {
+                                                    return (<Flag className="flag" key={index} country={flag.alpha_2_code} />);
+                                                } else if (race.Results[0].Driver.nationality === "British" && flag.nationality === "British, UK") {
+                                                    return (<Flag className="flag" key={index} country="GB" />);
+                                                }
+                                            })}
+                                            {race.Results[0].Driver.familyName}
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     };
